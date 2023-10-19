@@ -15,8 +15,10 @@ You can also check the rules on their own with `mvn pmd:check`.
 By using the [Maven Shell](https://github.com/jdillon/mvnsh) the time to run the check can be reduced by 50%.
 
 In Eclipse, use `Run As/Maven build...` and see the violations in the Console:
-
 ![Eclipse Run Configuration](run_pmd.eclipse.png)
+
+In IntelliJ IDEA, use `Maven Projects/Plugins/pmd/pmd:check` and see the violations in the Console:
+![IDEA Run Configuration](run_pmd.intellij.png)
 
 ### Limitations of Checking Code ###
 Obviously code analysis cannot find everything.
