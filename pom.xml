@@ -31,14 +31,9 @@
                     <targetJdk>1.8</targetJdk>
                     <sourceEncoding>${encoding}</sourceEncoding>
                     <includeTests>false</includeTests>
-                    <!--
                     <rulesets>
-                        <ruleset>/rulesets/java/coupling.xml/LawOfDemeter</ruleset>
+                        <ruleset>src/config/pmd.xml</ruleset>
                     </rulesets>
-                    -->
-                    <rules>
-                        <rule>/rulesets/java/coupling.xml/LawOfDemeter</rule>
-                    </rules>
                 </configuration>
                 <executions>
                     <execution>
