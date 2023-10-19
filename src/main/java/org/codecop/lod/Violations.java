@@ -2,6 +2,7 @@ package org.codecop.lod;
 
 public class Violations {
 
+    // @SuppressWarnings("PMD.LawOfDemeter")
     void usesEnums() {
         Values one = Values.ONE;
         System.out.println(one);
