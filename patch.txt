@@ -1,0 +1,11 @@
+git@github.com:pmd/pmd.git pmd.noback --depth 1
+cd pmd.noback
+git fetch -unf origin pmd_releases/7.0.0-rc4 :refs/tags/pmd_releases/7.0.0-rc4 --depth 1
+git checkout pmd_releases/7.0.0-rc4
+
+rem Java 11
+cd pmd-core
+mvn clean package -DskipTests
+copy target\pmd-core-7.0.0-SNAPSHOT.jar %HOME%\.m2\repository\net\sourceforge\pmd\pmd-core\7.0.0-rc4\pmd-core-7.0.0-rc4.jar
+
+explorer %HOME%\.m2\repository\net\sourceforge\pmd\pmd-core\7.0.0-rc4\
