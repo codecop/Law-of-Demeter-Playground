@@ -8,6 +8,8 @@ public class Violations {
         System.out.println(one);
         System.out.println(one.name()); // 1 LoD violation "object not created locally"
         System.out.println(one.name().length()); // 3 LoD violations
+        
+        System.out.println(new A().b().c().getName());
     }
 
 }
