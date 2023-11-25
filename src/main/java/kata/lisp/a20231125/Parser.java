@@ -15,6 +15,9 @@ public class Parser {
             boolean value = token.equals("#t");
             return new BooleanAst(value);
         }
+        if (token.matches("[+*!=?a-zA-Z][+*!=?a-zA-Z0-9]*(-[+*!=?a-zA-Z0-9]*)*")) {
+            return new SymbolAst(token);
+        }
         return null;
     }
 

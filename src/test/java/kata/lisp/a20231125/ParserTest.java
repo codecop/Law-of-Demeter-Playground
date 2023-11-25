@@ -26,4 +26,10 @@ class ParserTest {
         assertEquals(new BooleanAst(true), ast);
     }
 
+    @Test
+    void parseSymbol() {
+        Ast ast = parser.parse("+");
+        assertEquals(new SymbolAst("+"), ast);
+    }
+
 }
