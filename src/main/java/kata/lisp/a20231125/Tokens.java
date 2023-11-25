@@ -4,35 +4,23 @@ import java.util.Arrays;
 
 public class Tokens {
 
-    private final String[] tokens;
+    private final Token[] tokens;
 
-    public Tokens(String... tokens) {
+    public Tokens(Token... tokens) {
         this.tokens = tokens;
     }
 
     public boolean startsWithBracket() {
-        return isOpeningBracket(get(0));
+        return tokens[0].isOpeningBracket();
     }
 
-    private boolean isOpeningBracket(String token) {
-        return token.matches("\\(|\\[|\\{");
-    }
-
-    private boolean isClosingBracket(String token) {
-        return token.matches("\\)|\\]|\\]");
-    }
-
-    public String[] tokensInsideBrackets() {
+    public Token[] tokensInsideBrackets() {
         for (int i = 1; i < tokens.length; i++) {
-            if (isClosingBracket(get(i))) {
+            if (tokens[i].isClosingBracket()) {
                 return Arrays.copyOfRange(tokens, 1, i);
             }
         }
         return null;
-    }
-
-    public String get(int i) {
-        return tokens[i];
     }
 
 }

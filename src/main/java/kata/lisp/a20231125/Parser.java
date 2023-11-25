@@ -5,21 +5,18 @@ import java.util.List;
 
 public class Parser {
 
-    public Ast parse(String token) {
-        if (token.matches("0|-?[1-9]\\d*")) {
-            int value = Integer.parseInt(token);
-            return new NumberAst(value);
+    public Ast parse(Token token) {
+        if (token.isNumber()) {
+            return new NumberAst(token.asNumber());
         }
-        if (token.matches("\"[^\"]*\"")) {
-            String value = token.substring(1, token.length() - 1);
-            return new StringAst(value);
+        if (token.isString()) {
+            return new StringAst(token.asString());
         }
-        if (token.matches("#f|#t")) {
-            boolean value = token.equals("#t");
-            return new BooleanAst(value);
+        if (token.isBoolean()) {
+            return new BooleanAst(token.asBoolean());
         }
-        if (token.matches("[+*!=?a-zA-Z][+*!=?a-zA-Z0-9]*(-[+*!=?a-zA-Z0-9]*)*")) {
-            return new SymbolAst(token);
+        if (token.isSymbol()) {
+            return new SymbolAst(token.asSymbol());
         }
         return null;
     }
@@ -27,7 +24,7 @@ public class Parser {
     public Ast parse(Tokens tokens) {
         if (tokens.startsWithBracket()) {
             List<Ast> children = new ArrayList<>();
-            for (String token : tokens.tokensInsideBrackets()) {
+            for (Token token : tokens.tokensInsideBrackets()) {
                 children.add(parse(token));
             }
             return new ListAst(children);
