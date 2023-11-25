@@ -22,9 +22,13 @@ public class Parser {
     }
 
     public Ast parse(Tokens tokens) {
-        if (tokens.startsWithBracket()) {
+        return parse(tokens, 0);
+    }
+
+    private Ast parse(Tokens tokens, int position) {
+        if (tokens.startsWithBracket(position)) {
             List<Ast> children = new ArrayList<>();
-            for (Token token : tokens.tokensInsideBrackets()) {
+            for (Token token : tokens.tokensInsideBrackets(position)) {
                 children.add(parse(token));
             }
             return new ListAst(children);

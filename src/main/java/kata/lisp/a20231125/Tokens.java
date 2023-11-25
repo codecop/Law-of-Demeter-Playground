@@ -10,14 +10,14 @@ public class Tokens {
         this.tokens = tokens;
     }
 
-    public boolean startsWithBracket() {
-        return tokens[0].isOpeningBracket();
+    public boolean startsWithBracket(int at) {
+        return tokens[at].isOpeningBracket();
     }
 
-    public Token[] tokensInsideBrackets() {
-        for (int i = 1; i < tokens.length; i++) {
+    public Token[] tokensInsideBrackets(int at) {
+        for (int i = at + 1; i < tokens.length; i++) {
             if (tokens[i].isClosingBracket()) {
-                return Arrays.copyOfRange(tokens, 1, i);
+                return Arrays.copyOfRange(tokens, at + 1, i);
             }
         }
         return null;
