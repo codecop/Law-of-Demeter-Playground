@@ -20,4 +20,10 @@ class ParserTest {
         assertEquals(new StringAst("abc"), ast);
     }
 
+    @Test
+    void parseBoolean() {
+        Ast ast = parser.parse("#t");
+        assertEquals(new BooleanAst(true), ast);
+    }
+
 }
