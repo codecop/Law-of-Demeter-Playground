@@ -5,9 +5,9 @@ import java.util.List;
 
 public class ListAst implements Ast {
 
-    private final List<SymbolAst> children;
+    private final List<Ast> children;
 
-    public ListAst(List<SymbolAst> children) {
+    public ListAst(List<Ast> children) {
         this.children = children;
     }
 

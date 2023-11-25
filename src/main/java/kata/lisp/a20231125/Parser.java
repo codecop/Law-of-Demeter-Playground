@@ -1,6 +1,6 @@
 package kata.lisp.a20231125;
 
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Parser {
@@ -25,8 +25,12 @@ public class Parser {
     }
 
     public Ast parse(Tokens tokens) {
-        if (tokens.startsWith("(")) {
-            return new ListAst(Arrays.asList(new SymbolAst(tokens.get(1))));
+        if (tokens.isList()) {
+            List<Ast> children = new ArrayList<>();
+            for (String token : tokens.insideBrackets()) {
+                children.add(parse(token));
+            }
+            return new ListAst(children);
         }
         return null;
     }

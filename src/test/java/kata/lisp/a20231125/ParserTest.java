@@ -40,4 +40,10 @@ class ParserTest {
         assertEquals(new ListAst(Arrays.asList(new SymbolAst("list"))), ast);
     }
 
+    @Test
+    void parseTwoElementTokens() {
+        Ast ast = parser.parse(new Tokens("(", "list", "1", ")"));
+        assertEquals(new ListAst(Arrays.asList(new SymbolAst("list"), new NumberAst(1))), ast);
+    }
+
 }
