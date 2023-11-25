@@ -8,7 +8,7 @@ public class Tokens {
         this.tokens = tokens;
     }
 
-    public boolean isList() {
+    public boolean startsWithBracket() {
         return isOpeningBracket(get(0));
     }
 
@@ -20,21 +20,13 @@ public class Tokens {
         return token.matches("\\)|\\]|\\]");
     }
 
-    public String[] insideBrackets() {
+    public String[] tokensInsideBrackets() {
         for (int i = 1; i < tokens.length; i++) {
             if (isClosingBracket(get(i))) {
-                return subArray(1, i);
+                return ArrayLib.subArray(tokens, String.class, 1, i);
             }
         }
         return null;
-    }
-
-    private String[] subArray(int from, int to) {
-        String[] d = new String[to - from];
-        for (int i = 0; i < d.length; i++) {
-            d[i] = tokens[from + i];
-        }
-        return d;
     }
 
     public String get(int i) {

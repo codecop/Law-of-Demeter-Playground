@@ -25,9 +25,9 @@ public class Parser {
     }
 
     public Ast parse(Tokens tokens) {
-        if (tokens.isList()) {
+        if (tokens.startsWithBracket()) {
             List<Ast> children = new ArrayList<>();
-            for (String token : tokens.insideBrackets()) {
+            for (String token : tokens.tokensInsideBrackets()) {
                 children.add(parse(token));
             }
             return new ListAst(children);
