@@ -1,5 +1,7 @@
 package kata.lisp.a20231125;
 
+import java.util.Arrays;
+
 public class Tokens {
 
     private final String[] tokens;
@@ -23,7 +25,7 @@ public class Tokens {
     public String[] tokensInsideBrackets() {
         for (int i = 1; i < tokens.length; i++) {
             if (isClosingBracket(get(i))) {
-                return ArrayLib.subArray(tokens, String.class, 1, i);
+                return Arrays.copyOfRange(tokens, 1, i);
             }
         }
         return null;

@@ -4,14 +4,16 @@ import java.lang.reflect.Array;
 
 public class ArrayLib {
 
-    public static <T> T[] subArray(T[] source, Class<T> componentType, int from, int to) {
-        int length = to - from;
-        @SuppressWarnings("unchecked")
-        T[] target = (T[]) Array.newInstance(componentType, length);
+    public static <T> T[] copy(T[] source, T[] target, int from, int length) {
         for (int i = 0; i < length; i++) {
             target[i] = source[from + i];
         }
         return target;
+    }
+
+    @SuppressWarnings("unchecked")
+    public static <T> T[] newArrayOf(Class<T> componentType, int length) {
+        return (T[]) Array.newInstance(componentType, length);
     }
 
 }
