@@ -8,6 +8,11 @@ public class Token {
         this.token = token;
     }
 
+    @Override
+    public String toString() {
+        return token;
+    }
+
     public boolean isNumber() {
         return token.matches("0|-?[1-9]\\d*");
     }

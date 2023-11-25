@@ -18,17 +18,14 @@ public class Parser {
         if (token.isSymbol()) {
             return new SymbolAst(token.asSymbol());
         }
-        return null;
+        throw new IllegalArgumentException(token.toString());
     }
 
     public Ast parse(Tokens tokens) {
-        return parse(tokens, 0);
-    }
-
-    private Ast parse(Tokens tokens, int position) {
-        if (tokens.startsWithBracket(position)) {
+        if (tokens.atStartingBracket()) {
+            tokens.consumeBracket();
             List<Ast> children = new ArrayList<>();
-            for (Token token : tokens.tokensInsideBrackets(position)) {
+            for (Token token : tokens.tokensInsideBrackets()) {
                 children.add(parse(token));
             }
             return new ListAst(children);
