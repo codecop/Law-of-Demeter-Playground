@@ -1,5 +1,6 @@
 package kata.lisp.a20231125;
 
+import java.util.Arrays;
 import java.util.List;
 
 public class Parser {
@@ -24,6 +25,9 @@ public class Parser {
     }
 
     public Ast parse(List<String> tokens) {
+        if (tokens.get(0).equals("(")) {
+            return new ListAst(Arrays.asList(new SymbolAst(tokens.get(1))));
+        }
         return null;
     }
 
