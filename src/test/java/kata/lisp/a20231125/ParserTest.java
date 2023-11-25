@@ -3,7 +3,6 @@ package kata.lisp.a20231125;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.Arrays;
-import java.util.stream.Collectors;
 
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -46,13 +45,13 @@ class ParserTest {
 
         @Test
         void parseTokens() {
-            Ast ast = parser.parse(tokensOf("(", "list", ")"));
+            Ast ast = parser.parse(Tokens.tokensOf("(", "list", ")"));
             assertEquals(new ListAst(Arrays.asList(new SymbolAst("list"))), ast);
         }
 
         @Test
         void parseTwoElementTokens() {
-            Ast ast = parser.parse(tokensOf("(", "list", "1", ")"));
+            Ast ast = parser.parse(Tokens.tokensOf("(", "list", "1", ")"));
             assertEquals(new ListAst(Arrays.asList(new SymbolAst("list"), new NumberAst(1))), ast);
         }
 
@@ -63,7 +62,7 @@ class ParserTest {
 
         @Test
         void nestedTokens() {
-            Ast ast = parser.parse(tokensOf("(", "(", "list", ")", ")"));
+            Ast ast = parser.parse(Tokens.tokensOf("(", "(", "list", ")", ")"));
             assertEquals(new ListAst(Arrays.asList(new ListAst(Arrays.asList(new SymbolAst("list"))))), ast);
         }
 
@@ -71,14 +70,6 @@ class ParserTest {
 
     private Token tokenOf(String value) {
         return new Token(value);
-    }
-
-    private Tokens tokensOf(String... arguments) {
-        Token[] tokens = Arrays.stream(arguments). //
-                map(this::tokenOf). //
-                collect(Collectors.toList()). //
-                toArray(new Token[0]);
-        return new Tokens(tokens);
     }
 
 }
