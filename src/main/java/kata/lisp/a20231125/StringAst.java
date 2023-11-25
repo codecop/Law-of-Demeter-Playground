@@ -11,4 +11,9 @@ public class StringAst extends AbstractAst<String> {
         return "Ast(\"" + value + "\")";
     }
 
+    @Override
+    public Result eval() {
+        return new Result(value, Result.Type.STRING);
+    }
+
 }

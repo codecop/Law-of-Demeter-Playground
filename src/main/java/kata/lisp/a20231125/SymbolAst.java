@@ -6,4 +6,9 @@ public class SymbolAst extends AbstractAst<String> {
         super(value);
     }
 
+    @Override
+    public Result eval() {
+        return new Result(value, Result.Type.SYMBOL);
+    }
+
 }

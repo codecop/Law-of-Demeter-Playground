@@ -8,4 +8,9 @@ public class ListAst extends AbstractAst<List<Ast>> {
         super(value);
     }
 
+    @Override
+    public Result eval() {
+        throw new IllegalStateException();
+    }
+
 }

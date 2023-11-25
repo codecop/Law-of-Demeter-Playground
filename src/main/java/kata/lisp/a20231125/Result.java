@@ -3,7 +3,7 @@ package kata.lisp.a20231125;
 public class Result {
 
     enum Type {
-        NUMBER
+        NUMBER, BOOLEAN, STRING, SYMBOL
     }
 
     private final Object value;
