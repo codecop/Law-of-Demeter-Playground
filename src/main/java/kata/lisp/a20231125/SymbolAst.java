@@ -7,7 +7,7 @@ public class SymbolAst extends AbstractAst<String> {
     }
 
     @Override
-    public Result eval() {
+    public Result eval(Context context) {
         throw new SyntaxError("Cannot eval symbol on its own");
     }
 

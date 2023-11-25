@@ -32,7 +32,7 @@ public abstract class AbstractAst<T> implements Ast {
     }
 
     @Override
-    public Result eval() {
+    public Result eval(Context context) {
         return new Result(value, value.getClass());
     }
     
