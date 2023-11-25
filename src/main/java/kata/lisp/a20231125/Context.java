@@ -1,9 +1,18 @@
 package kata.lisp.a20231125;
 
-public interface Context {
+import java.util.HashMap;
+import java.util.Map;
 
-    Function getFunctionNamed(String name);
+public class Context {
 
-    void addFunctionNamed(Function function);
+    private final Map<String, Function> functions = new HashMap<>();
+
+    public void addFunctionNamed(Function function) {
+        functions.put(function.getName(), function);
+    }
+
+    public Function getFunctionNamed(String name) {
+        return functions.get(name);
+    }
 
 }

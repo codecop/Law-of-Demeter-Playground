@@ -2,7 +2,7 @@ package kata.lisp.a20231125;
 
 import java.util.List;
 
-public class ListAst extends AbstractAst<List<Ast>> {
+public class ListAst extends SingleValueAst<List<Ast>> {
 
     public ListAst(List<Ast> values) {
         super(values);

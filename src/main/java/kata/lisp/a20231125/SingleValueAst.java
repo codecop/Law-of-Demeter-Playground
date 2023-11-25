@@ -2,11 +2,11 @@ package kata.lisp.a20231125;
 
 import java.util.Objects;
 
-public abstract class AbstractAst<T> implements Ast {
+public abstract class SingleValueAst<T> implements Ast {
 
     protected final T value;
 
-    public AbstractAst(T value) {
+    public SingleValueAst(T value) {
         Objects.requireNonNull(value);
         this.value = value;
     }
@@ -17,7 +17,7 @@ public abstract class AbstractAst<T> implements Ast {
             return false;
         }
         @SuppressWarnings("unchecked")
-        AbstractAst<T> that = this.getClass().cast(other);
+        SingleValueAst<T> that = this.getClass().cast(other);
         return this.value.equals(that.value);
     }
 

@@ -1,6 +1,6 @@
 package kata.lisp.a20231125;
 
-public class SymbolAst extends AbstractAst<String> {
+public class SymbolAst extends SingleValueAst<String> {
 
     public SymbolAst(String value) {
         super(value);
@@ -17,6 +17,14 @@ public class SymbolAst extends AbstractAst<String> {
             throw new FunctionLookupError(value);
         }
         return function;
+    }
+
+}
+
+class FunctionLookupError extends RuntimeException {
+
+    public FunctionLookupError(String name) {
+        super(name);
     }
 
 }
