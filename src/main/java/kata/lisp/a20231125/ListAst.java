@@ -17,7 +17,7 @@ public class ListAst implements Ast {
             return false;
         }
         ListAst that = (ListAst) other;
-        return Arrays.deepEquals(children.toArray(), that.children.toArray());
+        return this.children.equals(that.children);
     }
 
     @Override

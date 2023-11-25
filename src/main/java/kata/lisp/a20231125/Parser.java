@@ -24,8 +24,8 @@ public class Parser {
         return null;
     }
 
-    public Ast parse(List<String> tokens) {
-        if (tokens.get(0).equals("(")) {
+    public Ast parse(Tokens tokens) {
+        if (tokens.startsWith("(")) {
             return new ListAst(Arrays.asList(new SymbolAst(tokens.get(1))));
         }
         return null;

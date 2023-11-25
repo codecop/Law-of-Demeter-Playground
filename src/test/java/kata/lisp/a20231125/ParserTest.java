@@ -36,7 +36,7 @@ class ParserTest {
 
     @Test
     void parseTokens() {
-        Ast ast = parser.parse(Arrays.asList("(", "list", ")"));
+        Ast ast = parser.parse(new Tokens("(", "list", ")"));
         assertEquals(new ListAst(Arrays.asList(new SymbolAst("list"))), ast);
     }
 
