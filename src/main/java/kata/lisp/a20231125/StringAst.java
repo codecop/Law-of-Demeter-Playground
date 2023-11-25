@@ -24,4 +24,9 @@ public class StringAst implements Ast {
         return Objects.hash(value);
     }
 
+    @Override
+    public String toString() {
+        return "Ast(\"" + value + "\")";
+    }
+
 }
