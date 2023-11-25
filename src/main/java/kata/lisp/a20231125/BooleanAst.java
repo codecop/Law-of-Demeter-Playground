@@ -6,9 +6,4 @@ public class BooleanAst extends AbstractAst<Boolean> {
         super(value);
     }
 
-    @Override
-    public Result eval() {
-        return new Result(value, Result.Type.BOOLEAN);
-    }
-
 }

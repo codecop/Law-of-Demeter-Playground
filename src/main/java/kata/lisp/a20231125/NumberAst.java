@@ -6,8 +6,4 @@ public class NumberAst extends AbstractAst<Integer> {
         super(value);
     }
 
-    @Override
-    public Result eval() {
-        return new Result(value, Result.Type.NUMBER);
-    }
 }

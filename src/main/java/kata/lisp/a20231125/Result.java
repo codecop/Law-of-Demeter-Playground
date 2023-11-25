@@ -1,15 +1,20 @@
 package kata.lisp.a20231125;
 
+import java.util.function.Function;
+
 public class Result {
 
-    enum Type {
-        NUMBER, BOOLEAN, STRING, SYMBOL
+    static class Type {
+        static final Class<?> NUMBER = Integer.class;
+        static final Class<?> BOOLEAN = Boolean.class;
+        static final Class<?> STRING = String.class;
+        static final Class<?> SYMBOL = Function.class;
     }
 
     private final Object value;
-    private final Type type;
+    private final Class<?> type;
 
-    public Result(Object value, Type type) {
+    public Result(Object value, Class<?> type) {
         this.value = value;
         this.type = type;
     }
@@ -18,7 +23,7 @@ public class Result {
         return this.value;
     }
 
-    public Type type() {
+    public Class<?> type() {
         return type;
     }
 }

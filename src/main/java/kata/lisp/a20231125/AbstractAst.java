@@ -31,4 +31,9 @@ public abstract class AbstractAst<T> implements Ast {
         return "Ast(" + value + ")";
     }
 
+    @Override
+    public Result eval() {
+        return new Result(value, value.getClass());
+    }
+    
 }
