@@ -8,7 +8,7 @@ public class SymbolAst extends AbstractAst<String> {
 
     @Override
     public Result eval() {
-        return new Result(value, Result.Type.SYMBOL);
+        throw new SyntaxError("Cannot eval symbol on its own");
     }
 
 }

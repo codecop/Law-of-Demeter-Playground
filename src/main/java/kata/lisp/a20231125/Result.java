@@ -5,9 +5,9 @@ import java.util.function.Function;
 public class Result {
 
     static class Type {
-        static final Class<?> NUMBER = Integer.class;
-        static final Class<?> BOOLEAN = Boolean.class;
-        static final Class<?> STRING = String.class;
+        static final Class<Integer> NUMBER = Integer.class;
+        static final Class<Boolean> BOOLEAN = Boolean.class;
+        static final Class<String> STRING = String.class;
         static final Class<?> SYMBOL = Function.class;
     }
 
