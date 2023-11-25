@@ -39,10 +39,6 @@ class ParserTest {
             assertEquals(new SymbolAst("+"), ast);
         }
 
-        private Token tokenOf(String value) {
-            return new Token(value);
-        }
-
     }
 
     @Nested
@@ -60,14 +56,29 @@ class ParserTest {
             assertEquals(new ListAst(Arrays.asList(new SymbolAst("list"), new NumberAst(1))), ast);
         }
 
-        private Tokens tokensOf(String... arguments) {
-            Token[] tokens = Arrays.stream(arguments). //
-                    map(Token::new). //
-                    collect(Collectors.toList()). //
-                    toArray(new Token[0]);
-            return new Tokens(tokens);
+    }
+
+    @Nested
+    class NestedToken {
+
+        @Test
+        void nestedTokens() {
+            Ast ast = parser.parse(tokensOf("(", "(", "list", ")", ")"));
+            assertEquals(new ListAst(Arrays.asList(new ListAst(Arrays.asList(new SymbolAst("list"))))), ast);
         }
 
+    }
+
+    private Token tokenOf(String value) {
+        return new Token(value);
+    }
+
+    private Tokens tokensOf(String... arguments) {
+        Token[] tokens = Arrays.stream(arguments). //
+                map(this::tokenOf). //
+                collect(Collectors.toList()). //
+                toArray(new Token[0]);
+        return new Tokens(tokens);
     }
 
 }

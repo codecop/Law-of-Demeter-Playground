@@ -9,7 +9,7 @@ public class Tokens {
         this.tokens = tokens;
     }
 
-    public boolean atStartingBracket() {
+    public boolean atOpeningBracket() {
         return tokens[position].isOpeningBracket();
     }
 

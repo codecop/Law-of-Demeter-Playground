@@ -22,24 +22,32 @@ public class Parser {
     }
 
     public Ast parse(Tokens tokens) {
-        List<Ast> children = new ArrayList<>();
-        if (tokens.atStartingBracket()) {
+        if (tokens.atOpeningBracket()) {
             tokens.consumeToken();
-            parseChildren(tokens, children);
+            return parseChildren(tokens);
         }
-        return new ListAst(children);
+        throw new IllegalArgumentException(tokens.toString());
     }
 
-    private void parseChildren(Tokens tokens, List<Ast> children) {
+    private Ast parseChildren(Tokens tokens) {
+        List<Ast> children = new ArrayList<>();
         while (true) {
             Token token = tokens.next();
             if (tokens.atClosingBracket()) {
+                // this expression is finished
                 tokens.consumeToken();
                 break;
             }
-            children.add(parse(token));
-            tokens.consumeToken();
+            if (tokens.atOpeningBracket()) {
+                // a new expression started
+                tokens.consumeToken();
+                children.add(parseChildren(tokens));
+            } else {
+                children.add(parse(token));
+                tokens.consumeToken();
+            }
         }
+        return new ListAst(children);
     }
 
 }
