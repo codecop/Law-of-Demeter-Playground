@@ -10,18 +10,18 @@ public class ListAst extends AbstractAst<List<Ast>> {
 
     @Override
     public Result eval(Context context) {
-        SymbolAst symbol = (SymbolAst) value.get(0);
-        if (symbol.value.equals("+")) { //
-            List<Ast> arguments = value.subList(1, value.size());
-            return arguments.stream().map(a -> a.eval(context)).reduce(this::add).get(); //
+        SymbolAst symbol = getSymbol();
+        Function function = symbol.getFunction(context); //x
+        List<Ast> arguments = value.subList(1, value.size());
+        Result[] rs = new Result[arguments.size()]; //x
+        for (int i = 0; i < arguments.size(); i++) {
+            rs[i] = arguments.get(i).eval(context); //x
         }
-        throw new IllegalStateException();
+        return function.execute(rs); //x
     }
 
-    public Result add(Result a, Result b) {
-        Integer ai = (Integer) (a.value());
-        Integer bi = (Integer) (b.value());
-        return new Result(ai + bi, Result.Type.NUMBER);
+    private SymbolAst getSymbol() {
+        return (SymbolAst) value.get(0);
     }
 
 }

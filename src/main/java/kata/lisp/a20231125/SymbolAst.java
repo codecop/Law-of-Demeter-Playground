@@ -11,4 +11,12 @@ public class SymbolAst extends AbstractAst<String> {
         throw new SyntaxError("Cannot eval symbol on its own");
     }
 
+    public Function getFunction(Context context) {
+        Function function = context.getFunctionNamed(value);
+        if (function == null) {
+            throw new FunctionLookupError(value);
+        }
+        return function;
+    }
+
 }
