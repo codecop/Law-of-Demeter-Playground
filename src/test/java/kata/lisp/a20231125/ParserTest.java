@@ -14,4 +14,10 @@ class ParserTest {
         assertEquals(new NumberAst(1), ast);
     }
 
+    @Test
+    void parseString() {
+        Ast ast = parser.parse("\"abc\"");
+        assertEquals(new StringAst("abc"), ast);
+    }
+
 }
