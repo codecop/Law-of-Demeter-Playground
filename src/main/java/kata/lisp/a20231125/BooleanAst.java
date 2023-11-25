@@ -2,7 +2,7 @@ package kata.lisp.a20231125;
 
 import java.util.Objects;
 
-public class BooleanAst {
+public class BooleanAst implements Ast {
 
     private final boolean value;
 
