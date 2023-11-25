@@ -1,7 +1,6 @@
 package kata.lisp.a20231125;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
@@ -12,8 +11,8 @@ class EvalTest {
     @Test
     void evalNumber() {
         Result result = eval.eval(astOf("1"));
-        assertTrue(result instanceof NumberResult);
-        assertEquals(1, ((NumberResult) result).value());
+        assertEquals(1, result.value());
+        assertEquals(Result.Type.NUMBER, result.type());
     }
 
     private Ast astOf(String token) {
