@@ -9,3 +9,22 @@ mvn clean package -DskipTests
 copy target\pmd-core-7.0.0-SNAPSHOT.jar %HOME%\.m2\repository\net\sourceforge\pmd\pmd-core\7.0.0-rc4\pmd-core-7.0.0-rc4.jar
 
 explorer %HOME%\.m2\repository\net\sourceforge\pmd\pmd-core\7.0.0-rc4\
+
+---
+
+AbstractConfiguration
+
+    public void setSourceEncoding(String sourceEncoding) {
+        this.sourceEncoding = Charset.forName(Objects.requireNonNull(sourceEncoding));
+    }
+
+---
+
+Report
+
+    public Report filterViolations(net.sourceforge.pmd.util.Predicate<RuleViolation> filter) {
+        return filterViolations((Predicate<RuleViolation>)(rv -> filter.test(rv)));
+    }
+
+---
+
