@@ -27,4 +27,4 @@ jobs:
 
     - name: Pmd
       run: | 
-        mvn -B test && exit 1 || exit 0
+        mvn -B test
