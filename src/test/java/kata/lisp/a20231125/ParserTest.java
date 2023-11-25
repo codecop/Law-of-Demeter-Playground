@@ -2,6 +2,8 @@ package kata.lisp.a20231125;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import java.util.Arrays;
+
 import org.junit.jupiter.api.Test;
 
 class ParserTest {
@@ -30,6 +32,12 @@ class ParserTest {
     void parseSymbol() {
         Ast ast = parser.parse("+");
         assertEquals(new SymbolAst("+"), ast);
+    }
+
+    @Test
+    void parseTokens() {
+        Ast ast = parser.parse(Arrays.asList("(", "list", ")"));
+        assertEquals(new ListAst(Arrays.asList(new SymbolAst("list"))), ast);
     }
 
 }

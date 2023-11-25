@@ -1,5 +1,7 @@
 package kata.lisp.a20231125;
 
+import java.util.List;
+
 public class Parser {
 
     public Ast parse(String token) {
@@ -18,6 +20,10 @@ public class Parser {
         if (token.matches("[+*!=?a-zA-Z][+*!=?a-zA-Z0-9]*(-[+*!=?a-zA-Z0-9]*)*")) {
             return new SymbolAst(token);
         }
+        return null;
+    }
+
+    public Ast parse(List<String> tokens) {
         return null;
     }
 
