@@ -12,7 +12,19 @@ public class Context {
     }
 
     public Function getFunctionNamed(String name) {
-        return functions.get(name);
+        Function function = functions.get(name);
+        if (function == null) {
+            throw new FunctionLookupError(name);
+        }
+        return function;
+    }
+
+}
+
+class FunctionLookupError extends RuntimeException {
+
+    public FunctionLookupError(String name) {
+        super(name);
     }
 
 }

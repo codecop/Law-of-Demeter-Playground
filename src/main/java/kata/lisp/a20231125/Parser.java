@@ -47,7 +47,7 @@ public class Parser {
                 tokens.consumeToken();
             }
         }
-        return new ListAst(children);
+        return new ExpressionAst(children.get(0), children.subList(1, children.size()));
     }
 
 }

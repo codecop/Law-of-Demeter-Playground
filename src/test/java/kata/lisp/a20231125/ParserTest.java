@@ -3,6 +3,7 @@ package kata.lisp.a20231125;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.Arrays;
+import java.util.Collections;
 
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -46,13 +47,13 @@ class ParserTest {
         @Test
         void parseTokens() {
             Ast ast = parser.parse(Tokens.tokensOf("(", "list", ")"));
-            assertEquals(new ListAst(Arrays.asList(new SymbolAst("list"))), ast);
+            assertEquals(new ExpressionAst(new SymbolAst("list"), Collections.emptyList()), ast);
         }
 
         @Test
         void parseTwoElementTokens() {
             Ast ast = parser.parse(Tokens.tokensOf("(", "list", "1", ")"));
-            assertEquals(new ListAst(Arrays.asList(new SymbolAst("list"), new NumberAst(1))), ast);
+            assertEquals(new ExpressionAst(new SymbolAst("list"), Arrays.asList(new NumberAst(1))), ast);
         }
 
     }
@@ -63,7 +64,8 @@ class ParserTest {
         @Test
         void nestedTokens() {
             Ast ast = parser.parse(Tokens.tokensOf("(", "(", "list", ")", ")"));
-            assertEquals(new ListAst(Arrays.asList(new ListAst(Arrays.asList(new SymbolAst("list"))))), ast);
+            ExpressionAst subExpression = new ExpressionAst(new SymbolAst("list"), Collections.emptyList());
+            assertEquals(new ExpressionAst(subExpression, Collections.emptyList()), ast);
         }
 
     }

@@ -12,19 +12,7 @@ public class SymbolAst extends SingleValueAst<String> {
     }
 
     public Function getFunction(Context context) {
-        Function function = context.getFunctionNamed(value);
-        if (function == null) {
-            throw new FunctionLookupError(value);
-        }
-        return function;
-    }
-
-}
-
-class FunctionLookupError extends RuntimeException {
-
-    public FunctionLookupError(String name) {
-        super(name);
+        return context.getFunctionNamed(value);
     }
 
 }
