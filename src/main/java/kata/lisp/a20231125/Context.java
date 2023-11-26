@@ -27,9 +27,12 @@ public class Context {
         Function function = getFunctionNamed(value);
 
         for (int i = 0; i < arguments.length; i++) {
-            if (function.getArgumentType() != null && arguments[i].type() != function.getArgumentType()) {
+            if (arguments[i].type() == Result.Type.ERROR) {
+                return arguments[i];
+            }
+            if (function.getArgumentType(i) != null && arguments[i].type() != function.getArgumentType(i)) {
                 String message = "Type mismatch of " + (i + 1) + ". argument: " + //
-                        "expected " + function.getArgumentType() + //
+                        "expected " + function.getArgumentType(i) + //
                         ", got " + arguments[i];
                 return new Result(message, Result.Type.ERROR);
             }

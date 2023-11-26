@@ -12,7 +12,7 @@ class Add implements Function {
     }
 
     @Override
-    public Class<?> getArgumentType() {
+    public Class<?> getArgumentType(int i) {
         return Integer.class;
     }
 
@@ -41,7 +41,7 @@ class RaiseError implements Function {
     }
 
     @Override
-    public Class<?> getArgumentType() {
+    public Class<?> getArgumentType(int i) {
         return null;
     }
 

@@ -2,6 +2,7 @@ package kata.lisp.a20231125;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
 class EvalTest {
@@ -22,20 +23,32 @@ class EvalTest {
         assertEquals(Result.Type.NUMBER, result.type());
     }
 
-    @Test
-    void evalWrongType() {
-        Result result = eval.eval(astOf("(", "+", "#t", "#f", ")"));
-        assertEquals(
-                "Type mismatch of 1. argument: expected class java.lang.Integer, got true (class java.lang.Boolean)",
-                result.value());
-        assertEquals(Result.Type.ERROR, result.type());
-    }
+    @Nested
+    class ErrorHandling {
 
-    @Test
-    void evalMissingFunction() {
-        Result result = eval.eval(astOf("(", "not-existing", "#t", ")"));
-        assertEquals("Unknown symbol not-existing", result.value());
-        assertEquals(Result.Type.ERROR, result.type());
+        @Test
+        void evalWrongType() {
+            Result result = eval.eval(astOf("(", "+", "#t", "#f", ")"));
+            assertEquals(
+                    "Type mismatch of 1. argument: expected class java.lang.Integer, got true (class java.lang.Boolean)",
+                    result.value());
+            assertEquals(Result.Type.ERROR, result.type());
+        }
+
+        @Test
+        void evalMissingFunction() {
+            Result result = eval.eval(astOf("(", "not-existing", "#t", ")"));
+            assertEquals("Unknown symbol not-existing", result.value());
+            assertEquals(Result.Type.ERROR, result.type());
+        }
+
+        @Test
+        void errorStopsEval() {
+            Result result = eval.eval(astOf("(", "+", "1", "(", "not-existing", "1", "2", ")", ")"));
+            assertEquals("Unknown symbol not-existing", result.value());
+            assertEquals(Result.Type.ERROR, result.type());
+        }
+
     }
 
     private Ast astOf(String token) {
