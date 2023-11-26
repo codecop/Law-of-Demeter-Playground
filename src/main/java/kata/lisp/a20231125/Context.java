@@ -16,18 +16,18 @@ public class Context {
 
     public Function getFunctionNamed(String name) {
         for (int i = 0; i < functions.length; i++) {
-            if (functions[i].isNamed(name)) {
+            if (functions[i] != null && functions[i].isNamed(name)) {
                 return functions[i];
             }
         }
-        throw new FunctionLookupError(name);
+        return new RaiseError("Unknown symbol " + name);
     }
 
     public Result applyFunction(String value, Result[] arguments) {
         Function function = getFunctionNamed(value);
 
         for (int i = 0; i < arguments.length; i++) {
-            if (arguments[i].type() != function.getArgumentType()) {
+            if (function.getArgumentType() != null && arguments[i].type() != function.getArgumentType()) {
                 String message = "Type mismatch of " + (i + 1) + ". argument: " + //
                         "expected " + function.getArgumentType() + //
                         ", got " + arguments[i];
@@ -40,14 +40,6 @@ public class Context {
         // technically true, but a Map is like a local object with many objects, 
         // so like many local objects, not? Changed it to an array, which is more
         // low level for LoD, still not created locally. True, it comes in via a set.
-    }
-
-}
-
-class FunctionLookupError extends RuntimeException {
-
-    public FunctionLookupError(String name) {
-        super(name);
     }
 
 }

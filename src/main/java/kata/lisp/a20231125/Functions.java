@@ -18,11 +18,36 @@ class Add implements Function {
 
     @Override
     public Result execute(Result[] arguments) {
-        int s = 0;
-        for (Result r : arguments) {
-            s += (Integer) r.value();
+        int sum = 0;
+        for (Result argument : arguments) {
+            sum += (Integer) argument.value();
         }
-        return new Result(s, Result.Type.NUMBER);
+        return new Result(sum, Result.Type.NUMBER);
+    }
+
+}
+
+class RaiseError implements Function {
+
+    private final String message;
+
+    public RaiseError(String message) {
+        this.message = message;
+    }
+
+    @Override
+    public boolean isNamed(String name) {
+        throw new IllegalStateException();
+    }
+
+    @Override
+    public Class<?> getArgumentType() {
+        return null;
+    }
+
+    @Override
+    public Result execute(Result[] arguments) {
+        return new Result(message, Result.Type.ERROR);
     }
 
 }

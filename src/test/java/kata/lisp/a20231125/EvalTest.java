@@ -31,6 +31,13 @@ class EvalTest {
         assertEquals(Result.Type.ERROR, result.type());
     }
 
+    @Test
+    void evalMissingFunction() {
+        Result result = eval.eval(astOf("(", "not-existing", "#t", ")"));
+        assertEquals("Unknown symbol not-existing", result.value());
+        assertEquals(Result.Type.ERROR, result.type());
+    }
+
     private Ast astOf(String token) {
         return new Parser().parse(new Token(token));
     }
