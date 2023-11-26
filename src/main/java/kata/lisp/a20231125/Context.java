@@ -25,6 +25,16 @@ public class Context {
 
     public Result applyFunction(String value, Result[] arguments) {
         Function function = getFunctionNamed(value);
+
+        for (int i = 0; i < arguments.length; i++) {
+            if (arguments[i].type() != function.getArgumentType()) {
+                String message = "Type mismatch of " + (i + 1) + ". argument: " + //
+                        "expected " + function.getArgumentType() + //
+                        ", got " + arguments[i];
+                return new Result(message, Result.Type.ERROR);
+            }
+        }
+
         return function.execute(arguments); // NOPMD 
         // PMD says object not created locally
         // technically true, but a Map is like a local object with many objects, 

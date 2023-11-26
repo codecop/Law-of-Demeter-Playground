@@ -22,6 +22,15 @@ class EvalTest {
         assertEquals(Result.Type.NUMBER, result.type());
     }
 
+    @Test
+    void evalWrongType() {
+        Result result = eval.eval(astOf("(", "+", "#t", "#f", ")"));
+        assertEquals(
+                "Type mismatch of 1. argument: expected class java.lang.Integer, got true (class java.lang.Boolean)",
+                result.value());
+        assertEquals(Result.Type.ERROR, result.type());
+    }
+
     private Ast astOf(String token) {
         return new Parser().parse(new Token(token));
     }
