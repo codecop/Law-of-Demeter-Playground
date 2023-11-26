@@ -5,13 +5,13 @@ import java.util.Objects;
 
 public class ExpressionAst implements Ast {
 
-    private final Ast symbol;
-    private final List<Ast> arguments;
+    private final Ast first;
+    private final List<Ast> remaining;
 
-    public ExpressionAst(Ast symbol, List<Ast> arguments) {
-        Objects.requireNonNull(symbol);
-        this.symbol = symbol;
-        this.arguments = arguments;
+    public ExpressionAst(Ast first, List<Ast> arguments) {
+        Objects.requireNonNull(first);
+        this.first = first;
+        this.remaining = arguments;
     }
 
     @Override
@@ -20,28 +20,24 @@ public class ExpressionAst implements Ast {
             return false;
         }
         ExpressionAst that = (ExpressionAst) other;
-        return this.symbol.equals(that.symbol) && this.arguments.equals(that.arguments);
+        return this.first.equals(that.first) && this.remaining.equals(that.remaining);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(symbol) ^ Objects.hash(arguments);
+        return Objects.hash(first) ^ Objects.hash(remaining);
     }
 
     @Override
     public String toString() {
-        return "Ast(" + symbol + ": " + arguments + ")";
+        return "Ast(" + first + ": " + remaining + ")";
     }
 
     @Override
     public Result eval(Context context) {
-        SymbolAst symbol2 = (SymbolAst) symbol;
-        Function function = symbol2.getFunction(context); //x
-        Result[] rs = new Result[arguments.size()];
-        for (int i = 0; i < arguments.size(); i++) {
-            rs[i] = arguments.get(i).eval(context); //x
-        }
-        return function.execute(rs); //x
+        SymbolAst symbol = (SymbolAst) first;
+        Ast[] arguments = remaining.toArray(new Ast[remaining.size()]);
+        return symbol.evalFunction(arguments, context); // NOPMD - "symbol" is false positive to be foreign
     }
 
 }

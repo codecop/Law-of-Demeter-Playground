@@ -11,8 +11,17 @@ public class SymbolAst extends SingleValueAst<String> {
         throw new SyntaxError("Cannot eval symbol on its own");
     }
 
-    public Function getFunction(Context context) {
-        return context.getFunctionNamed(value);
+    public Result evalFunction(Ast[] arguments, Context context) {
+        Result[] tempResults = evalArguments(arguments, context);
+        return context.applyFunction(value, tempResults);
+    }
+
+    private Result[] evalArguments(Ast[] arguments, Context context) {
+        Result[] tempResults = new Result[arguments.length];
+        for (int i = 0; i < arguments.length; i++) {
+            tempResults[i] = arguments[i].eval(context);
+        }
+        return tempResults;
     }
 
 }

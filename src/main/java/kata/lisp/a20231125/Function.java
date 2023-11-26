@@ -2,7 +2,7 @@ package kata.lisp.a20231125;
 
 public interface Function {
 
-    String getName();
+    boolean isNamed(String name);
 
     Class<?> getArgumentType();
 

@@ -7,8 +7,8 @@ public class Functions {
 class Add implements Function {
 
     @Override
-    public String getName() {
-        return "+";
+    public boolean isNamed(String name) {
+        return "+".equals(name);
     }
 
     @Override
