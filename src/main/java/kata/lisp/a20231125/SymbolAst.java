@@ -8,7 +8,7 @@ public class SymbolAst extends SingleValueAst<String> {
 
     @Override
     public Result eval(Context context) {
-        throw new SyntaxError("Cannot eval symbol on its own");
+        throw new IllegalStateException("Cannot eval symbol on its own");
     }
 
     public Result evalFunction(Ast[] arguments, Context context) {
