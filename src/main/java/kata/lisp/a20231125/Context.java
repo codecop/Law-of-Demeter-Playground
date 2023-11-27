@@ -43,6 +43,7 @@ public class Context {
         // technically true, but a Map is like a local object with many objects, 
         // so like many local objects, not? Changed it to an array, which is more
         // low level for LoD, still not created locally. True, it comes in via a set.
+        // TODO PMD rule: allow a Map or Array of elements as my own fields.
     }
 
 }
