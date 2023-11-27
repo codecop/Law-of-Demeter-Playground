@@ -35,7 +35,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-pmd-plugin</artifactId>
-                <version>3.21.0</version>
+                <version>3.21.2</version>
                 <configuration>
                     <printFailingErrors>true</printFailingErrors>
                     <linkXRef>false</linkXRef>
@@ -47,6 +47,14 @@
                         <ruleset>src/config/pmd.xml</ruleset>
                     </rulesets>
                 </configuration>
+                <dependencies>
+                    <!-- uses PMD 6.55.0 -->
+                    <dependency>
+                        <groupId>org.codecop</groupId>
+                        <artifactId>pmd-rules</artifactId>
+                        <version>1.2.4-pmd6</version>
+                    </dependency>
+                </dependencies>
                 <executions>
                     <execution>
                         <phase>test</phase>
@@ -65,5 +73,31 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     </properties>
+
+    <repositories>
+        <repository>
+            <releases>
+                <enabled>true</enabled>
+                <updatePolicy>never</updatePolicy>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+            <id>ccc-releases</id>
+            <name>Code Cop Code Releases</name>
+            <url>https://www.code-cop.org/mvn2repo/releases</url>
+        </repository>
+        <repository>
+            <releases>
+                <enabled>false</enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+            <id>ccc-snapshots</id>
+            <name>Code Cop Code Snapshots</name>
+            <url>https://www.code-cop.org/mvn2repo/snapshots</url>
+        </repository>
+    </repositories>
 
 </project>
