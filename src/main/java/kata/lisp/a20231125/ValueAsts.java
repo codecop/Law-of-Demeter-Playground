@@ -33,5 +33,6 @@ class StringAst extends SingleValueAst<String> {
 
 }
 
-// TODO character with 'a
-// TODO double numbers
+// TODO features in AST
+// * character with 'a
+// * double numbers
