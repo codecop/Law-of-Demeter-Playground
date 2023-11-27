@@ -37,4 +37,15 @@ public class Tokens {
         position++;
     }
 
+    @Override
+    public String toString() {
+        StringBuilder buf = new StringBuilder();
+        buf.append("Tokens");
+        for (Token token : tokens) {
+            buf.append(", ");
+            buf.append(token);
+        }
+        return buf.toString();
+    }
+
 }
