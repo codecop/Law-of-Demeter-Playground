@@ -63,9 +63,9 @@ class ParserTest {
 
         @Test
         void nestedTokens() {
-            Ast ast = parser.parse(Tokens.tokensOf("(", "(", "list", ")", ")"));
+            Ast ast = parser.parse(Tokens.tokensOf("(", "list", "(", "list", ")", ")"));
             ExpressionAst subExpression = new ExpressionAst(new SymbolAst("list"), Collections.emptyList());
-            assertEquals(new ExpressionAst(subExpression, Collections.emptyList()), ast);
+            assertEquals(new ExpressionAst(new SymbolAst("list"), Collections.singletonList(subExpression)), ast);
         }
 
     }

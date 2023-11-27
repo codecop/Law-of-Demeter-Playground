@@ -5,12 +5,12 @@ import java.util.Objects;
 
 public class ExpressionAst implements Ast {
 
-    private final Ast first;
+    private final SymbolAst symbol;
     private final List<Ast> remaining;
 
-    public ExpressionAst(Ast first, List<Ast> arguments) {
-        Objects.requireNonNull(first);
-        this.first = first;
+    public ExpressionAst(SymbolAst symbol, List<Ast> arguments) {
+        Objects.requireNonNull(symbol);
+        this.symbol = symbol;
         this.remaining = arguments;
     }
 
@@ -20,24 +20,23 @@ public class ExpressionAst implements Ast {
             return false;
         }
         ExpressionAst that = (ExpressionAst) other;
-        return this.first.equals(that.first) && this.remaining.equals(that.remaining);
+        return this.symbol.equals(that.symbol) && this.remaining.equals(that.remaining);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(first) ^ Objects.hash(remaining);
+        return Objects.hash(symbol) ^ Objects.hash(remaining);
     }
 
     @Override
     public String toString() {
-        return "Ast(" + first + ": " + remaining + ")";
+        return "Ast(" + symbol + ": " + remaining + ")";
     }
 
     @Override
     public Result eval(Context context) {
-        SymbolAst symbol = (SymbolAst) first;
         Ast[] arguments = remaining.toArray(new Ast[remaining.size()]);
-        return symbol.evalFunction(arguments, context); // NOPMD - "symbol" is false positive to be foreign
+        return symbol.evalFunction(arguments, context);
     }
 
 }
