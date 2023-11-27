@@ -3,39 +3,38 @@ package kata.lisp.a20231125;
 import java.util.List;
 import java.util.Objects;
 
-public class ExpressionAst implements Ast {
+public class ExpressionAst extends MultipleValueAst {
 
     private final SymbolAst symbol;
-    private final List<Ast> remaining;
 
     public ExpressionAst(SymbolAst symbol, List<Ast> arguments) {
+        super(arguments);
         Objects.requireNonNull(symbol);
         this.symbol = symbol;
-        this.remaining = arguments;
     }
 
     @Override
     public boolean equals(Object other) {
-        if (other == null || this.getClass() != other.getClass()) {
+        if (!super.equals(other)) {
             return false;
         }
         ExpressionAst that = (ExpressionAst) other;
-        return this.symbol.equals(that.symbol) && this.remaining.equals(that.remaining);
+        return this.symbol.equals(that.symbol);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(symbol) ^ Objects.hash(remaining);
+        return Objects.hash(symbol) ^ super.hashCode();
     }
 
     @Override
     public String toString() {
-        return "Ast(" + symbol + ": " + remaining + ")";
+        return "ExpressionAst(" + symbol + ": " + super.toString() + ")";
     }
 
     @Override
     public Result eval(Context context) {
-        Ast[] arguments = remaining.toArray(new Ast[remaining.size()]);
+        Ast[] arguments = asArray();
         return symbol.evalFunction(arguments, context);
     }
 

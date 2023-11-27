@@ -65,7 +65,7 @@ public class Parser {
             }
         }
 
-        return new ToplevelAst(children);
+        return new ProgramAst(children);
     }
 
 }

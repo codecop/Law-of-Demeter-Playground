@@ -76,7 +76,7 @@ class ParserTest {
         @Test
         void parseTokens() {
             Ast ast = parser.parse(Tokens.tokensOf("1", "2"));
-            assertEquals(new ToplevelAst(Arrays.asList(new NumberAst(1), new NumberAst(2))), ast);
+            assertEquals(new ProgramAst(Arrays.asList(new NumberAst(1), new NumberAst(2))), ast);
         }
         
     }
