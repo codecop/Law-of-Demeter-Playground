@@ -29,6 +29,10 @@ public class Tokens {
         return tokens[position].isClosingBracket();
     }
 
+    public boolean hasNext() {
+        return position < tokens.length;
+    }
+
     public Token next() {
         return tokens[position];
     }

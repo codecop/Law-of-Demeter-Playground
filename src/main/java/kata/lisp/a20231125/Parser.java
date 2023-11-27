@@ -24,12 +24,13 @@ public class Parser {
     public Ast parse(Tokens tokens) {
         if (tokens.atOpeningBracket()) {
             tokens.consumeToken();
-            return parseChildren(tokens);
+            return parseExpression(tokens);
         }
-        throw new IllegalArgumentException(tokens.toString());
+        // only at top level
+        return parseTopLevel(tokens);
     }
 
-    private Ast parseChildren(Tokens tokens) {
+    private Ast parseExpression(Tokens tokens) {
         List<Ast> children = new ArrayList<>();
         while (true) {
             Token token = tokens.next();
@@ -41,13 +42,30 @@ public class Parser {
             if (tokens.atOpeningBracket()) {
                 // a new expression started
                 tokens.consumeToken();
-                children.add(parseChildren(tokens));
+                children.add(parseExpression(tokens));
             } else {
                 children.add(parse(token));
                 tokens.consumeToken();
             }
         }
         return new ExpressionAst((SymbolAst) (children.get(0)), children.subList(1, children.size()));
+    }
+
+    private Ast parseTopLevel(Tokens tokens) {
+        List<Ast> children = new ArrayList<>();
+        while (tokens.hasNext()) {
+            Token token = tokens.next();
+            if (tokens.atOpeningBracket()) {
+                // a new expression started
+                tokens.consumeToken();
+                children.add(parseExpression(tokens));
+            } else {
+                children.add(parse(token));
+                tokens.consumeToken();
+            }
+        }
+
+        return new ToplevelAst(children);
     }
 
 }

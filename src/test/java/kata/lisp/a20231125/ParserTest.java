@@ -42,7 +42,7 @@ class ParserTest {
     }
 
     @Nested
-    class MultipleToken {
+    class GroupedToken {
 
         @Test
         void parseTokens() {
@@ -70,6 +70,17 @@ class ParserTest {
 
     }
 
+    @Nested
+    class MultipleTopLevelToken {
+        
+        @Test
+        void parseTokens() {
+            Ast ast = parser.parse(Tokens.tokensOf("1", "2"));
+            assertEquals(new ToplevelAst(Arrays.asList(new NumberAst(1), new NumberAst(2))), ast);
+        }
+        
+    }
+    
     private Token tokenOf(String value) {
         return new Token(value);
     }
