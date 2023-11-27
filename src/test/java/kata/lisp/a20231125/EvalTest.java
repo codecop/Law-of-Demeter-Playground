@@ -23,6 +23,13 @@ class EvalTest {
         assertEquals(Result.Type.NUMBER, result.type());
     }
 
+    @Test
+    void evalTopLevel() {
+        Result result = eval.eval(astOf("1", "2"));
+        assertEquals(2, result.value());
+        assertEquals(Result.Type.NUMBER, result.type());
+    }
+
     @Nested
     class ErrorHandling {
 

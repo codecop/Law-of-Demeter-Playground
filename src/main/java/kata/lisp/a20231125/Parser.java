@@ -27,7 +27,7 @@ public class Parser {
             return parseExpression(tokens);
         }
         // only at top level
-        return parseTopLevel(tokens);
+        return parseProgram(tokens);
     }
 
     private Ast parseExpression(Tokens tokens) {
@@ -51,7 +51,7 @@ public class Parser {
         return new ExpressionAst((SymbolAst) (children.get(0)), children.subList(1, children.size()));
     }
 
-    private Ast parseTopLevel(Tokens tokens) {
+    private Ast parseProgram(Tokens tokens) {
         List<Ast> children = new ArrayList<>();
         while (tokens.hasNext()) {
             Token token = tokens.next();

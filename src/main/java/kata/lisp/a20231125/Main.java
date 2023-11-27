@@ -18,7 +18,7 @@ public class Main {
     public Result run(String fileName) throws IOException {
         String code = Files.readString(Paths.get(fileName));
         Tokens tokens = lexer.tokenise(code);
-        Ast topLevelAst = parser.parse(tokens);
-        return eval.eval(topLevelAst);
+        Ast program = parser.parse(tokens);
+        return eval.eval(program);
     }
 }
