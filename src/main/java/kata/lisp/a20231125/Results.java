@@ -29,12 +29,12 @@ public class Results {
         return null;
     }
 
-    public Result get(int i) {
-        return arguments[i];
-    }
-
-    public int size() {
-        return arguments.length;
+    public Object[] toValues() {
+        Object[] values = new Object[arguments.length];
+        for (int i = 0; i < values.length; i++) {
+            values[i] = arguments[i].value();
+        }
+        return values;
     }
 
 }

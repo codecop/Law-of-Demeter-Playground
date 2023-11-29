@@ -34,8 +34,9 @@ public class Context {
         if (error != null) {
             return error;
         }
-
-        return function.execute(arguments); // NOPMD 
+        Object[] values = arguments.toValues();
+        
+        return function.execute(values); // NOPMD 
         // PMD says object not created locally
         // technically true, but a Map is like a local object with many objects, 
         // so like many local objects, not? Changed it to an array, which is more

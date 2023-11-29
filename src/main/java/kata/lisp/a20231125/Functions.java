@@ -17,10 +17,10 @@ class Add implements Function {
     }
 
     @Override
-    public Result execute(Results arguments) {
+    public Result execute(Object[] arguments) {
         int sum = 0;
-        for (int i = 0; i < arguments.size(); i++) {
-            sum += (Integer) arguments.get(i).value();
+        for (int i = 0; i < arguments.length; i++) {
+            sum += (Integer) arguments[i];
         }
         return new Result(sum, ResultType.NUMBER);
     }
@@ -46,7 +46,7 @@ class RaiseError implements Function {
     }
 
     @Override
-    public Result execute(Results arguments) {
+    public Result execute(Object[] arguments) {
         return new Result(message, ResultType.ERROR);
     }
 
