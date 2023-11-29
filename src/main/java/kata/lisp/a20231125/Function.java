@@ -8,6 +8,5 @@ public interface Function {
 
     boolean matchesArgumentType(int i, ResultType type);
 
-    Result execute(Object[] arguments);
-
+    Result execute(Ast[] arguments, Functions context);
 }

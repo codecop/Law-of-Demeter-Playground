@@ -29,7 +29,49 @@ abstract class AbstractFunction implements Function {
     }
 }
 
-class IntegerAddition extends AbstractFunction {
+abstract class StrictFunction extends AbstractFunction {
+
+    public StrictFunction(String name) {
+        super(name);
+    }
+
+    @Override
+    public Result execute(Ast[] x, Functions context) {
+        Function function = this;
+        Results arguments = evalArguments(x, context);
+        
+        Result error = arguments.firstErrorInArguments();
+        if (error != null) {
+            return error;
+        }
+
+        error = arguments.numberMismatchWith(function);
+        if (error != null) {
+            return error;
+        }
+
+        error = arguments.typeMismatchWith(function);
+        if (error != null) {
+            return error;
+        }
+
+        Object[] values = arguments.toValues();
+        return execute(values);
+    }
+
+    private Results evalArguments(Ast[] arguments, Functions context) {
+        Result[] tempResults = new Result[arguments.length];
+        for (int i = 0; i < arguments.length; i++) {
+            tempResults[i] = arguments[i].eval(context);
+        }
+        return new Results(tempResults);
+    }
+
+    abstract Result execute(Object[] arguments);
+    
+}
+
+class IntegerAddition extends StrictFunction {
 
     public IntegerAddition() {
         super("+");
@@ -56,7 +98,7 @@ class IntegerAddition extends AbstractFunction {
 
 }
 
-class IntegerSquareRoot extends AbstractFunction {
+class IntegerSquareRoot extends StrictFunction {
 
     public IntegerSquareRoot() {
         super("sqrt");
@@ -80,7 +122,7 @@ class IntegerSquareRoot extends AbstractFunction {
 
 }
 
-class StringAppend extends AbstractFunction {
+class StringAppend extends StrictFunction {
 
     public StringAppend() {
         super("string-append");

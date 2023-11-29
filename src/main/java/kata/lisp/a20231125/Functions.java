@@ -20,65 +20,44 @@ public class Functions {
                 return functions[i];
             }
         }
-        return new RaiseError("Unknown symbol " + name);
+        return null;
     }
 
-    public Result applyFunction(String value, Results arguments) {
+    public Result applyFunction(String value, Ast[] arguments) {
         Function function = getFunctionNamed(value);
-
-        Result error = arguments.firstErrorInArguments();
-        if (error != null) {
-            return error;
+        if (function == null) {
+            return new Result("Unknown symbol " + value, ResultType.ERROR);
         }
-
-        error = arguments.numberMismatchWith(function);
-        if (error != null) {
-            return error;
-        }
-
-        error = arguments.typeMismatchWith(function);
-        if (error != null) {
-            return error;
-        }
-
-        Object[] values = arguments.toValues();
-        return applyFunction(function, values);
+        return function.execute(arguments, this);
     }
 
-    private Result applyFunction(Function function, Object[] values) {
-        return function.execute(values);
-    }
+//    public Result applyFunction(String value, Results arguments) {
+//        Function function = getFunctionNamed(value);
+//        if (function == null) {
+//            return new Result("Unknown symbol " + value, ResultType.ERROR);
+//        }
+//
+//        Result error = arguments.firstErrorInArguments();
+//        if (error != null) {
+//            return error;
+//        }
+//
+//        error = arguments.numberMismatchWith(function);
+//        if (error != null) {
+//            return error;
+//        }
+//
+//        error = arguments.typeMismatchWith(function);
+//        if (error != null) {
+//            return error;
+//        }
+//
+//        Object[] values = arguments.toValues();
+//        return applyFunction(function, values);
+//    }
 
-}
-
-class RaiseError implements Function {
-
-    private final String message;
-
-    public RaiseError(String message) {
-        this.message = message;
-    }
-
-    @Override
-    public boolean isNamed(String name) {
-        throw new IllegalStateException();
-    }
-
-    @Override
-    public boolean matchesArgumentNumber(int count) {
-        // allow everything
-        return true;
-    }
-
-    @Override
-    public boolean matchesArgumentType(int i, ResultType type) {
-        // allow everything
-        return true;
-    }
-
-    @Override
-    public Result execute(Object[] arguments) {
-        return new Result(message, ResultType.ERROR);
-    }
+//    private Result applyFunction(Function function, Object[] values) {
+//        return function.execute(values);
+//    }
 
 }

@@ -17,17 +17,21 @@ public class SymbolAst extends SingleValueAst<String> {
         throw new IllegalStateException("Cannot eval symbol " + symbol + " on its own");
     }
 
-    public Result evalAsFunction(Ast[] arguments, Functions context) {
-        Results tempResults = evalArguments(arguments, context);
-        return context.applyFunction(symbol, tempResults);
-    }
+//    public Result evalAsFunction(Ast[] arguments, Functions context) {
+//        Results tempResults = evalArguments(arguments, context);
+//        return context.applyFunction(symbol, tempResults);
+//    }
+//
+//    private Results evalArguments(Ast[] arguments, Functions context) {
+//        Result[] tempResults = new Result[arguments.length];
+//        for (int i = 0; i < arguments.length; i++) {
+//            tempResults[i] = arguments[i].eval(context);
+//        }
+//        return new Results(tempResults);
+//    }
 
-    private Results evalArguments(Ast[] arguments, Functions context) {
-        Result[] tempResults = new Result[arguments.length];
-        for (int i = 0; i < arguments.length; i++) {
-            tempResults[i] = arguments[i].eval(context);
-        }
-        return new Results(tempResults);
+    public Result evalAsFunction(Ast[] arguments, Functions context) {
+        return context.applyFunction(symbol, arguments);
     }
 
 }
