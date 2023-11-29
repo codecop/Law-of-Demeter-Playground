@@ -48,7 +48,9 @@ public class Parser {
                 tokens.consumeToken();
             }
         }
-        return new ExpressionAst((SymbolAst) (children.get(0)), children.subList(1, children.size()));
+        SymbolAst symbol = (SymbolAst) (children.get(0));
+        List<Ast> arguments = children.subList(1, children.size());
+        return new ExpressionAst(symbol, arguments);
     }
 
     private Ast parseProgram(Tokens tokens) {
