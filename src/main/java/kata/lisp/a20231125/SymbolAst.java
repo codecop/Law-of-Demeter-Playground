@@ -13,7 +13,7 @@ public class SymbolAst extends SingleValueAst<String> {
     }
 
     @Override
-    public Result eval(Context context) {
+    protected ResultType getValueType() {
         throw new IllegalStateException("Cannot eval symbol " + symbol + " on its own");
     }
 

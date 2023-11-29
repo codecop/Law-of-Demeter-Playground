@@ -14,7 +14,7 @@ public class Context {
         }
     }
 
-    public Function getFunctionNamed(String name) {
+    private Function getFunctionNamed(String name) {
         for (int i = 0; i < functions.length; i++) {
             if (functions[i] != null && functions[i].isNamed(name)) {
                 return functions[i];
@@ -30,7 +30,11 @@ public class Context {
             if (arguments[i].type() == Result.Type.ERROR) {
                 return arguments[i];
             }
-            if (function.getArgumentType(i) != null && arguments[i].type() != function.getArgumentType(i)) {
+        }
+
+        for (int i = 0; i < arguments.length; i++) {
+            if (function.getArgumentType(i) != Result.Type.ANY && //
+                    arguments[i].type() != function.getArgumentType(i)) {
                 String message = "Type mismatch of " + (i + 1) + ". argument: " + //
                         "expected " + function.getArgumentType(i) + //
                         ", got " + arguments[i];

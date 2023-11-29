@@ -16,8 +16,10 @@ public abstract class SingleValueAst<T> implements Ast {
 
     @Override
     public Result eval(Context context) {
-        return new Result(value, value.getClass());
+        return new Result(value, getValueType());
     }
+
+    protected abstract ResultType getValueType();
 
     @Override
     public boolean equals(Object other) {

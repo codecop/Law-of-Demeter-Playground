@@ -12,8 +12,8 @@ class Add implements Function {
     }
 
     @Override
-    public Class<?> getArgumentType(int i) {
-        return Integer.class;
+    public ResultType getArgumentType(int i) {
+        return Result.Type.NUMBER;
     }
 
     @Override
@@ -41,8 +41,8 @@ class RaiseError implements Function {
     }
 
     @Override
-    public Class<?> getArgumentType(int i) {
-        return null;
+    public ResultType getArgumentType(int i) {
+        return Result.Type.ANY;
     }
 
     @Override
