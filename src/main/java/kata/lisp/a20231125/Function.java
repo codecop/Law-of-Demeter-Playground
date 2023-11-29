@@ -9,4 +9,6 @@ public interface Function {
     boolean matchesArgumentType(int i, ResultType type);
 
     Result execute(Ast[] arguments, Functions context);
+
+    void accept(EvalVisitor evalVisitor, Ast[] arguments);
 }

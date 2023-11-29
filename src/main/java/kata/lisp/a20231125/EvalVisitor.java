@@ -47,11 +47,30 @@ public class EvalVisitor {
     }
 
     private Result evalAsFunction(SymbolAst symbol, Ast[] arguments, Functions context) {
-        return symbol.evalAsFunction(arguments, context);
+        // return symbol.evalAsFunction(arguments, context);
+        return applyFunction(symbol.value, arguments);
+    }
+
+    private Result applyFunction(String value, Ast[] arguments) {
+        Function function = context.getFunctionNamed(value);
+        if (function == null) {
+            return new Result("Unknown symbol " + value, ResultType.ERROR);
+        }
+        return applyFunction(function, arguments);
+    }
+
+    private Result applyFunction(Function function, Ast[] arguments) {
+        // return function.execute(arguments, context);
+        function.accept(this, arguments);
+        return lastResult;
     }
 
     public Result result() {
         return lastResult;
+    }
+
+    public void setResult(Result r) {
+        lastResult = r;
     }
 
 }

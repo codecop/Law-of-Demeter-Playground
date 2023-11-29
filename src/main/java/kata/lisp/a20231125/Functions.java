@@ -14,7 +14,7 @@ public class Functions {
         }
     }
 
-    private Function getFunctionNamed(String name) {
+    Function getFunctionNamed(String name) {
         for (int i = 0; i < functions.length; i++) {
             if (functions[i] != null && functions[i].isNamed(name)) {
                 return functions[i];

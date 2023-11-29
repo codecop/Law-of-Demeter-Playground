@@ -1,5 +1,7 @@
 package kata.lisp.a20231125;
 
+import java.util.Arrays;
+
 public class BasicFunctions {
 
     public static void add(Functions functions) {
@@ -33,6 +35,23 @@ abstract class StrictFunction extends AbstractFunction {
 
     public StrictFunction(String name) {
         super(name);
+    }
+
+    @Override
+    public void accept(EvalVisitor evalVisitor, Ast[] x) {
+        Function function = this;
+        Results arguments = evalArguments(x, evalVisitor);
+        Result r = execute(function, arguments);
+        evalVisitor.setResult(r);
+    }
+    
+    private Results evalArguments(Ast[] arguments, EvalVisitor evalVisitor) {
+        Result[] tempResults = new Result[arguments.length];
+        for (int i = 0; i < arguments.length; i++) {
+            arguments[i].accept(evalVisitor);
+            tempResults[i] = evalVisitor.result();
+        }
+        return new Results(tempResults);
     }
 
     @Override
