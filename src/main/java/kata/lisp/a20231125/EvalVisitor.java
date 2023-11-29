@@ -5,6 +5,9 @@ import java.util.Arrays;
 import kata.lisp.a20231125.ast.Ast;
 import kata.lisp.a20231125.ast.AstVisitor;
 import kata.lisp.a20231125.ast.SymbolAst;
+import kata.lisp.a20231125.eval.Function;
+import kata.lisp.a20231125.eval.Functions;
+import kata.lisp.a20231125.eval.LazyResult;
 import kata.lisp.a20231125.eval.Result;
 import kata.lisp.a20231125.eval.ResultType;
 
@@ -70,7 +73,15 @@ public class EvalVisitor implements AstVisitor {
     }
 
     private Result applyFunction(Function function, Ast[] arguments) {
-        lastResult = function.apply(arguments, this);
+        LazyResult[] f = new LazyResult[arguments.length];
+        for (int i = 0; i < arguments.length; i++) {
+            final int k = i;
+            f[k] = () -> {
+                arguments[k].accept(this);
+                return lastResult;
+            };
+        }
+        lastResult = function.apply(f);
         return lastResult;
     }
 

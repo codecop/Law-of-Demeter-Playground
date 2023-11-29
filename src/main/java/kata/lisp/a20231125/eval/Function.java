@@ -1,7 +1,4 @@
-package kata.lisp.a20231125;
-
-import kata.lisp.a20231125.ast.Ast;
-import kata.lisp.a20231125.eval.Result;
+package kata.lisp.a20231125.eval;
 
 public abstract class Function {
 
@@ -15,7 +12,7 @@ public abstract class Function {
         return this.name.equals(targetName);
     }
 
-    public abstract Result apply(Ast[] arguments, EvalVisitor evalVisitor);
+    public abstract Result apply(LazyResult[] arguments);
 
     @Override
     public String toString() {

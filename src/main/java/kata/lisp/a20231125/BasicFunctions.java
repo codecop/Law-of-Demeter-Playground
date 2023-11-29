@@ -1,8 +1,11 @@
 package kata.lisp.a20231125;
 
-import kata.lisp.a20231125.ast.Ast;
+import java.util.function.Supplier;
+
+import kata.lisp.a20231125.eval.Functions;
 import kata.lisp.a20231125.eval.Result;
 import kata.lisp.a20231125.eval.ResultType;
+import kata.lisp.a20231125.eval.StrictFunction;
 
 public class BasicFunctions {
 
@@ -11,56 +14,6 @@ public class BasicFunctions {
         functions.addFunctionNamed(new IntegerSquareRoot());
         functions.addFunctionNamed(new StringAppend());
     }
-
-}
-
-abstract class StrictFunction extends Function {
-
-    public StrictFunction(String name) {
-        super(name);
-    }
-
-    @Override
-    public Result apply(Ast[] x, EvalVisitor evalVisitor) {
-        StrictFunction function = this;
-        Results arguments = evalArguments(x, evalVisitor);
-        return execute(function, arguments);
-    }
-
-    private Results evalArguments(Ast[] arguments, EvalVisitor evalVisitor) {
-        Result[] tempResults = new Result[arguments.length];
-        for (int i = 0; i < arguments.length; i++) {
-            arguments[i].accept(evalVisitor);
-            tempResults[i] = evalVisitor.result();
-        }
-        return new Results(tempResults);
-    }
-
-    public abstract boolean matchesArgumentNumber(int parameterCount);
-
-    public abstract boolean matchesArgumentType(int i, ResultType parameterType);
-    
-    private Result execute(StrictFunction function, Results arguments) {
-        Result error = arguments.firstErrorInArguments();
-        if (error != null) {
-            return error;
-        }
-
-        error = arguments.numberMismatchWith(function);
-        if (error != null) {
-            return error;
-        }
-
-        error = arguments.typeMismatchWith(function);
-        if (error != null) {
-            return error;
-        }
-
-        Object[] values = arguments.toValues();
-        return execute(values);
-    }
-
-    abstract Result execute(Object[] arguments);
 
 }
 

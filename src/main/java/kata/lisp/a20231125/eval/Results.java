@@ -1,7 +1,4 @@
-package kata.lisp.a20231125;
-
-import kata.lisp.a20231125.eval.Result;
-import kata.lisp.a20231125.eval.ResultType;
+package kata.lisp.a20231125.eval;
 
 public class Results {
 
