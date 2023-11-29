@@ -9,7 +9,12 @@ public class Eval {
 
     public Result eval(Ast ast) {
         Functions functions = prepareContextFunctions();
-        EvalVisitor visitor = new EvalVisitor(functions);
+        Variables variables = new Variables();
+        return evalUsing(ast, functions, variables);
+    }
+
+    /* for tests*/ Result evalUsing(Ast ast, Functions functions, Variables variables) {
+        EvalVisitor visitor = new EvalVisitor(functions, variables);
         return visitor.eval(ast);
     }
 

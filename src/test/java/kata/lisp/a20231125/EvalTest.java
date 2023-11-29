@@ -2,6 +2,7 @@ package kata.lisp.a20231125;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
@@ -44,10 +45,31 @@ class EvalTest {
     }
 
     @Test
+    void missingVariable() {
+        Result result = eval.eval(astOf("a"));
+
+        assertEquals("Unknown symbol a", result.value());
+        assertEquals(ResultType.ERROR, result.type());
+    }
+
+    @Test
+    void useVariable() {
+        Ast ast = astOf("a");
+        Variables variables = new Variables();
+        variables.add("a", new Result(1, ResultType.NUMBER));
+
+        Result result = eval.evalUsing(ast, null, variables);
+
+        assertEquals(1, result.value());
+        assertEquals(ResultType.NUMBER, result.type());
+    }
+
+    @Test
+    @Disabled("need variable first")
     void letFunction() {
         Result result = eval.eval(astOf("(", "let", "(", "(", "a", "1", ")", ")", "a", ")"));
         assertEquals(1, result.value());
-        assertEquals(ResultType.STRING, result.type());
+        assertEquals(ResultType.NUMBER, result.type());
     }
 
     @Nested

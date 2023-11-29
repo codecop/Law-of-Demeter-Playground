@@ -16,11 +16,13 @@ import kata.lisp.a20231125.eval.ResultType;
 public class EvalVisitor implements AstVisitor {
 
     private final Functions functions;
+    private final Variables variables;
 
     private Result result;
 
-    public EvalVisitor(Functions functions) {
+    public EvalVisitor(Functions functions, Variables variables) {
         this.functions = functions;
+        this.variables = variables;
     }
 
     public Result eval(Ast ast) {
@@ -45,8 +47,11 @@ public class EvalVisitor implements AstVisitor {
 
     @Override
     public void visitSymbol(String value) {
-        // TODO evaluate symbol for variable if in other cases
-        result = new Result(value, ResultType.SYMBOL);
+        Result symbol = new Result(value, ResultType.SYMBOL);
+        if (symbol.type() != ResultType.SYMBOL) {
+            throw new IllegalArgumentException("Not a symbol " + symbol);
+        }
+        result = variables.get((String) symbol.value());
     }
 
     @Override
@@ -101,8 +106,8 @@ public class EvalVisitor implements AstVisitor {
         return new LazyResult() {
 
             @Override
-            public Result eval() {
-                return EvalVisitor.this.eval(ast);
+            public Result get() {
+                return eval(ast);
             }
 
             @Override
