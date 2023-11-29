@@ -15,7 +15,7 @@ public abstract class SingleValueAst<T> implements Ast {
     }
 
     @Override
-    public Result eval(Context context) {
+    public Result eval(Functions context) {
         return new Result(value, getValueType());
     }
 

@@ -3,12 +3,12 @@ package kata.lisp.a20231125;
 public class Eval {
 
     public Result eval(Ast ast) {
-        Context context = prepareContext();
+        Functions context = prepareContext();
         return ast.eval(context);
     }
 
-    private Context prepareContext() {
-        Context context = new Context();
+    private Functions prepareContext() {
+        Functions context = new Functions();
         context.addFunctionNamed(new Add());
         return context;
     }

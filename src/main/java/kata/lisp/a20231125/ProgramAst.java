@@ -12,7 +12,7 @@ public class ProgramAst extends MultipleValueAst {
     }
 
     @Override
-    public Result eval(Context context) {
+    public Result eval(Functions context) {
         Result lastResult = new Result("Empty Program", ResultType.ERROR);
         for (Ast ast : getChildren()) {
             lastResult = ast.eval(context);

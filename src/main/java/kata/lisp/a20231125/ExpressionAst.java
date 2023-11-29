@@ -17,7 +17,7 @@ public class ExpressionAst extends MultipleValueAst {
     }
 
     @Override
-    public Result eval(Context context) {
+    public Result eval(Functions context) {
         Ast[] arguments = getChildren();
         return symbol.evalAsFunction(arguments, context);
     }

@@ -1,6 +1,6 @@
 package kata.lisp.a20231125;
 
-public class Context {
+public class Functions {
 
     // private final Map<String, Function> functions = new HashMap<>();
     private final Function[] functions = new Function[100];

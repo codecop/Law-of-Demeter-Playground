@@ -17,13 +17,13 @@ public class SymbolAst extends SingleValueAst<String> {
         throw new IllegalStateException("Cannot eval symbol " + symbol + " on its own");
     }
 
-    public Result evalAsFunction(Ast[] arguments, Context context) {
+    public Result evalAsFunction(Ast[] arguments, Functions context) {
         // TODO 1st order collection of Ast Arguments
         Results tempResults = evalArguments(arguments, context);
         return context.applyFunction(symbol, tempResults);
     }
 
-    private Results evalArguments(Ast[] arguments, Context context) {
+    private Results evalArguments(Ast[] arguments, Functions context) {
         Result[] tempResults = new Result[arguments.length];
         for (int i = 0; i < arguments.length; i++) {
             tempResults[i] = arguments[i].eval(context);
