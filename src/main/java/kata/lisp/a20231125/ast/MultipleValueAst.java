@@ -16,7 +16,7 @@ public abstract class MultipleValueAst implements Ast {
     }
 
     // a getter
-    protected Ast[] getChildren() {
+    public Ast[] getChildren() {
         return expressions.toArray(new Ast[expressions.size()]);
     }
 

@@ -4,6 +4,8 @@ import java.util.Arrays;
 
 import kata.lisp.a20231125.ast.Ast;
 import kata.lisp.a20231125.ast.AstVisitor;
+import kata.lisp.a20231125.ast.MultipleValueAst;
+import kata.lisp.a20231125.ast.SingleValueAst;
 import kata.lisp.a20231125.ast.SymbolAst;
 import kata.lisp.a20231125.eval.Function;
 import kata.lisp.a20231125.eval.Functions;
@@ -39,6 +41,12 @@ public class EvalVisitor implements AstVisitor {
     @Override
     public void visitString(String value) {
         result = new Result(value, ResultType.STRING);
+    }
+
+    @Override
+    public void visitSymbol(String value) {
+        // TODO evaluate symbol for variable if in other cases
+        result = new Result(value, ResultType.SYMBOL);
     }
 
     @Override
@@ -90,7 +98,24 @@ public class EvalVisitor implements AstVisitor {
     }
 
     private LazyResult lazyEval(Ast ast) {
-        return () -> eval(ast);
+        return new LazyResult() {
+
+            @Override
+            public Result eval() {
+                return EvalVisitor.this.eval(ast);
+            }
+
+            @Override
+            public LazyResult[] asList() {
+                if (ast instanceof MultipleValueAst) {
+                    return toLazyResults(((MultipleValueAst) ast).getChildren());
+                } else if (ast instanceof SingleValueAst) {
+                    return toLazyResults(new Ast[] { ast });
+                } else {
+                    throw new IllegalStateException("Unsupported type of ast " + ast);
+                }
+            }
+        };
     }
 
     @Override
