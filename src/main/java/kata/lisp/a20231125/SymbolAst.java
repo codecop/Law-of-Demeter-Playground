@@ -18,7 +18,6 @@ public class SymbolAst extends SingleValueAst<String> {
     }
 
     public Result evalAsFunction(Ast[] arguments, Functions context) {
-        // TODO 1st order collection of Ast Arguments
         Results tempResults = evalArguments(arguments, context);
         return context.applyFunction(symbol, tempResults);
     }
