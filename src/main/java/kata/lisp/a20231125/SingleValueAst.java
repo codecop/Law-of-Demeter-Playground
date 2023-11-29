@@ -2,13 +2,21 @@ package kata.lisp.a20231125;
 
 import java.util.Objects;
 
+/**
+ * A node in the syntax tree with a single value.
+ */
 public abstract class SingleValueAst<T> implements Ast {
 
-    protected final T value;
+    private final T value;
 
     public SingleValueAst(T value) {
         Objects.requireNonNull(value);
         this.value = value;
+    }
+
+    @Override
+    public Result eval(Context context) {
+        return new Result(value, value.getClass());
     }
 
     @Override
@@ -31,9 +39,4 @@ public abstract class SingleValueAst<T> implements Ast {
         return "Ast(" + value + ")";
     }
 
-    @Override
-    public Result eval(Context context) {
-        return new Result(value, value.getClass());
-    }
-    
 }

@@ -3,6 +3,9 @@ package kata.lisp.a20231125;
 import java.util.List;
 import java.util.Objects;
 
+/**
+ * A node of an expression, starting with a symbol and a list of arguments.
+ */
 public class ExpressionAst extends MultipleValueAst {
 
     private final SymbolAst symbol;
@@ -11,6 +14,12 @@ public class ExpressionAst extends MultipleValueAst {
         super(arguments);
         Objects.requireNonNull(symbol);
         this.symbol = symbol;
+    }
+
+    @Override
+    public Result eval(Context context) {
+        Ast[] arguments = getChildren();
+        return symbol.evalAsFunction(arguments, context);
     }
 
     @Override
@@ -30,12 +39,6 @@ public class ExpressionAst extends MultipleValueAst {
     @Override
     public String toString() {
         return "ExpressionAst(" + symbol + ": " + super.toString() + ")";
-    }
-
-    @Override
-    public Result eval(Context context) {
-        Ast[] arguments = asArray();
-        return symbol.evalFunction(arguments, context);
     }
 
 }

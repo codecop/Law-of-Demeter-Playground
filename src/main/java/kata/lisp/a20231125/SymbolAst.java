@@ -1,19 +1,25 @@
 package kata.lisp.a20231125;
 
+/**
+ * A node in the syntax tree containing a symbol (name).
+ */
 public class SymbolAst extends SingleValueAst<String> {
+
+    private final String symbol;
 
     public SymbolAst(String value) {
         super(value);
+        this.symbol = value;
     }
 
     @Override
     public Result eval(Context context) {
-        throw new IllegalStateException("Cannot eval symbol on its own");
+        throw new IllegalStateException("Cannot eval symbol " + symbol + " on its own");
     }
 
-    public Result evalFunction(Ast[] arguments, Context context) {
+    public Result evalAsFunction(Ast[] arguments, Context context) {
         Result[] tempResults = evalArguments(arguments, context);
-        return context.applyFunction(value, tempResults);
+        return context.applyFunction(symbol, tempResults);
     }
 
     private Result[] evalArguments(Ast[] arguments, Context context) {

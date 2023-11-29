@@ -26,11 +26,6 @@ class StringAst extends SingleValueAst<String> {
         super(value);
     }
 
-    @Override
-    public String toString() {
-        return "Ast(\"" + value + "\")";
-    }
-
 }
 
 // TODO features in AST
