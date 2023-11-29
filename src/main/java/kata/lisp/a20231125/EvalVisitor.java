@@ -13,80 +13,92 @@ import kata.lisp.a20231125.eval.ResultType;
 
 public class EvalVisitor implements AstVisitor {
 
-    private final Functions context;
-    private Result lastResult;
+    private final Functions functions;
 
-    public EvalVisitor(Functions context) {
-        this.context = context;
+    private Result result;
+
+    public EvalVisitor(Functions functions) {
+        this.functions = functions;
+    }
+
+    public Result eval(Ast ast) {
+        ast.accept(this);
+        return result;
     }
 
     @Override
     public void visitBoolean(Boolean value) {
-        lastResult = new Result(value, ResultType.BOOLEAN);
+        result = new Result(value, ResultType.BOOLEAN);
     }
 
     @Override
     public void visitNumber(Integer value) {
-        lastResult = new Result(value, ResultType.NUMBER);
+        result = new Result(value, ResultType.NUMBER);
     }
 
     @Override
     public void visitString(String value) {
-        lastResult = new Result(value, ResultType.STRING);
-    }
-
-    @Override
-    public void visitProgram(Ast[] children) {
-        Result programResult = new Result("Empty Program", ResultType.ERROR);
-        for (Ast ast : children) {
-            ast.accept(this);
-            programResult = lastResult;
-        }
-        lastResult = programResult;
+        result = new Result(value, ResultType.STRING);
     }
 
     @Override
     public void visitExpression(Ast[] expressions) {
         if (expressions[0] instanceof SymbolAst) {
-            lastResult = evalAsFunction(expressions, context);
+            visitSymbolExpression(expressions);
             return;
         }
-        throw new IllegalStateException();
+        throw new IllegalArgumentException("Can only evaluate function expressions");
     }
 
-    private Result evalAsFunction(Ast[] expressions, Functions context) {
+    private void visitSymbolExpression(Ast[] expressions) {
         SymbolAst symbol = (SymbolAst) expressions[0];
         Ast[] arguments = Arrays.copyOfRange(expressions, 1, expressions.length);
-        return evalAsFunction(symbol, arguments, context);
+        visitSymbolExpression(symbol, arguments);
     }
 
-    private Result evalAsFunction(SymbolAst symbol, Ast[] arguments, Functions context) {
-        return applyFunction(symbol.getSymbol(), arguments);
+    private void visitSymbolExpression(SymbolAst symbol, Ast[] arguments) {
+        applyFunction(symbol.getSymbol(), arguments);
     }
 
-    private Result applyFunction(String value, Ast[] arguments) {
-        Function function = context.getFunctionNamed(value);
+    private void applyFunction(String functionName, Ast[] arguments) {
+        Function function = functions.getFunctionNamed(functionName);
         if (function == null) {
-            return new Result("Unknown symbol " + value, ResultType.ERROR);
+            result = new Result("Unknown symbol " + functionName, ResultType.ERROR);
+            return;
         }
-        return applyFunction(function, arguments);
+
+        applyFunction(function, arguments);
     }
 
-    private Result applyFunction(Function function, Ast[] arguments) {
-        LazyResult[] f = new LazyResult[arguments.length];
+    private void applyFunction(Function function, Ast[] arguments) {
+        if (!function.matchesArgumentNumber(arguments.length)) {
+            String message = "Too many arguments to " + function.toString() + ", got " + arguments.length;
+            result = new Result(message, ResultType.ERROR);
+            return;
+        }
+
+        LazyResult[] results = toLazyResults(arguments);
+        result = function.apply(results);
+    }
+
+    private LazyResult[] toLazyResults(Ast[] arguments) {
+        LazyResult[] results = new LazyResult[arguments.length];
         for (int i = 0; i < arguments.length; i++) {
-            final int k = i;
-            f[k] = () -> {
-                arguments[k].accept(this);
-                return lastResult;
-            };
+            results[i] = lazyEval(arguments[i]);
         }
-        lastResult = function.apply(f);
-        return lastResult;
+        return results;
     }
 
-    public Result result() {
-        return lastResult;
+    private LazyResult lazyEval(Ast ast) {
+        return () -> eval(ast);
+    }
+
+    @Override
+    public void visitProgram(Ast[] program) {
+        result = new Result("Empty Program", ResultType.ERROR);
+        for (Ast statement : program) {
+            statement.accept(this);
+        }
     }
 
 }

@@ -12,6 +12,8 @@ public abstract class Function {
         return this.name.equals(targetName);
     }
 
+    public abstract boolean matchesArgumentNumber(int parameterCount);
+    
     public abstract Result apply(LazyResult[] arguments);
 
     @Override

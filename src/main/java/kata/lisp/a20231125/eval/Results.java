@@ -17,14 +17,6 @@ public class Results {
         return null;
     }
 
-    public Result numberMismatchWith(StrictFunction function) {
-        if (!function.matchesArgumentNumber(size())) {
-            String message = "Too many arguments to " + function.toString() + ", got " + size();
-            return new Result(message, ResultType.ERROR);
-        }
-        return null;
-    }
-
     public Result typeMismatchWith(StrictFunction function) {
         for (int i = 0; i < size(); i++) {
             if (!function.matchesArgumentType(i, arguments[i].type())) {

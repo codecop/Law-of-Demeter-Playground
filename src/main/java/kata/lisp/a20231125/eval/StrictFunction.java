@@ -9,13 +9,11 @@ public abstract class StrictFunction extends Function {
     @Override
     public Result apply(LazyResult[] lazyArguments) {
         Results arguments = evalArgumentsFirst(lazyArguments);
+        return apply(arguments);
+    }
 
+    private Result apply(Results arguments) {
         Result error = arguments.firstErrorInArguments();
-        if (error != null) {
-            return error;
-        }
-
-        error = arguments.numberMismatchWith(this);
         if (error != null) {
             return error;
         }
@@ -26,7 +24,7 @@ public abstract class StrictFunction extends Function {
         }
 
         Object[] values = arguments.toValues();
-        return execute(values);
+        return apply(values);
     }
 
     private Results evalArgumentsFirst(LazyResult[] lazyArguments) {
@@ -37,10 +35,8 @@ public abstract class StrictFunction extends Function {
         return new Results(arguments);
     }
 
-    public abstract boolean matchesArgumentNumber(int parameterCount);
-
     public abstract boolean matchesArgumentType(int i, ResultType parameterType);
 
-    protected abstract Result execute(Object[] arguments);
+    protected abstract Result apply(Object[] arguments);
 
 }

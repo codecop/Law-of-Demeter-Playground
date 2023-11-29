@@ -1,15 +1,8 @@
-package kata.lisp.a20231125;
-
-import java.util.function.Supplier;
-
-import kata.lisp.a20231125.eval.Functions;
-import kata.lisp.a20231125.eval.Result;
-import kata.lisp.a20231125.eval.ResultType;
-import kata.lisp.a20231125.eval.StrictFunction;
+package kata.lisp.a20231125.eval;
 
 public class BasicFunctions {
 
-    public static void add(Functions functions) {
+    public static void addTo(Functions functions) {
         functions.addFunctionNamed(new IntegerAddition());
         functions.addFunctionNamed(new IntegerSquareRoot());
         functions.addFunctionNamed(new StringAppend());
@@ -34,7 +27,7 @@ class IntegerAddition extends StrictFunction {
     }
 
     @Override
-    public Result execute(Object[] arguments) {
+    public Result apply(Object[] arguments) {
         int sum = 0;
         for (int i = 0; i < arguments.length; i++) {
             sum += (Integer) arguments[i];
@@ -61,7 +54,7 @@ class IntegerSquareRoot extends StrictFunction {
     }
 
     @Override
-    public Result execute(Object[] arguments) {
+    public Result apply(Object[] arguments) {
         Integer value = (Integer) arguments[0];
         return new Result(Math.sqrt(value), ResultType.FLOAT);
     }
@@ -85,7 +78,7 @@ class StringAppend extends StrictFunction {
     }
 
     @Override
-    public Result execute(Object[] arguments) {
+    public Result apply(Object[] arguments) {
         StringBuilder buf = new StringBuilder();
         for (int i = 0; i < arguments.length; i++) {
             buf.append((String) arguments[i]);

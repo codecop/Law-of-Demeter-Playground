@@ -1,22 +1,22 @@
 package kata.lisp.a20231125;
 
 import kata.lisp.a20231125.ast.Ast;
+import kata.lisp.a20231125.eval.BasicFunctions;
 import kata.lisp.a20231125.eval.Functions;
 import kata.lisp.a20231125.eval.Result;
 
 public class Eval {
 
     public Result eval(Ast ast) {
-        Functions context = prepareContext();
-        EvalVisitor visitor = new EvalVisitor(context);
-        ast.accept(visitor);
-        return visitor.result();
+        Functions functions = prepareContextFunctions();
+        EvalVisitor visitor = new EvalVisitor(functions);
+        return visitor.eval(ast);
     }
 
-    private Functions prepareContext() {
-        Functions context = new Functions();
-        BasicFunctions.add(context);
-        return context;
+    private Functions prepareContextFunctions() {
+        Functions functions = new Functions();
+        BasicFunctions.addTo(functions);
+        return functions;
     }
 
 }
