@@ -18,16 +18,17 @@ public class SymbolAst extends SingleValueAst<String> {
     }
 
     public Result evalAsFunction(Ast[] arguments, Context context) {
-        Result[] tempResults = evalArguments(arguments, context);
+        // TODO 1st order collection of Ast Arguments
+        Results tempResults = evalArguments(arguments, context);
         return context.applyFunction(symbol, tempResults);
     }
 
-    private Result[] evalArguments(Ast[] arguments, Context context) {
+    private Results evalArguments(Ast[] arguments, Context context) {
         Result[] tempResults = new Result[arguments.length];
         for (int i = 0; i < arguments.length; i++) {
             tempResults[i] = arguments[i].eval(context);
         }
-        return tempResults;
+        return new Results(tempResults);
     }
 
 }

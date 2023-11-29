@@ -6,6 +6,6 @@ public interface Function {
 
     ResultType getArgumentType(int i);
 
-    Result execute(Result[] arguments);
+    Result execute(Results arguments);
 
 }

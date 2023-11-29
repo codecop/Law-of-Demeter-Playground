@@ -23,23 +23,16 @@ public class Context {
         return new RaiseError("Unknown symbol " + name);
     }
 
-    public Result applyFunction(String value, Result[] arguments) {
+    public Result applyFunction(String value, Results arguments) {
         Function function = getFunctionNamed(value);
 
-        for (int i = 0; i < arguments.length; i++) {
-            if (arguments[i].type() == ResultType.ERROR) {
-                return arguments[i];
-            }
+        Result error = arguments.error();
+        if (error != null) {
+            return error;
         }
-
-        for (int i = 0; i < arguments.length; i++) {
-            if (function.getArgumentType(i) != ResultType.ANY && //
-                    arguments[i].type() != function.getArgumentType(i)) {
-                String message = "Type mismatch of " + (i + 1) + ". argument: " + //
-                        "expected " + function.getArgumentType(i) + //
-                        ", got " + arguments[i];
-                return new Result(message, ResultType.ERROR);
-            }
+        error = arguments.typeMismatchWith(function);
+        if (error != null) {
+            return error;
         }
 
         return function.execute(arguments); // NOPMD 

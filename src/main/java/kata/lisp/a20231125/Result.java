@@ -26,10 +26,6 @@ public class Result {
         return type;
     }
 
-    public boolean isType(ResultType targetType) {
-        return type.equals(targetType);
-    }
-
     @Override
     public String toString() {
         return value + " (" + type + ")";
@@ -37,6 +33,9 @@ public class Result {
 
 }
 
+/**
+ * An enumeration of result types.
+ */
 class ResultType {
 
     static final ResultType ANY = new ResultType("A", Objects.class);
@@ -46,11 +45,11 @@ class ResultType {
 
     static final ResultType SYMBOL = new ResultType("F", String.class);
     static final ResultType ERROR = new ResultType("E", String.class);
-    
+
     private final String name;
     private final Class<?> type;
 
-    public ResultType(String name, Class<?> value) {
+    private ResultType(String name, Class<?> value) {
         Objects.requireNonNull(name);
         Objects.requireNonNull(value);
         this.name = name;
