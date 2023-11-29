@@ -8,6 +8,8 @@ public interface AstVisitor {
 
     void visitString(String value);
 
+    void visitSymbol(String value);
+
     void visitExpression(Ast[] expressions);
 
     void visitProgram(Ast[] program);

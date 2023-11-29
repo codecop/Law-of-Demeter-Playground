@@ -12,7 +12,7 @@ public class ResultType {
     public static final ResultType STRING = new ResultType("S", String.class);
     public static final ResultType FLOAT = new ResultType("F", Double.class);
 
-    // public static final ResultType SYMBOL = new ResultType("F", String.class);
+    public static final ResultType SYMBOL = new ResultType("F", String.class);
     public static final ResultType ERROR = new ResultType("E", String.class);
 
     private final String name;
