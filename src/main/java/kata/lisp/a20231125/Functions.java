@@ -13,7 +13,7 @@ class Add implements Function {
 
     @Override
     public ResultType getArgumentType(int i) {
-        return Result.Type.NUMBER;
+        return ResultType.NUMBER;
     }
 
     @Override
@@ -22,7 +22,7 @@ class Add implements Function {
         for (Result argument : arguments) {
             sum += (Integer) argument.value();
         }
-        return new Result(sum, Result.Type.NUMBER);
+        return new Result(sum, ResultType.NUMBER);
     }
 
 }
@@ -42,12 +42,12 @@ class RaiseError implements Function {
 
     @Override
     public ResultType getArgumentType(int i) {
-        return Result.Type.ANY;
+        return ResultType.ANY;
     }
 
     @Override
     public Result execute(Result[] arguments) {
-        return new Result(message, Result.Type.ERROR);
+        return new Result(message, ResultType.ERROR);
     }
 
 }

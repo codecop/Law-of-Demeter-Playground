@@ -12,7 +12,7 @@ class BooleanAst extends SingleValueAst<Boolean> {
 
     @Override
     protected ResultType getValueType() {
-        return Result.Type.BOOLEAN;
+        return ResultType.BOOLEAN;
     }
 
 }
@@ -25,7 +25,7 @@ class NumberAst extends SingleValueAst<Integer> {
 
     @Override
     protected ResultType getValueType() {
-        return Result.Type.NUMBER;
+        return ResultType.NUMBER;
     }
 
 }
@@ -38,7 +38,7 @@ class StringAst extends SingleValueAst<String> {
 
     @Override
     protected ResultType getValueType() {
-        return Result.Type.STRING;
+        return ResultType.STRING;
     }
 
 }

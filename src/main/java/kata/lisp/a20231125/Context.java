@@ -27,18 +27,18 @@ public class Context {
         Function function = getFunctionNamed(value);
 
         for (int i = 0; i < arguments.length; i++) {
-            if (arguments[i].type() == Result.Type.ERROR) {
+            if (arguments[i].type() == ResultType.ERROR) {
                 return arguments[i];
             }
         }
 
         for (int i = 0; i < arguments.length; i++) {
-            if (function.getArgumentType(i) != Result.Type.ANY && //
+            if (function.getArgumentType(i) != ResultType.ANY && //
                     arguments[i].type() != function.getArgumentType(i)) {
                 String message = "Type mismatch of " + (i + 1) + ". argument: " + //
                         "expected " + function.getArgumentType(i) + //
                         ", got " + arguments[i];
-                return new Result(message, Result.Type.ERROR);
+                return new Result(message, ResultType.ERROR);
             }
         }
 

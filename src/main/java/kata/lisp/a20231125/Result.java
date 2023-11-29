@@ -7,16 +7,6 @@ import java.util.Objects;
  */
 public class Result {
 
-    static class Type {
-        static final ResultType ANY = new ResultType("A", Objects.class);
-        static final ResultType NUMBER = new ResultType("N", Integer.class);
-        static final ResultType BOOLEAN = new ResultType("B", Boolean.class);
-        static final ResultType STRING = new ResultType("s", String.class);
-
-        static final ResultType SYMBOL = new ResultType("F", String.class);
-        static final ResultType ERROR = new ResultType("E", String.class);
-    }
-
     private final Object value;
     private final ResultType type;
 
@@ -49,6 +39,14 @@ public class Result {
 
 class ResultType {
 
+    static final ResultType ANY = new ResultType("A", Objects.class);
+    static final ResultType NUMBER = new ResultType("N", Integer.class);
+    static final ResultType BOOLEAN = new ResultType("B", Boolean.class);
+    static final ResultType STRING = new ResultType("s", String.class);
+
+    static final ResultType SYMBOL = new ResultType("F", String.class);
+    static final ResultType ERROR = new ResultType("E", String.class);
+    
     private final String name;
     private final Class<?> type;
 
