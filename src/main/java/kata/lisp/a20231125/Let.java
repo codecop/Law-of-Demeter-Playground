@@ -17,17 +17,24 @@ class Let extends Function {
 
     @Override
     public Result apply(LazyResult[] arguments) {
-        LazyResult variables = arguments[0]; // this is a list of pairs
-        LazyResult[] declarations = variables.asList();
-        for (LazyResult r : declarations) {
+        setVariables(arguments[0]);
+        Result result = evalEpression(arguments[1]);
+        // pop context
+        return result;
+    }
+
+    private void setVariables(LazyResult variables) {
+        LazyResult[] listOfPairs = variables.asList();
+        for (LazyResult r : listOfPairs) {
             LazyResult[] pair = r.asList();
-            Result symbol = pair[0].eval();
-            Result value = pair[1].eval();
+            Result symbol = pair[0].get();
+            Result value = pair[1].get();
             // TODO set context
         }
+    }
 
-        LazyResult expression = arguments[1];
-        return expression.eval();
+    private Result evalEpression(LazyResult expression) {
+        return expression.get();
     }
 
 }

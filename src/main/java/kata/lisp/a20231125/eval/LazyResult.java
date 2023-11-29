@@ -2,7 +2,7 @@ package kata.lisp.a20231125.eval;
 
 public interface LazyResult {
 
-    Result eval();
+    Result get();
 
     LazyResult[] asList();
 }

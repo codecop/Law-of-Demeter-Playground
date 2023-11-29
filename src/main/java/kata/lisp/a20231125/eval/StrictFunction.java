@@ -30,7 +30,7 @@ public abstract class StrictFunction extends Function {
     private Results evalArgumentsFirst(LazyResult[] lazyArguments) {
         Result[] arguments = new Result[lazyArguments.length];
         for (int i = 0; i < lazyArguments.length; i++) {
-            arguments[i] = lazyArguments[i].eval();
+            arguments[i] = lazyArguments[i].get();
         }
         return new Results(arguments);
     }
