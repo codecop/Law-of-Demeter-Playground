@@ -39,7 +39,10 @@ abstract class StrictFunction extends AbstractFunction {
     public Result execute(Ast[] x, Functions context) {
         Function function = this;
         Results arguments = evalArguments(x, context);
-        
+        return execute(function, arguments);
+    }
+
+    private Result execute(Function function, Results arguments) {
         Result error = arguments.firstErrorInArguments();
         if (error != null) {
             return error;

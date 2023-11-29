@@ -28,6 +28,10 @@ public class Functions {
         if (function == null) {
             return new Result("Unknown symbol " + value, ResultType.ERROR);
         }
+        return applyFunction(function, arguments);
+    }
+
+    private Result applyFunction(Function function, Ast[] arguments) {
         return function.execute(arguments, this);
     }
 
