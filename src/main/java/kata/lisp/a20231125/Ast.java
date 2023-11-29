@@ -5,9 +5,6 @@ package kata.lisp.a20231125;
  */
 public interface Ast {
 
-    Result eval(Functions context);
-    
-    void accept(EvalVisitor visitor);
-    
-}
+    void accept(AstVisitor visitor);
 
+}

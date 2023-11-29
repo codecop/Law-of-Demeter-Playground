@@ -12,15 +12,10 @@ public final class ProgramAst extends MultipleValueAst {
     }
 
     @Override
-    public Result eval(Functions context) {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public void accept(EvalVisitor visitor) {
+    public void accept(AstVisitor visitor) {
         visitor.visitProgram(getChildren());
     }
-    
+
     @Override
     public String toString() {
         return "Program" + super.toString();

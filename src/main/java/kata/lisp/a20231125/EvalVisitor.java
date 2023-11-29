@@ -2,7 +2,7 @@ package kata.lisp.a20231125;
 
 import java.util.Arrays;
 
-public class EvalVisitor {
+public class EvalVisitor implements AstVisitor {
 
     private final Functions context;
     private Result lastResult;
@@ -11,18 +11,22 @@ public class EvalVisitor {
         this.context = context;
     }
 
+    @Override
     public void visitBoolean(Boolean value) {
         lastResult = new Result(value, ResultType.BOOLEAN);
     }
 
+    @Override
     public void visitNumber(Integer value) {
         lastResult = new Result(value, ResultType.NUMBER);
     }
 
+    @Override
     public void visitString(String value) {
         lastResult = new Result(value, ResultType.STRING);
     }
 
+    @Override
     public void visitProgram(Ast[] children) {
         Result programResult = new Result("Empty Program", ResultType.ERROR);
         for (Ast ast : children) {
@@ -32,6 +36,7 @@ public class EvalVisitor {
         lastResult = programResult;
     }
 
+    @Override
     public void visitExpression(Ast[] expressions) {
         if (expressions[0] instanceof SymbolAst) {
             lastResult = evalAsFunction(expressions, context);

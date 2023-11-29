@@ -1,6 +1,6 @@
 package kata.lisp.a20231125;
 
-public class ValueAsts {
+public abstract class ValueAsts {
 
 }
 
@@ -11,12 +11,7 @@ final class BooleanAst extends SingleValueAst<Boolean> {
     }
 
     @Override
-    protected ResultType getValueType() {
-        return ResultType.BOOLEAN;
-    }
-
-    @Override
-    public void accept(EvalVisitor visitor) {
+    public void accept(AstVisitor visitor) {
         visitor.visitBoolean(value);
     }
 
@@ -29,12 +24,7 @@ final class NumberAst extends SingleValueAst<Integer> {
     }
 
     @Override
-    protected ResultType getValueType() {
-        return ResultType.NUMBER;
-    }
-
-    @Override
-    public void accept(EvalVisitor visitor) {
+    public void accept(AstVisitor visitor) {
         visitor.visitNumber(value);
     }
 
@@ -47,12 +37,7 @@ final class StringAst extends SingleValueAst<String> {
     }
 
     @Override
-    protected ResultType getValueType() {
-        return ResultType.STRING;
-    }
-
-    @Override
-    public void accept(EvalVisitor visitor) {
+    public void accept(AstVisitor visitor) {
         visitor.visitString(value);
     }
 
