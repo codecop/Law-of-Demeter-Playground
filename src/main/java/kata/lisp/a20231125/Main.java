@@ -7,15 +7,18 @@ import java.nio.file.Paths;
 public class Main {
 
     public static void main(String[] args) throws IOException {
-        Object output = new Main().run(args[0]);
-        System.out.println(output);
+        System.out.println(new Main().runFile(args[0]));
     }
 
     private final Parser parser = new Parser();
     private final Eval eval = new Eval();
 
-    public Result run(String fileName) throws IOException {
+    public Result runFile(String fileName) throws IOException {
         String code = Files.readString(Paths.get(fileName));
+        return run(code);
+    }
+
+    public Result run(String code) {
         Lexer lexer = new Lexer(code);
         Tokens tokens = lexer.tokenise();
         Ast program = parser.parse(tokens);
