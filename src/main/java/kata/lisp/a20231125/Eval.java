@@ -10,6 +10,7 @@ public class Eval {
     private Functions prepareContext() {
         Functions context = new Functions();
         context.addFunctionNamed(new IntegerAddition());
+        context.addFunctionNamed(new IntegerSquareRoot());
         return context;
     }
 

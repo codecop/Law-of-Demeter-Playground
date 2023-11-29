@@ -26,3 +26,23 @@ class IntegerAddition implements Function {
     }
 
 }
+
+class IntegerSquareRoot implements Function {
+
+    @Override
+    public boolean isNamed(String name) {
+        return "sqrt".equals(name);
+    }
+
+    @Override
+    public boolean matchesArgumentType(int i, ResultType type) {
+        return ResultType.NUMBER == type;
+    }
+
+    @Override
+    public Result execute(Object[] arguments) {
+        Integer value = (Integer) arguments[0];
+        return new Result(Math.sqrt(value), ResultType.FLOAT);
+    }
+
+}
