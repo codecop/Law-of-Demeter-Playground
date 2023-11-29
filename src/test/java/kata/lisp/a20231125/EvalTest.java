@@ -37,6 +37,13 @@ class EvalTest {
         assertEquals(ResultType.STRING, result.type());
     }
 
+    @Test
+    void letFunction() {
+        Result result = eval.eval(astOf("(", "let", "(", "(", "a", "1", ")", ")", "a", ")"));
+        assertEquals(1, result.value());
+        assertEquals(ResultType.STRING, result.type());
+    }
+
     @Nested
     class ErrorHandling {
 
