@@ -1,16 +1,13 @@
 package kata.lisp.a20231125;
 
+import java.util.Objects;
+
 public class Token {
 
     private final String token;
 
     public Token(String token) {
         this.token = token;
-    }
-
-    @Override
-    public String toString() {
-        return token;
     }
 
     public boolean isNumber() {
@@ -52,4 +49,24 @@ public class Token {
     public boolean isClosingBracket() {
         return token.matches("\\)|\\]|\\]");
     }
+
+    @Override
+    public boolean equals(Object other) {
+        if (!(other instanceof Token)) {
+            return false;
+        }
+        Token that = (Token) other;
+        return Objects.equals(token, that.token);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(token);
+    }
+
+    @Override
+    public String toString() {
+        return token;
+    }
+
 }

@@ -30,13 +30,17 @@ public class Tokens {
     }
 
     public boolean hasNext() {
-        return position < tokens.length;
+        return position < size();
     }
 
     public Token next() {
         return tokens[position];
     }
 
+    public int size() {
+        return tokens.length;
+    }
+    
     public void consumeToken() {
         position++;
     }
