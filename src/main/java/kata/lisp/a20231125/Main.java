@@ -11,13 +11,13 @@ public class Main {
         System.out.println(output);
     }
 
-    private final Lexer lexer = new Lexer();
     private final Parser parser = new Parser();
     private final Eval eval = new Eval();
 
     public Result run(String fileName) throws IOException {
         String code = Files.readString(Paths.get(fileName));
-        Tokens tokens = lexer.tokenise(code);
+        Lexer lexer = new Lexer(code);
+        Tokens tokens = lexer.tokenise();
         Ast program = parser.parse(tokens);
         return eval.eval(program);
     }
