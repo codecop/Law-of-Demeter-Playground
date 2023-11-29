@@ -12,11 +12,15 @@ public class Lexer {
         for (int current = 0; current < code.length(); current++) {
             char ch = code.charAt(current);
             if (Character.isWhitespace(ch)) {
-                pieces.add(code.substring(lastStart, current));
+                if (lastStart < current) {
+                    pieces.add(code.substring(lastStart, current));
+                }
                 lastStart = current + 1;
             }
         }
-        pieces.add(code.substring(lastStart));
+        if (lastStart < code.length()) {
+            pieces.add(code.substring(lastStart, code.length()));
+        }
 
         return Tokens.tokensOf(pieces.toArray(new String[0]));
     }

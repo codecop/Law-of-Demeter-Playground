@@ -26,4 +26,14 @@ class LexerTest {
         assertEquals(new Token("2"), tokens.next());
     }
 
+    @Test
+    void twoTokensByMoreWhitespace() {
+        Tokens tokens = lexer.tokenise("\n\n1   2 \t");
+        
+        assertEquals(2, tokens.size());
+        assertEquals(new Token("1"), tokens.next());
+        tokens.consumeToken();
+        assertEquals(new Token("2"), tokens.next());
+    }
+
 }
