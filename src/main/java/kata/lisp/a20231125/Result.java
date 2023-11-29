@@ -38,10 +38,10 @@ public class Result {
  */
 class ResultType {
 
-    static final ResultType ANY = new ResultType("A", Objects.class);
     static final ResultType NUMBER = new ResultType("N", Integer.class);
     static final ResultType BOOLEAN = new ResultType("B", Boolean.class);
-    static final ResultType STRING = new ResultType("s", String.class);
+    static final ResultType STRING = new ResultType("S", String.class);
+    static final ResultType FLOAT = new ResultType("F", Double.class);
 
     static final ResultType SYMBOL = new ResultType("F", String.class);
     static final ResultType ERROR = new ResultType("E", String.class);
@@ -61,11 +61,6 @@ class ResultType {
             throw new IllegalArgumentException(value + " and " + toString() + " don't match");
         }
     }
-
-    // LoD violation
-    // public boolean matchesType(ResultType targetType) {
-    //     return this == ANY || targetType == ANY || this.equals(targetType);
-    // }
 
     @Override
     public boolean equals(Object other) {

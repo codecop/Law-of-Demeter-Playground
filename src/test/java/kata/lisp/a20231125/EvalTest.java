@@ -36,8 +36,8 @@ class EvalTest {
         @Test
         void evalWrongType() {
             Result result = eval.eval(astOf("(", "+", "#t", "#f", ")"));
-            assertEquals("Type mismatch of 1. argument: expected ResultType N of class java.lang.Integer, "
-                    + "got true (ResultType B of class java.lang.Boolean)", result.value());
+            assertEquals("Type mismatch of 1. argument: got true (ResultType B of class java.lang.Boolean)",
+                    result.value());
             assertEquals(ResultType.ERROR, result.type());
         }
 

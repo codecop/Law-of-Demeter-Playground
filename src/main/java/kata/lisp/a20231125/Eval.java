@@ -9,7 +9,7 @@ public class Eval {
 
     private Functions prepareContext() {
         Functions context = new Functions();
-        context.addFunctionNamed(new Add());
+        context.addFunctionNamed(new IntegerAddition());
         return context;
     }
 

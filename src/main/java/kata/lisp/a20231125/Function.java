@@ -4,7 +4,7 @@ public interface Function {
 
     boolean isNamed(String name);
 
-    ResultType getArgumentType(int i);
+    boolean matchesArgumentType(int i, ResultType type);
 
     Result execute(Object[] arguments);
 

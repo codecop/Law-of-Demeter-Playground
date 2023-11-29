@@ -35,7 +35,7 @@ public class Functions {
             return error;
         }
         Object[] values = arguments.toValues();
-        
+
         return function.execute(values); // NOPMD 
         // PMD says object not created locally
         // technically true, but a Map is like a local object with many objects, 
@@ -60,8 +60,9 @@ class RaiseError implements Function {
     }
 
     @Override
-    public ResultType getArgumentType(int i) {
-        return ResultType.ANY;
+    public boolean matchesArgumentType(int i, ResultType type) {
+        // allow everything
+        return true;
     }
 
     @Override

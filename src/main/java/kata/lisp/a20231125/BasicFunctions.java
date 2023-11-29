@@ -4,7 +4,7 @@ public class BasicFunctions {
 
 }
 
-class Add implements Function {
+class IntegerAddition implements Function {
 
     @Override
     public boolean isNamed(String name) {
@@ -12,8 +12,8 @@ class Add implements Function {
     }
 
     @Override
-    public ResultType getArgumentType(int i) {
-        return ResultType.NUMBER;
+    public boolean matchesArgumentType(int i, ResultType type) {
+        return ResultType.NUMBER == type;
     }
 
     @Override

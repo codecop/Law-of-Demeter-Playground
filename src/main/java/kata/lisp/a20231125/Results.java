@@ -19,10 +19,8 @@ public class Results {
 
     public Result typeMismatchWith(Function function) {
         for (int i = 0; i < arguments.length; i++) {
-            ResultType expectedType = function.getArgumentType(i);
-            if (expectedType != ResultType.ANY && expectedType != arguments[i].type()) {
-                String message = "Type mismatch of " + (i + 1) + ". argument: " + //
-                        "expected " + expectedType + ", got " + arguments[i];
+            if (!function.matchesArgumentType(i, arguments[i].type())) {
+                String message = "Type mismatch of " + (i + 1) + ". argument: " + "got " + arguments[i];
                 return new Result(message, ResultType.ERROR);
             }
         }
