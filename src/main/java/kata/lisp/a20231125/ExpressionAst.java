@@ -1,44 +1,34 @@
 package kata.lisp.a20231125;
 
+import java.util.Arrays;
 import java.util.List;
-import java.util.Objects;
 
 /**
  * A node of an expression, starting with a symbol and a list of arguments.
  */
 public class ExpressionAst extends MultipleValueAst {
 
-    private final SymbolAst symbol;
-
-    public ExpressionAst(SymbolAst symbol, List<Ast> arguments) {
-        super(arguments);
-        Objects.requireNonNull(symbol);
-        this.symbol = symbol;
+    public ExpressionAst(List<Ast> expressions) {
+        super(expressions);
     }
 
     @Override
     public Result eval(Functions context) {
-        Ast[] arguments = getChildren();
-        return symbol.evalAsFunction(arguments, context);
-    }
-
-    @Override
-    public boolean equals(Object other) {
-        if (!super.equals(other)) {
-            return false;
+        Ast[] expressions = getChildren();
+        if (expressions[0] instanceof SymbolAst) {
+            return evalAsFunction(expressions, context);
         }
-        ExpressionAst that = (ExpressionAst) other;
-        return this.symbol.equals(that.symbol);
+        throw new IllegalStateException();
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(symbol) ^ super.hashCode();
+    private Result evalAsFunction(Ast[] expressions, Functions context) {
+        SymbolAst symbol = (SymbolAst) expressions[0];
+        Ast[] arguments = Arrays.copyOfRange(expressions, 1, expressions.length);
+        return evalAsFunction(symbol, arguments, context);
     }
 
-    @Override
-    public String toString() {
-        return "ExpressionAst(" + symbol + ": " + super.toString() + ")";
+    private Result evalAsFunction(SymbolAst symbol, Ast[] arguments, Functions context) {
+        return symbol.evalAsFunction(arguments, context);
     }
 
 }

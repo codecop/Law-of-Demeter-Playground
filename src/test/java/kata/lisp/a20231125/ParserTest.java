@@ -47,13 +47,13 @@ class ParserTest {
         @Test
         void parseTokens() {
             Ast ast = parser.parse(Tokens.tokensOf("(", "list", ")"));
-            assertEquals(new ExpressionAst(new SymbolAst("list"), Collections.emptyList()), ast);
+            assertEquals(new ExpressionAst(Collections.singletonList(new SymbolAst("list"))), ast);
         }
 
         @Test
         void parseTwoElementTokens() {
             Ast ast = parser.parse(Tokens.tokensOf("(", "list", "1", ")"));
-            assertEquals(new ExpressionAst(new SymbolAst("list"), Arrays.asList(new NumberAst(1))), ast);
+            assertEquals(new ExpressionAst(Arrays.asList(new SymbolAst("list"), new NumberAst(1))), ast);
         }
 
     }
@@ -64,23 +64,23 @@ class ParserTest {
         @Test
         void nestedTokens() {
             Ast ast = parser.parse(Tokens.tokensOf("(", "list", "(", "list", ")", ")"));
-            ExpressionAst subExpression = new ExpressionAst(new SymbolAst("list"), Collections.emptyList());
-            assertEquals(new ExpressionAst(new SymbolAst("list"), Collections.singletonList(subExpression)), ast);
+            ExpressionAst subExpression = new ExpressionAst(Collections.singletonList(new SymbolAst("list")));
+            assertEquals(new ExpressionAst(Arrays.asList(new SymbolAst("list"), subExpression)), ast);
         }
 
     }
 
     @Nested
     class MultipleTopLevelToken {
-        
+
         @Test
         void parseTokens() {
             Ast ast = parser.parse(Tokens.tokensOf("1", "2"));
             assertEquals(new ProgramAst(Arrays.asList(new NumberAst(1), new NumberAst(2))), ast);
         }
-        
+
     }
-    
+
     private Token tokenOf(String value) {
         return new Token(value);
     }

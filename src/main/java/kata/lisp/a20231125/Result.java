@@ -68,8 +68,7 @@ class ResultType {
             return false;
         }
         ResultType that = (ResultType) other;
-        return Objects.equals(name, that.name) && //
-                type == that.type;
+        return Objects.equals(name, that.name) && type == that.type;
     }
 
     @Override
