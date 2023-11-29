@@ -1,4 +1,4 @@
-package kata.lisp.a20231125;
+package kata.lisp.a20231125.token;
 
 import java.util.ArrayList;
 import java.util.List;
