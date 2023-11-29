@@ -4,11 +4,34 @@ public class BasicFunctions {
 
 }
 
-class IntegerAddition implements Function {
+abstract class AbstractFunction implements Function {
+
+    private final String name;
+
+    public AbstractFunction(String name) {
+        this.name = name;
+    }
 
     @Override
-    public boolean isNamed(String name) {
-        return "+".equals(name);
+    public boolean isNamed(String targetName) {
+        return this.name.equals(targetName);
+    }
+
+    @Override
+    public String toString() {
+        return name;
+    }
+}
+
+class IntegerAddition extends AbstractFunction {
+
+    public IntegerAddition() {
+        super("+");
+    }
+
+    @Override
+    public boolean matchesArgumentNumber(int count) {
+        return count >= 1;
     }
 
     @Override
@@ -27,11 +50,15 @@ class IntegerAddition implements Function {
 
 }
 
-class IntegerSquareRoot implements Function {
+class IntegerSquareRoot extends AbstractFunction {
+
+    public IntegerSquareRoot() {
+        super("sqrt");
+    }
 
     @Override
-    public boolean isNamed(String name) {
-        return "sqrt".equals(name);
+    public boolean matchesArgumentNumber(int count) {
+        return count == 1;
     }
 
     @Override

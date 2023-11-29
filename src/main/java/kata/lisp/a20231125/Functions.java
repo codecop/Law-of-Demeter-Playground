@@ -26,10 +26,16 @@ public class Functions {
     public Result applyFunction(String value, Results arguments) {
         Function function = getFunctionNamed(value);
 
-        Result error = arguments.error();
+        Result error = arguments.firstErrorInArguments();
         if (error != null) {
             return error;
         }
+
+        error = arguments.numberMismatchWith(function);
+        if (error != null) {
+            return error;
+        }
+
         error = arguments.typeMismatchWith(function);
         if (error != null) {
             return error;
@@ -57,6 +63,12 @@ class RaiseError implements Function {
     @Override
     public boolean isNamed(String name) {
         throw new IllegalStateException();
+    }
+
+    @Override
+    public boolean matchesArgumentNumber(int count) {
+        // allow everything
+        return true;
     }
 
     @Override

@@ -55,6 +55,13 @@ class EvalTest {
             assertEquals(ResultType.ERROR, result.type());
         }
 
+        @Test
+        void tooManyArguments() {
+            Result result = eval.eval(astOf("(", "sqrt", "2", "3", ")"));
+            assertEquals("Too many arguments to sqrt, got 2", result.value());
+            assertEquals(ResultType.ERROR, result.type());
+        }
+
     }
 
     private Ast astOf(String token) {
