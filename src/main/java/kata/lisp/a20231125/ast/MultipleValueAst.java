@@ -1,4 +1,4 @@
-package kata.lisp.a20231125;
+package kata.lisp.a20231125.ast;
 
 import java.util.List;
 import java.util.Objects;

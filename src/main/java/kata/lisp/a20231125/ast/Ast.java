@@ -1,4 +1,4 @@
-package kata.lisp.a20231125;
+package kata.lisp.a20231125.ast;
 
 /**
  * A node in the syntax tree.

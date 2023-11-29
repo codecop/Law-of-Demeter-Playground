@@ -2,6 +2,10 @@ package kata.lisp.a20231125;
 
 import java.util.Arrays;
 
+import kata.lisp.a20231125.ast.Ast;
+import kata.lisp.a20231125.ast.AstVisitor;
+import kata.lisp.a20231125.ast.SymbolAst;
+
 public class EvalVisitor implements AstVisitor {
 
     private final Functions context;
@@ -53,7 +57,7 @@ public class EvalVisitor implements AstVisitor {
 
     private Result evalAsFunction(SymbolAst symbol, Ast[] arguments, Functions context) {
         // return symbol.evalAsFunction(arguments, context);
-        return applyFunction(symbol.value, arguments);
+        return applyFunction(symbol.getSymbol(), arguments);
     }
 
     private Result applyFunction(String value, Ast[] arguments) {

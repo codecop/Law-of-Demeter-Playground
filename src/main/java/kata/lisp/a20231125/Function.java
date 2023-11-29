@@ -1,5 +1,7 @@
 package kata.lisp.a20231125;
 
+import kata.lisp.a20231125.ast.Ast;
+
 public interface Function {
 
     boolean isNamed(String name);

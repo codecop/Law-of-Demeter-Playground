@@ -1,4 +1,4 @@
-package kata.lisp.a20231125;
+package kata.lisp.a20231125.ast;
 
 public interface AstVisitor {
 
@@ -10,6 +10,6 @@ public interface AstVisitor {
 
     void visitExpression(Ast[] expressions);
 
-    void visitProgram(Ast[] children);
+    void visitProgram(Ast[] program);
 
 }

@@ -8,6 +8,14 @@ import java.util.Collections;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
+import kata.lisp.a20231125.ast.Ast;
+import kata.lisp.a20231125.ast.BooleanAst;
+import kata.lisp.a20231125.ast.ExpressionAst;
+import kata.lisp.a20231125.ast.NumberAst;
+import kata.lisp.a20231125.ast.ProgramAst;
+import kata.lisp.a20231125.ast.StringAst;
+import kata.lisp.a20231125.ast.SymbolAst;
+
 class ParserTest {
 
     Parser parser = new Parser();
@@ -38,6 +46,10 @@ class ParserTest {
             Ast ast = parser.parse(tokenOf("+"));
             assertEquals(new SymbolAst("+"), ast);
         }
+
+        // TODO features in AST
+        // * character with 'a
+        // * double numbers
 
     }
 
