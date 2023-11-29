@@ -4,7 +4,7 @@ public class ValueAsts {
 
 }
 
-class BooleanAst extends SingleValueAst<Boolean> {
+final class BooleanAst extends SingleValueAst<Boolean> {
 
     public BooleanAst(Boolean value) {
         super(value);
@@ -15,9 +15,14 @@ class BooleanAst extends SingleValueAst<Boolean> {
         return ResultType.BOOLEAN;
     }
 
+    @Override
+    public Result accept(EvalVisitor visitor) {
+        return visitor.visitBoolean(value);
+    }
+
 }
 
-class NumberAst extends SingleValueAst<Integer> {
+final class NumberAst extends SingleValueAst<Integer> {
 
     public NumberAst(Integer value) {
         super(value);
@@ -28,9 +33,14 @@ class NumberAst extends SingleValueAst<Integer> {
         return ResultType.NUMBER;
     }
 
+    @Override
+    public Result accept(EvalVisitor visitor) {
+        return visitor.visitNumber(value);
+    }
+    
 }
 
-class StringAst extends SingleValueAst<String> {
+final class StringAst extends SingleValueAst<String> {
 
     public StringAst(String value) {
         super(value);
@@ -39,6 +49,11 @@ class StringAst extends SingleValueAst<String> {
     @Override
     protected ResultType getValueType() {
         return ResultType.STRING;
+    }
+
+    @Override
+    public Result accept(EvalVisitor visitor) {
+        return visitor.visitString(value);
     }
 
 }

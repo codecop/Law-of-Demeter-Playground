@@ -17,6 +17,12 @@ public class SymbolAst extends SingleValueAst<String> {
         throw new IllegalStateException("Cannot eval symbol " + symbol + " on its own");
     }
 
+    @Override
+    public Result accept(EvalVisitor visitor) {
+        throw new IllegalStateException("Cannot eval symbol " + symbol + " on its own");
+        // return visitor.visitSymbol(symbol);
+    }
+
 //    public Result evalAsFunction(Ast[] arguments, Functions context) {
 //        Results tempResults = evalArguments(arguments, context);
 //        return context.applyFunction(symbol, tempResults);

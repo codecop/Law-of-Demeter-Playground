@@ -6,7 +6,7 @@ import java.util.List;
 /**
  * A node of an expression, starting with a symbol and a list of arguments.
  */
-public class ExpressionAst extends MultipleValueAst {
+public final class ExpressionAst extends MultipleValueAst {
 
     public ExpressionAst(List<Ast> expressions) {
         super(expressions);
@@ -31,4 +31,9 @@ public class ExpressionAst extends MultipleValueAst {
         return symbol.evalAsFunction(arguments, context);
     }
 
+    @Override
+    public Result accept(EvalVisitor visitor) {
+        return visitor.visitExpression(getChildren());
+    }
+    
 }

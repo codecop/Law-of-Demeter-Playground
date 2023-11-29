@@ -5,7 +5,7 @@ import java.util.List;
 /**
  * A top level node of an expression, containing a list of expressions.
  */
-public class ProgramAst extends MultipleValueAst {
+public final class ProgramAst extends MultipleValueAst {
 
     public ProgramAst(List<Ast> expressions) {
         super(expressions);
@@ -20,6 +20,11 @@ public class ProgramAst extends MultipleValueAst {
         return lastResult;
     }
 
+    @Override
+    public Result accept(EvalVisitor visitor) {
+        return visitor.visitProgram(getChildren());
+    }
+    
     @Override
     public String toString() {
         return "Program" + super.toString();

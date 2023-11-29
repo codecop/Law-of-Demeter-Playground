@@ -7,7 +7,7 @@ import java.util.Objects;
  */
 public abstract class SingleValueAst<T> implements Ast {
 
-    private final T value;
+    protected final T value;
 
     public SingleValueAst(T value) {
         Objects.requireNonNull(value);
