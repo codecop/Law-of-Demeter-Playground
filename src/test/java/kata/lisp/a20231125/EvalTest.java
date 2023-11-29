@@ -69,6 +69,13 @@ class EvalTest {
             assertEquals(ResultType.ERROR, result.type());
         }
 
+        @Test
+        void tooFewArguments() {
+            Result result = eval.eval(astOf("(", "+", ")"));
+            assertEquals("Too many arguments to +, got 0", result.value());
+            assertEquals(ResultType.ERROR, result.type());
+        }
+
     }
 
     private Ast astOf(String token) {
