@@ -7,7 +7,8 @@ public class Lexer {
 
     private final String code;
     private final List<String> chunks = new ArrayList<>();
-    private int lastStart = 0;
+
+    private int beginToken = 0;
     private int current = 0;
 
     public Lexer(String code) {
@@ -15,50 +16,74 @@ public class Lexer {
     }
 
     public Tokens tokenise() {
-        while (current < code.length()) {
-            char ch = code.charAt(current);
+        while (notFinished()) {
 
-            if (isIgnoredSeparator(ch)) {
-                addChunk();
+            if (isIgnoredSeparator()) {
+                addPreviousChunk();
                 ignoreCurrent();
 
-            } else if (isBraces(ch)) {
-                addChunk();
+            } else if (isBraces()) {
+                addPreviousChunk();
                 addCurrent();
+
+            } else if (isQuote()) {
+                addPreviousChunk();
+                addUpToQuote();
 
             } else {
                 current++;
             }
 
         }
-        addChunk();
+        addPreviousChunk();
 
         return Tokens.tokensOf(chunks.toArray(new String[0]));
     }
 
-    private boolean isIgnoredSeparator(char ch) {
-        return Character.isWhitespace(ch);
+    private boolean notFinished() {
+        return current < code.length();
     }
 
-    private void addChunk() {
-        if (lastStart < current && current <= code.length()) {
-            chunks.add(code.substring(lastStart, current));
+    private char peek() {
+        return code.charAt(current);
+    }
+
+    private boolean isIgnoredSeparator() {
+        return Character.isWhitespace(peek());
+    }
+
+    private void addPreviousChunk() {
+        if (beginToken < current && current <= code.length()) {
+            chunks.add(code.substring(beginToken, current));
         }
-        lastStart = current;
+        beginToken = current;
     }
 
     private void ignoreCurrent() {
         current++;
-        lastStart = current;
+        beginToken = current;
     }
 
-    private boolean isBraces(char ch) {
-        return ("" + ch).matches("\\(|\\[|\\{|\\)|\\]|\\]");
+    private boolean isBraces() {
+        return ("" + peek()).matches("\\(|\\[|\\{|\\)|\\]|\\]");
     }
 
     private void addCurrent() {
         current += 1;
-        addChunk();
+        addPreviousChunk();
+    }
+
+    private boolean isQuote() {
+        return peek() == '"';
+    }
+
+    private void addUpToQuote() {
+        current++;
+        while (!isQuote() && notFinished()) {
+            current++;
+        }
+        current++;
+        addPreviousChunk();
     }
 
 }

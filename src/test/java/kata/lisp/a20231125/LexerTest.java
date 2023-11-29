@@ -95,4 +95,19 @@ class LexerTest {
         assertEquals(new Token(")"), tokens.next());
     }
 
+    @Test
+    void tokenWithString() {
+        Lexer lexer = new Lexer("(a \" \")");
+
+        Tokens tokens = lexer.tokenise();
+
+        assertEquals(new Token("("), tokens.next());
+        tokens.consumeToken();
+        assertEquals(new Token("a"), tokens.next());
+        tokens.consumeToken();
+        assertEquals(new Token("\" \""), tokens.next());
+        tokens.consumeToken();
+        assertEquals(new Token(")"), tokens.next());
+    }
+
 }
