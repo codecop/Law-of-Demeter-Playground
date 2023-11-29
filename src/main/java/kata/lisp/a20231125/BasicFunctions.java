@@ -2,6 +2,12 @@ package kata.lisp.a20231125;
 
 public class BasicFunctions {
 
+    public static void add(Functions functions) {
+        functions.addFunctionNamed(new IntegerAddition());
+        functions.addFunctionNamed(new IntegerSquareRoot());
+        functions.addFunctionNamed(new StringAppend());
+    }
+
 }
 
 abstract class AbstractFunction implements Function {
