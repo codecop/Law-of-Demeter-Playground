@@ -7,7 +7,7 @@ public interface Ast {
 
     Result eval(Functions context);
     
-    Result accept(EvalVisitor visitor);
+    void accept(EvalVisitor visitor);
     
 }
 

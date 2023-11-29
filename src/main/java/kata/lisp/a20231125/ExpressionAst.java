@@ -32,8 +32,8 @@ public final class ExpressionAst extends MultipleValueAst {
     }
 
     @Override
-    public Result accept(EvalVisitor visitor) {
-        return visitor.visitExpression(getChildren());
+    public void accept(EvalVisitor visitor) {
+        visitor.visitExpression(getChildren());
     }
     
 }

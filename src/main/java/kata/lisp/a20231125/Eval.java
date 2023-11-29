@@ -6,7 +6,8 @@ public class Eval {
         Functions context = prepareContext();
         // (1) return ast.eval(context);
         EvalVisitor visitor = new EvalVisitor(context);
-        return ast.accept(visitor);
+        ast.accept(visitor);
+        return visitor.result();
     }
 
     private Functions prepareContext() {

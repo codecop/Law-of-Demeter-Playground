@@ -13,16 +13,12 @@ public final class ProgramAst extends MultipleValueAst {
 
     @Override
     public Result eval(Functions context) {
-        Result lastResult = new Result("Empty Program", ResultType.ERROR);
-        for (Ast ast : getChildren()) {
-            lastResult = ast.eval(context);
-        }
-        return lastResult;
+        throw new UnsupportedOperationException();
     }
 
     @Override
-    public Result accept(EvalVisitor visitor) {
-        return visitor.visitProgram(getChildren());
+    public void accept(EvalVisitor visitor) {
+        visitor.visitProgram(getChildren());
     }
     
     @Override

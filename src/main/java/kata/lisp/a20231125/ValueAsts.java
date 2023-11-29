@@ -16,8 +16,8 @@ final class BooleanAst extends SingleValueAst<Boolean> {
     }
 
     @Override
-    public Result accept(EvalVisitor visitor) {
-        return visitor.visitBoolean(value);
+    public void accept(EvalVisitor visitor) {
+        visitor.visitBoolean(value);
     }
 
 }
@@ -34,10 +34,10 @@ final class NumberAst extends SingleValueAst<Integer> {
     }
 
     @Override
-    public Result accept(EvalVisitor visitor) {
-        return visitor.visitNumber(value);
+    public void accept(EvalVisitor visitor) {
+        visitor.visitNumber(value);
     }
-    
+
 }
 
 final class StringAst extends SingleValueAst<String> {
@@ -52,8 +52,8 @@ final class StringAst extends SingleValueAst<String> {
     }
 
     @Override
-    public Result accept(EvalVisitor visitor) {
-        return visitor.visitString(value);
+    public void accept(EvalVisitor visitor) {
+        visitor.visitString(value);
     }
 
 }
