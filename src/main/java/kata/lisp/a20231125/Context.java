@@ -45,3 +45,28 @@ public class Context {
     }
 
 }
+
+class RaiseError implements Function {
+
+    private final String message;
+
+    public RaiseError(String message) {
+        this.message = message;
+    }
+
+    @Override
+    public boolean isNamed(String name) {
+        throw new IllegalStateException();
+    }
+
+    @Override
+    public ResultType getArgumentType(int i) {
+        return ResultType.ANY;
+    }
+
+    @Override
+    public Result execute(Object[] arguments) {
+        return new Result(message, ResultType.ERROR);
+    }
+
+}

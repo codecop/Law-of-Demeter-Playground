@@ -3,7 +3,7 @@ package kata.lisp.a20231125;
 import java.util.Objects;
 
 /**
- * The result of an AST computation.
+ * The dynamic result of an AST computation of some type.
  */
 public class Result {
 
@@ -13,7 +13,7 @@ public class Result {
     public Result(Object value, ResultType type) {
         Objects.requireNonNull(value);
         Objects.requireNonNull(type);
-        type.requireType(value);
+        type.requireValueType(value);
         this.value = value;
         this.type = type;
     }
@@ -56,11 +56,16 @@ class ResultType {
         this.type = value;
     }
 
-    public void requireType(Object value) {
+    public void requireValueType(Object value) {
         if (!type.isInstance(value)) {
             throw new IllegalArgumentException(value + " and " + toString() + " don't match");
         }
     }
+
+    // LoD violation
+    // public boolean matchesType(ResultType targetType) {
+    //     return this == ANY || targetType == ANY || this.equals(targetType);
+    // }
 
     @Override
     public boolean equals(Object other) {
