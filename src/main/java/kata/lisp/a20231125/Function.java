@@ -1,14 +1,25 @@
 package kata.lisp.a20231125;
 
 import kata.lisp.a20231125.ast.Ast;
+import kata.lisp.a20231125.eval.Result;
 
-public interface Function {
+public abstract class Function {
 
-    boolean isNamed(String name);
+    private final String name;
 
-    boolean matchesArgumentNumber(int count);
+    public Function(String name) {
+        this.name = name;
+    }
 
-    boolean matchesArgumentType(int i, ResultType type);
+    public boolean isNamed(String targetName) {
+        return this.name.equals(targetName);
+    }
 
-    void accept(EvalVisitor evalVisitor, Ast[] arguments);
+    public abstract Result apply(Ast[] arguments, EvalVisitor evalVisitor);
+
+    @Override
+    public String toString() {
+        return name;
+    }
+
 }

@@ -1,6 +1,8 @@
 package kata.lisp.a20231125;
 
 import kata.lisp.a20231125.ast.Ast;
+import kata.lisp.a20231125.eval.Result;
+import kata.lisp.a20231125.eval.ResultType;
 
 public class BasicFunctions {
 
@@ -12,37 +14,17 @@ public class BasicFunctions {
 
 }
 
-abstract class AbstractFunction implements Function {
-
-    private final String name;
-
-    public AbstractFunction(String name) {
-        this.name = name;
-    }
-
-    @Override
-    public boolean isNamed(String targetName) {
-        return this.name.equals(targetName);
-    }
-
-    @Override
-    public String toString() {
-        return name;
-    }
-}
-
-abstract class StrictFunction extends AbstractFunction {
+abstract class StrictFunction extends Function {
 
     public StrictFunction(String name) {
         super(name);
     }
 
     @Override
-    public void accept(EvalVisitor evalVisitor, Ast[] x) {
-        Function function = this;
+    public Result apply(Ast[] x, EvalVisitor evalVisitor) {
+        StrictFunction function = this;
         Results arguments = evalArguments(x, evalVisitor);
-        Result r = execute(function, arguments);
-        evalVisitor.setResult(r);
+        return execute(function, arguments);
     }
 
     private Results evalArguments(Ast[] arguments, EvalVisitor evalVisitor) {
@@ -54,7 +36,11 @@ abstract class StrictFunction extends AbstractFunction {
         return new Results(tempResults);
     }
 
-    private Result execute(Function function, Results arguments) {
+    public abstract boolean matchesArgumentNumber(int parameterCount);
+
+    public abstract boolean matchesArgumentType(int i, ResultType parameterType);
+    
+    private Result execute(StrictFunction function, Results arguments) {
         Result error = arguments.firstErrorInArguments();
         if (error != null) {
             return error;

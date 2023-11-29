@@ -7,6 +7,8 @@ import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
 import kata.lisp.a20231125.ast.Ast;
+import kata.lisp.a20231125.eval.Result;
+import kata.lisp.a20231125.eval.ResultType;
 import kata.lisp.a20231125.token.Token;
 import kata.lisp.a20231125.token.Tokens;
 

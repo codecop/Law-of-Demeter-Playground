@@ -1,5 +1,8 @@
 package kata.lisp.a20231125;
 
+import kata.lisp.a20231125.eval.Result;
+import kata.lisp.a20231125.eval.ResultType;
+
 public class Results {
 
     private final Result[] arguments;
@@ -17,7 +20,7 @@ public class Results {
         return null;
     }
 
-    public Result numberMismatchWith(Function function) {
+    public Result numberMismatchWith(StrictFunction function) {
         if (!function.matchesArgumentNumber(size())) {
             String message = "Too many arguments to " + function.toString() + ", got " + size();
             return new Result(message, ResultType.ERROR);
@@ -25,7 +28,7 @@ public class Results {
         return null;
     }
 
-    public Result typeMismatchWith(Function function) {
+    public Result typeMismatchWith(StrictFunction function) {
         for (int i = 0; i < size(); i++) {
             if (!function.matchesArgumentType(i, arguments[i].type())) {
                 String message = "Type mismatch of " + (i + 1) + ". argument: " + "got " + arguments[i];

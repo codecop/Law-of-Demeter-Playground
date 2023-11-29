@@ -7,6 +7,8 @@ import java.io.IOException;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
+import kata.lisp.a20231125.eval.Result;
+
 class MainTest {
 
     @Test
