@@ -9,4 +9,10 @@ Write a Scheme interpreter which
 
 Values: `1, #t, "Hello"`
 
-Symbolic expressions (S-expressions): `(+ 1 2 3), (sqrt 2), (string-append "Hello" name), (list 1 2 3)`
+Symbolic expressions (S-expressions): `(+ 1 2 3), (sqrt 2), (list 1 2 3), (string-append "Hello" name)`
+
+Acceptance Criteria
+
+* `(+ 1 2 3)` ... basic function
+* `(sqrt 2)` ... float function
+* `(let ((name "Peter")) (string-append "Hello" name))` ... local variables

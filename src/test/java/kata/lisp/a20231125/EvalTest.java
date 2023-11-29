@@ -30,6 +30,13 @@ class EvalTest {
         assertEquals(ResultType.NUMBER, result.type());
     }
 
+    @Test
+    void stringFunction() {
+        Result result = eval.eval(astOf("(", "string-append", "\"a\"", "\"b\"", ")"));
+        assertEquals("ab", result.value());
+        assertEquals(ResultType.STRING, result.type());
+    }
+
     @Nested
     class ErrorHandling {
 

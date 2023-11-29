@@ -73,3 +73,30 @@ class IntegerSquareRoot extends AbstractFunction {
     }
 
 }
+
+class StringAppend extends AbstractFunction {
+
+    public StringAppend() {
+        super("string-append");
+    }
+
+    @Override
+    public boolean matchesArgumentNumber(int count) {
+        return count >= 1;
+    }
+
+    @Override
+    public boolean matchesArgumentType(int i, ResultType type) {
+        return ResultType.STRING == type;
+    }
+
+    @Override
+    public Result execute(Object[] arguments) {
+        StringBuilder buf = new StringBuilder();
+        for (int i = 0; i < arguments.length; i++) {
+            buf.append((String) arguments[i]);
+        }
+        return new Result(buf.toString(), ResultType.STRING);
+    }
+
+}

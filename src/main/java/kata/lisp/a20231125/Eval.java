@@ -11,6 +11,7 @@ public class Eval {
         Functions context = new Functions();
         context.addFunctionNamed(new IntegerAddition());
         context.addFunctionNamed(new IntegerSquareRoot());
+        context.addFunctionNamed(new StringAppend());
         return context;
     }
 
