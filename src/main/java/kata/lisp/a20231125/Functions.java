@@ -40,14 +40,13 @@ public class Functions {
         if (error != null) {
             return error;
         }
-        Object[] values = arguments.toValues();
 
-        return function.execute(values); // NOPMD 
-        // PMD says object not created locally
-        // technically true, but a Map is like a local object with many objects, 
-        // so like many local objects, not? Changed it to an array, which is more
-        // low level for LoD, still not created locally. True, it comes in via a set.
-        // TODO PMD rule: allow a Map or Array of elements as my own fields.
+        Object[] values = arguments.toValues();
+        return applyFunction(function, values);
+    }
+
+    private Result applyFunction(Function function, Object[] values) {
+        return function.execute(values);
     }
 
 }
