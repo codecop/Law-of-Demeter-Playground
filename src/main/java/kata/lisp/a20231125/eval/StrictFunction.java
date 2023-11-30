@@ -7,7 +7,7 @@ public abstract class StrictFunction extends Function {
     }
 
     @Override
-    public Result apply(LazyResult[] lazyArguments) {
+    public Result apply(LazyResult[] lazyArguments, Variables variables) {
         Results arguments = evalArgumentsFirst(lazyArguments);
         return apply(arguments);
     }

@@ -92,7 +92,7 @@ public class EvalVisitor implements AstVisitor {
         }
 
         LazyResult[] results = toLazyResults(arguments);
-        result = function.apply(results);
+        result = function.apply(results, variables);
     }
 
     private LazyResult[] toLazyResults(Ast[] arguments) {

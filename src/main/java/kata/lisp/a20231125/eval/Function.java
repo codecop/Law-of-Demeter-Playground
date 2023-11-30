@@ -14,7 +14,7 @@ public abstract class Function {
 
     public abstract boolean matchesArgumentNumber(int parameterCount);
     
-    public abstract Result apply(LazyResult[] arguments);
+    public abstract Result apply(LazyResult[] arguments, Variables variables);
 
     @Override
     public String toString() {

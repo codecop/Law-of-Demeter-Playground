@@ -2,7 +2,6 @@ package kata.lisp.a20231125;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
@@ -69,7 +68,6 @@ class EvalTest {
         }
 
         @Test
-        @Disabled("need variable first")
         void letFunction() {
             Result result = eval.eval(astOf("(", "let", "(", "(", "a", "1", ")", ")", "a", ")"));
             assertEquals(1, result.value());
