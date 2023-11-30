@@ -4,6 +4,7 @@ import kata.lisp.a20231125.ast.Ast;
 import kata.lisp.a20231125.eval.BasicFunctions;
 import kata.lisp.a20231125.eval.Functions;
 import kata.lisp.a20231125.eval.Result;
+import kata.lisp.a20231125.eval.Variables;
 
 public class Eval {
 

@@ -9,6 +9,7 @@ import org.junit.jupiter.api.Test;
 import kata.lisp.a20231125.ast.Ast;
 import kata.lisp.a20231125.eval.Result;
 import kata.lisp.a20231125.eval.ResultType;
+import kata.lisp.a20231125.eval.Variables;
 import kata.lisp.a20231125.token.Token;
 import kata.lisp.a20231125.token.Tokens;
 
@@ -44,32 +45,37 @@ class EvalTest {
         assertEquals(ResultType.STRING, result.type());
     }
 
-    @Test
-    void missingVariable() {
-        Result result = eval.eval(astOf("a"));
+    @Nested
+    class UsingVariables {
 
-        assertEquals("Unknown symbol a", result.value());
-        assertEquals(ResultType.ERROR, result.type());
-    }
+        @Test
+        void missingVariable() {
+            Result result = eval.eval(astOf("a"));
 
-    @Test
-    void useVariable() {
-        Ast ast = astOf("a");
-        Variables variables = new Variables();
-        variables.add("a", new Result(1, ResultType.NUMBER));
+            assertEquals("Unknown symbol a", result.value());
+            assertEquals(ResultType.ERROR, result.type());
+        }
 
-        Result result = eval.evalUsing(ast, null, variables);
+        @Test
+        void useVariable() {
+            Ast ast = astOf("a");
+            Variables variables = new Variables();
+            variables.add("a", new Result(1, ResultType.NUMBER));
 
-        assertEquals(1, result.value());
-        assertEquals(ResultType.NUMBER, result.type());
-    }
+            Result result = eval.evalUsing(ast, null, variables);
 
-    @Test
-    @Disabled("need variable first")
-    void letFunction() {
-        Result result = eval.eval(astOf("(", "let", "(", "(", "a", "1", ")", ")", "a", ")"));
-        assertEquals(1, result.value());
-        assertEquals(ResultType.NUMBER, result.type());
+            assertEquals(1, result.value());
+            assertEquals(ResultType.NUMBER, result.type());
+        }
+
+        @Test
+        @Disabled("need variable first")
+        void letFunction() {
+            Result result = eval.eval(astOf("(", "let", "(", "(", "a", "1", ")", ")", "a", ")"));
+            assertEquals(1, result.value());
+            assertEquals(ResultType.NUMBER, result.type());
+        }
+
     }
 
     @Nested

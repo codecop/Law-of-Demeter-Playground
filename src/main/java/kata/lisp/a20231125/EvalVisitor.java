@@ -12,6 +12,7 @@ import kata.lisp.a20231125.eval.Functions;
 import kata.lisp.a20231125.eval.LazyResult;
 import kata.lisp.a20231125.eval.Result;
 import kata.lisp.a20231125.eval.ResultType;
+import kata.lisp.a20231125.eval.Variables;
 
 public class EvalVisitor implements AstVisitor {
 
