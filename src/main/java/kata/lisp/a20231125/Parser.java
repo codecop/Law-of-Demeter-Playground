@@ -43,6 +43,10 @@ public class Parser {
     private Ast parseExpression(Tokens tokens) {
         List<Ast> children = new ArrayList<>();
         while (true) {
+            if (!tokens.hasNext()) {
+                throw new ParsingException("Premature end of tokens while parsing an Expression",
+                        new ExpressionAst(children));
+            }
             Token token = tokens.next();
             if (tokens.atClosingBracket()) {
                 // this expression is finished

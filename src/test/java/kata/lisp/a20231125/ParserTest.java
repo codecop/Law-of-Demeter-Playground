@@ -1,6 +1,7 @@
 package kata.lisp.a20231125;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -67,6 +68,11 @@ class ParserTest {
         void parseTwoElementTokens() {
             Ast ast = parser.parse(Tokens.tokensOf("(", "list", "1", ")"));
             assertEquals(new ExpressionAst(Arrays.asList(new SymbolAst("list"), new NumberAst(1))), ast);
+        }
+
+        @Test
+        void syntaxErrorOnMissingBracket() {
+            assertThrows(ParsingException.class, () -> parser.parse(Tokens.tokensOf("(")));
         }
 
     }
