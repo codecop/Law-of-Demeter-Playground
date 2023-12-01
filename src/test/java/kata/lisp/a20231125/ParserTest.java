@@ -49,9 +49,8 @@ class ParserTest {
             assertEquals(new SymbolAst("+"), ast);
         }
 
-        // TODO features in AST
-        // * character with 'a
-        // * double numbers
+        // TODO Test: SingleToken character with #\a
+        // TODO Test: SingleToken double numbers
 
     }
 

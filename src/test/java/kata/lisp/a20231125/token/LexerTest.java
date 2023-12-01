@@ -110,4 +110,9 @@ class LexerTest {
         assertEquals(new Token(")"), tokens.next());
     }
 
+    // TODO Test: separators are (  )  ;  "  '  `  |
+    // (list"Hi"name(+ 1 2)) => ("Hi" "max" 3)
+    // TODO Test: identifiers also contain ->, <=?, 
+    // TODO Test: comment is indicated with a semicolon (;)
+    
 }
