@@ -40,7 +40,7 @@ public class Tokens {
     public int size() {
         return tokens.length;
     }
-    
+
     public void consumeToken() {
         position++;
     }
@@ -48,10 +48,19 @@ public class Tokens {
     @Override
     public String toString() {
         StringBuilder buf = new StringBuilder();
-        buf.append("Tokens");
-        for (Token token : tokens) {
-            buf.append(", ");
+        buf.append("Tokens: ");
+        for (int i = 0; i < tokens.length; i++) {
+            Token token = tokens[i];
+            if (i > 0) {
+                buf.append(", ");
+            }
             buf.append(token);
+            if (position == i) {
+                buf.append(" <= current");
+            }
+        }
+        if (!hasNext()) {
+            buf.append(", <= END");
         }
         return buf.toString();
     }
