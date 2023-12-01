@@ -31,4 +31,9 @@ public class Result {
         return value + " (" + type + ")";
     }
 
+    public Result causesTypeMismatchAtPosition(int index) {
+        String message = "Type mismatch of " + (index + 1) + ". argument: " + "got " + toString();
+        return new Result(message, ResultType.ERROR);
+    }
+
 }

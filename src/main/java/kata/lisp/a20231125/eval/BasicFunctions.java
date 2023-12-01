@@ -7,6 +7,7 @@ public class BasicFunctions {
         functions.addFunctionNamed(new IntegerSquareRoot());
         functions.addFunctionNamed(new StringAppend());
         functions.addFunctionNamed(new Error());
+        functions.addFunctionNamed(new If());
     }
 
 }
@@ -108,6 +109,33 @@ class Error extends StrictFunction {
     @Override
     public Result apply(Object[] arguments) {
         return new Result(arguments[0], ResultType.ERROR);
+    }
+
+}
+
+class If extends Function {
+
+    public If() {
+        super("if");
+    }
+
+    @Override
+    public boolean matchesArgumentNumber(int count) {
+        return count == 3;
+    }
+
+    @Override
+    public Result apply(LazyResult[] arguments, Variables variables) {
+        Result condition = arguments[0].get();
+        if (condition.type() != ResultType.BOOLEAN) {
+            return condition.causesTypeMismatchAtPosition(0);
+        }
+
+        if ((Boolean) condition.value()) {
+            return arguments[1].get();
+        }
+
+        return arguments[2].get();
     }
 
 }

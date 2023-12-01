@@ -19,9 +19,9 @@ public class Results {
 
     public Result typeMismatchWith(StrictFunction function) {
         for (int i = 0; i < size(); i++) {
-            if (!function.matchesArgumentType(i, arguments[i].type())) {
-                String message = "Type mismatch of " + (i + 1) + ". argument: " + "got " + arguments[i];
-                return new Result(message, ResultType.ERROR);
+            Result argument = arguments[i];
+            if (!function.matchesArgumentType(i, argument.type())) {
+                return argument.causesTypeMismatchAtPosition(i);
             }
         }
         return null;
