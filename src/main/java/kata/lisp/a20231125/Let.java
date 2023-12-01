@@ -29,7 +29,7 @@ class Let extends Function {
     private void setVariables(LazyResult[] listOfPairs, Variables variables) {
         for (LazyResult r : listOfPairs) {
             LazyResult[] pair = r.asList();
-            Result symbol = pair[0].get();
+            Result symbol = pair[0].asSymbol();
             Result value = pair[1].get();
             setVariable(variables, symbol, value);
         }
