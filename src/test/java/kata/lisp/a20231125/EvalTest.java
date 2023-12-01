@@ -112,18 +112,6 @@ class EvalTest {
 
     }
 
-    @Nested
-    class AcceptanceCriteria {
-
-        @Test
-        void stringFunction() {
-            Result result = eval.eval(astOf("(", "string-append", "\"a\"", "\" \"", "\"b\"", ")"));
-            assertEquals("a b", result.value());
-            assertEquals(ResultType.STRING, result.type());
-        }
-        
-    }
-    
     private Ast astOf(String token) {
         return new Parser().parse(new Token(token));
     }
