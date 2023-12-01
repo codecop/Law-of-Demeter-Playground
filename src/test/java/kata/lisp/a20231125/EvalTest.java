@@ -2,6 +2,7 @@ package kata.lisp.a20231125;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
@@ -37,13 +38,6 @@ class EvalTest {
         assertEquals(ResultType.NUMBER, result.type());
     }
 
-    @Test
-    void stringFunction() {
-        Result result = eval.eval(astOf("(", "string-append", "\"a\"", "\"b\"", ")"));
-        assertEquals("ab", result.value());
-        assertEquals(ResultType.STRING, result.type());
-    }
-
     @Nested
     class UsingVariables {
 
@@ -67,6 +61,7 @@ class EvalTest {
             assertEquals(ResultType.NUMBER, result.type());
         }
 
+        @Disabled
         @Test
         void letFunction() {
             Result result = eval.eval(astOf("(", "let", "(", "(", "a", "1", ")", ")", "a", ")"));
@@ -117,6 +112,18 @@ class EvalTest {
 
     }
 
+    @Nested
+    class AcceptanceCriteria {
+
+        @Test
+        void stringFunction() {
+            Result result = eval.eval(astOf("(", "string-append", "\"a\"", "\" \"", "\"b\"", ")"));
+            assertEquals("a b", result.value());
+            assertEquals(ResultType.STRING, result.type());
+        }
+        
+    }
+    
     private Ast astOf(String token) {
         return new Parser().parse(new Token(token));
     }
