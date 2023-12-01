@@ -14,6 +14,7 @@ public class ResultType {
 
     public static final ResultType SYMBOL = new ResultType("F", String.class);
     public static final ResultType ERROR = new ResultType("E", String.class);
+    public static final ResultType UNDEFINED = new ResultType("U", String.class);
 
     private final String name;
     private final Class<?> type;

@@ -8,6 +8,7 @@ public class BasicFunctions {
         functions.addFunctionNamed(new StringAppend());
         functions.addFunctionNamed(new Error());
         functions.addFunctionNamed(new If());
+        functions.addFunctionNamed(new Define());
     }
 
 }
@@ -147,6 +148,28 @@ class If extends Function {
             return result.causesTypeMismatchAtPosition(index);
         }
         return result;
+    }
+
+}
+
+class Define extends Function {
+
+    public Define() {
+        super("define");
+    }
+
+    @Override
+    public boolean matchesArgumentNumber(int count) {
+        return count == 2;
+    }
+
+    @Override
+    public Result apply(LazyResults arguments, Variables variables) {
+        Result r = arguments.asSymbol(0);
+        String symbol = (String) r.value();
+        Result value = arguments.evalArgument(1);
+        variables.add(symbol, value);
+        return new Result("<undefined>", ResultType.UNDEFINED);
     }
 
 }

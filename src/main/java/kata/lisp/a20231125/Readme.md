@@ -22,5 +22,6 @@ Write a (R5RS) Scheme interpreter which
 * `(+ 1 2 3)` ... basic functionality
 * `(string-append "Hello" " " "Name")` ... String functionality
 * `(sqrt 2)` ... float function
-* `(if #true (+ 1 2) (error "should not eval this")` ... lazy arguments
+* `(if #t (+ 1 2) (error "should not eval this")` ... lazy arguments
+* `(define name "Peter") (string-append "Hello" name)` ... global variables, undefined/empty return value.
 * `(let ((name "Peter")) (string-append "Hello" name))` ... local variables

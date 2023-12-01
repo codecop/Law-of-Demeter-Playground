@@ -78,7 +78,7 @@ public class EvalVisitor implements AstVisitor {
     private void applyFunction(String functionName, Ast[] arguments) {
         Function function = functions.getFunctionNamed(functionName);
         if (function == null) {
-            result = new Result("Unknown symbol " + functionName, ResultType.ERROR);
+            result = new Result("Unknown function symbol " + functionName, ResultType.ERROR);
             return;
         }
 
@@ -87,7 +87,7 @@ public class EvalVisitor implements AstVisitor {
 
     private void applyFunction(Function function, Ast[] arguments) {
         if (!function.matchesArgumentNumber(arguments.length)) {
-            String message = "Too many arguments to " + function.toString() + ", got " + arguments.length;
+            String message = "Too few/many arguments to " + function.toString() + ", got " + arguments.length;
             result = new Result(message, ResultType.ERROR);
             return;
         }
@@ -110,6 +110,14 @@ public class EvalVisitor implements AstVisitor {
             @Override
             public Result get() {
                 return eval(ast);
+            }
+
+            @Override
+            public Result asSymbol() {
+                if (ast instanceof SymbolAst) {
+                    return new Result(((SymbolAst) ast).getSymbol(), ResultType.SYMBOL);
+                }
+                return new Result("Not a symbol", ResultType.ERROR);
             }
 
             @Override

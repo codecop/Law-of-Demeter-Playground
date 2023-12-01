@@ -12,6 +12,10 @@ public class LazyResults {
         return arguments[i].get();
     }
 
+    public Result asSymbol(int i) {
+        return arguments[i].asSymbol();
+    }
+    
     public LazyResult[] asList(int i) {
         return arguments[i].asList();
     }

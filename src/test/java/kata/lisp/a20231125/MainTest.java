@@ -39,5 +39,12 @@ class MainTest {
         assertEquals(ResultType.NUMBER, actual.type());
     }
 
+    @Test
+    void globalData() {
+        Result actual = main.run("(define name \"Peter\") (string-append \"Hello \" name)");
+        assertEquals("Hello Peter", actual.value());
+        assertEquals(ResultType.STRING, actual.type());
+    }
+
     // TODO Test: single quote (') indicates literal data; it suppresses evaluation. 
 }

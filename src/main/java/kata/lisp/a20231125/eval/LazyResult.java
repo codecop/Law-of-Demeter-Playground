@@ -4,5 +4,8 @@ public interface LazyResult {
 
     Result get();
 
+    Result asSymbol();
+
     LazyResult[] asList();
+
 }
