@@ -125,17 +125,28 @@ class If extends Function {
     }
 
     @Override
-    public Result apply(LazyResult[] arguments, Variables variables) {
-        Result condition = arguments[0].get();
-        if (condition.type() != ResultType.BOOLEAN) {
-            return condition.causesTypeMismatchAtPosition(0);
+    public Result apply(LazyResults arguments, Variables variables) {
+        Result condition = getOfTypeOrError(arguments.evalArgument(0), ResultType.BOOLEAN, 0);
+        return evalCond(condition, arguments);
+    }
+
+    private Result evalCond(Result condition, LazyResults arguments) {
+        if (condition.isError()) {
+            return condition;
         }
 
         if ((Boolean) condition.value()) {
-            return arguments[1].get();
+            return arguments.evalArgument(1);
         }
 
-        return arguments[2].get();
+        return arguments.evalArgument(2);
+    }
+
+    private Result getOfTypeOrError(Result result, ResultType resultType, int index) {
+        if (result.type() != resultType) {
+            return result.causesTypeMismatchAtPosition(index);
+        }
+        return result;
     }
 
 }

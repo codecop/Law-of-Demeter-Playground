@@ -10,6 +10,7 @@ import kata.lisp.a20231125.ast.SymbolAst;
 import kata.lisp.a20231125.eval.Function;
 import kata.lisp.a20231125.eval.Functions;
 import kata.lisp.a20231125.eval.LazyResult;
+import kata.lisp.a20231125.eval.LazyResults;
 import kata.lisp.a20231125.eval.Result;
 import kata.lisp.a20231125.eval.ResultType;
 import kata.lisp.a20231125.eval.Variables;
@@ -92,7 +93,7 @@ public class EvalVisitor implements AstVisitor {
         }
 
         LazyResult[] results = toLazyResults(arguments);
-        result = function.apply(results, variables);
+        result = function.apply(new LazyResults(results), variables);
     }
 
     private LazyResult[] toLazyResults(Ast[] arguments) {

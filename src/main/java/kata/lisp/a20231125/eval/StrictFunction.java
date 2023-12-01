@@ -7,8 +7,8 @@ public abstract class StrictFunction extends Function {
     }
 
     @Override
-    public Result apply(LazyResult[] lazyArguments, Variables variables) {
-        Results arguments = evalArgumentsFirst(lazyArguments);
+    public Result apply(LazyResults lazyArguments, Variables variables) {
+        Results arguments = lazyArguments.evalArguments();
         return apply(arguments);
     }
 
@@ -25,14 +25,6 @@ public abstract class StrictFunction extends Function {
 
         Object[] values = arguments.toValues();
         return apply(values);
-    }
-
-    private Results evalArgumentsFirst(LazyResult[] lazyArguments) {
-        Result[] arguments = new Result[lazyArguments.length];
-        for (int i = 0; i < lazyArguments.length; i++) {
-            arguments[i] = lazyArguments[i].get();
-        }
-        return new Results(arguments);
     }
 
     public abstract boolean matchesArgumentType(int i, ResultType parameterType);

@@ -10,7 +10,7 @@ public class Results {
 
     public Result firstErrorInArguments() {
         for (int i = 0; i < size(); i++) {
-            if (arguments[i].type() == ResultType.ERROR) {
+            if (arguments[i].isError()) {
                 return arguments[i];
             }
         }
@@ -19,9 +19,8 @@ public class Results {
 
     public Result typeMismatchWith(StrictFunction function) {
         for (int i = 0; i < size(); i++) {
-            Result argument = arguments[i];
-            if (!function.matchesArgumentType(i, argument.type())) {
-                return argument.causesTypeMismatchAtPosition(i);
+            if (!function.matchesArgumentType(i, arguments[i].type())) {
+                return arguments[i].causesTypeMismatchAtPosition(i);
             }
         }
         return null;

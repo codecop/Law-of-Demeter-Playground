@@ -25,6 +25,10 @@ public class Result {
     public ResultType type() {
         return type;
     }
+    
+    public boolean isError() {
+        return type == ResultType.ERROR;
+    }
 
     @Override
     public String toString() {
