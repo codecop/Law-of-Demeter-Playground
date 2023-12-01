@@ -24,11 +24,23 @@ class EvalTest {
         assertEquals(ResultType.NUMBER, result.type());
     }
 
-    @Test
-    void evalAddition() {
-        Result result = eval.eval(astOf("(", "+", "1", "2", ")"));
-        assertEquals(3, result.value());
-        assertEquals(ResultType.NUMBER, result.type());
+    @Nested
+    class UsingFunctions {
+
+        @Test
+        void evalAddition() {
+            Result result = eval.eval(astOf("(", "+", "1", "2", ")"));
+            assertEquals(3, result.value());
+            assertEquals(ResultType.NUMBER, result.type());
+        }
+
+        @Test
+        void evalError() {
+            Result result = eval.eval(astOf("(", "error", "\"foo\"", ")"));
+            assertEquals("foo", result.value());
+            assertEquals(ResultType.ERROR, result.type());
+        }
+
     }
 
     @Test
@@ -39,40 +51,7 @@ class EvalTest {
     }
 
     @Nested
-    class UsingVariables {
-
-        @Test
-        void missingVariable() {
-            Result result = eval.eval(astOf("a"));
-
-            assertEquals("Unknown symbol a", result.value());
-            assertEquals(ResultType.ERROR, result.type());
-        }
-
-        @Test
-        void useVariable() {
-            Ast ast = astOf("a");
-            Variables variables = new Variables();
-            variables.add("a", new Result(1, ResultType.NUMBER));
-
-            Result result = eval.evalUsing(ast, null, variables);
-
-            assertEquals(1, result.value());
-            assertEquals(ResultType.NUMBER, result.type());
-        }
-
-        @Disabled
-        @Test
-        void letFunction() {
-            Result result = eval.eval(astOf("(", "let", "(", "(", "a", "1", ")", ")", "a", ")"));
-            assertEquals(1, result.value());
-            assertEquals(ResultType.NUMBER, result.type());
-        }
-
-    }
-
-    @Nested
-    class ErrorHandling {
+    class FunctionErrorHandling {
 
         @Test
         void evalWrongType() {
@@ -108,6 +87,39 @@ class EvalTest {
             Result result = eval.eval(astOf("(", "+", ")"));
             assertEquals("Too many arguments to +, got 0", result.value());
             assertEquals(ResultType.ERROR, result.type());
+        }
+
+    }
+
+    @Nested
+    class UsingVariables {
+
+        @Test
+        void missingVariable() {
+            Result result = eval.eval(astOf("a"));
+
+            assertEquals("Unknown symbol a", result.value());
+            assertEquals(ResultType.ERROR, result.type());
+        }
+
+        @Test
+        void useVariable() {
+            Ast ast = astOf("a");
+            Variables variables = new Variables();
+            variables.add("a", new Result(1, ResultType.NUMBER));
+
+            Result result = eval.evalUsing(ast, null, variables);
+
+            assertEquals(1, result.value());
+            assertEquals(ResultType.NUMBER, result.type());
+        }
+
+        @Disabled
+        @Test
+        void letFunction() {
+            Result result = eval.eval(astOf("(", "let", "(", "(", "a", "1", ")", ")", "a", ")"));
+            assertEquals(1, result.value());
+            assertEquals(ResultType.NUMBER, result.type());
         }
 
     }

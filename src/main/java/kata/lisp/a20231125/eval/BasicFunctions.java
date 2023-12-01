@@ -6,6 +6,7 @@ public class BasicFunctions {
         functions.addFunctionNamed(new IntegerAddition());
         functions.addFunctionNamed(new IntegerSquareRoot());
         functions.addFunctionNamed(new StringAppend());
+        functions.addFunctionNamed(new Error());
     }
 
 }
@@ -84,6 +85,29 @@ class StringAppend extends StrictFunction {
             buf.append((String) arguments[i]);
         }
         return new Result(buf.toString(), ResultType.STRING);
+    }
+
+}
+
+class Error extends StrictFunction {
+
+    public Error() {
+        super("error");
+    }
+
+    @Override
+    public boolean matchesArgumentNumber(int count) {
+        return count == 1;
+    }
+
+    @Override
+    public boolean matchesArgumentType(int i, ResultType type) {
+        return ResultType.STRING == type;
+    }
+
+    @Override
+    public Result apply(Object[] arguments) {
+        return new Result(arguments[0], ResultType.ERROR);
     }
 
 }
