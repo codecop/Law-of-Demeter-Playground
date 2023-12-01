@@ -32,18 +32,23 @@ public class Parser {
     }
 
     public Ast parse(Tokens tokens) {
+        Ast ast = null;
         if (tokens.atOpeningBracket()) {
             tokens.consumeToken();
-            return parseExpression(tokens);
+            ast = parseExpression(tokens);
+            if (tokens.finished()) {
+                return ast;
+            }
+            // else ast is first expression of a program
         }
         // only at top level
-        return parseProgram(tokens);
+        return parseProgram(tokens, ast);
     }
 
     private Ast parseExpression(Tokens tokens) {
         List<Ast> children = new ArrayList<>();
         while (true) {
-            if (!tokens.hasNext()) {
+            if (tokens.finished()) {
                 throw new ParsingException("Premature end of tokens while parsing an Expression",
                         new ExpressionAst(children));
             }
@@ -65,8 +70,11 @@ public class Parser {
         return new ExpressionAst(children);
     }
 
-    private Ast parseProgram(Tokens tokens) {
+    private Ast parseProgram(Tokens tokens, Ast possibleFirstExpression) {
         List<Ast> children = new ArrayList<>();
+        if (possibleFirstExpression != null) {
+            children.add(possibleFirstExpression);
+        }
         while (tokens.hasNext()) {
             Token token = tokens.next();
             if (tokens.atOpeningBracket()) {

@@ -45,6 +45,10 @@ public class Tokens {
         position++;
     }
 
+    public boolean finished() {
+        return !hasNext();
+    }
+
     @Override
     public String toString() {
         StringBuilder buf = new StringBuilder();
@@ -59,7 +63,7 @@ public class Tokens {
                 buf.append(" <= current");
             }
         }
-        if (!hasNext()) {
+        if (finished()) {
             buf.append(", <= END");
         }
         return buf.toString();

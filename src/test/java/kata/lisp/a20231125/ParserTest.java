@@ -98,6 +98,14 @@ class ParserTest {
             assertEquals(new ProgramAst(Arrays.asList(new NumberAst(1), new NumberAst(2))), ast);
         }
 
+        @Test
+        void parseTokensWithBrackets() {
+            Ast ast = parser.parse(Tokens.tokensOf("(", "+", "1", "2", ")", "3"));
+            assertEquals(new ProgramAst(Arrays.asList( //
+                    new ExpressionAst(Arrays.asList(new SymbolAst("+"), new NumberAst(1), new NumberAst(2))), // 
+                    new NumberAst(3))), ast);
+        }
+
     }
 
     private Token tokenOf(String value) {
