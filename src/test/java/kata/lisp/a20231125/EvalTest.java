@@ -64,28 +64,28 @@ class EvalTest {
         @Test
         void evalMissingFunction() {
             Result result = eval.eval(astOf("(", "not-existing", "#t", ")"));
-            assertEquals("Unknown symbol not-existing", result.value());
+            assertEquals("Unknown function symbol not-existing", result.value());
             assertEquals(ResultType.ERROR, result.type());
         }
 
         @Test
         void errorStopsEval() {
             Result result = eval.eval(astOf("(", "+", "1", "(", "not-existing", "1", "2", ")", ")"));
-            assertEquals("Unknown symbol not-existing", result.value());
+            assertEquals("Unknown function symbol not-existing", result.value());
             assertEquals(ResultType.ERROR, result.type());
         }
 
         @Test
         void tooManyArguments() {
             Result result = eval.eval(astOf("(", "sqrt", "2", "3", ")"));
-            assertEquals("Too many arguments to sqrt, got 2", result.value());
+            assertEquals("Too few/many arguments to sqrt, got 2", result.value());
             assertEquals(ResultType.ERROR, result.type());
         }
 
         @Test
         void tooFewArguments() {
             Result result = eval.eval(astOf("(", "+", ")"));
-            assertEquals("Too many arguments to +, got 0", result.value());
+            assertEquals("Too few/many arguments to +, got 0", result.value());
             assertEquals(ResultType.ERROR, result.type());
         }
 
@@ -98,7 +98,7 @@ class EvalTest {
         void missingVariable() {
             Result result = eval.eval(astOf("a"));
 
-            assertEquals("Unknown symbol a", result.value());
+            assertEquals("Unknown variable symbol a", result.value());
             assertEquals(ResultType.ERROR, result.type());
         }
 
