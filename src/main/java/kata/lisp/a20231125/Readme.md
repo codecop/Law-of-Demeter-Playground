@@ -1,6 +1,8 @@
 # Write a Scheme
 
-Create a Lisp, more precise a [Scheme](https://en.wikipedia.org/wiki/Scheme_(programming_language)), a dialect of Lisp.
+Create a [Lisp](https://en.wikipedia.org/wiki/Lisp_(programming_language)), more precise a [Scheme](https://en.wikipedia.org/wiki/Scheme_(programming_language)), a dialect of Lisp.
+
+Scheme (R5RS) is a minimalist dialect of the Lisp family of programming languages. Lisp (historically LISP) is a family of programming languages with a long history and a distinctive, fully parenthesised prefix notation. It was created in 1968.
 
 This is a large assignment and an algorithmic challenge.
 
@@ -12,7 +14,7 @@ Symbolic expressions (S-expressions): `(+ 1 2 3), (string-append "Hello" name), 
 
 ## Requirements
 
-Write a (R5RS) Scheme interpreter which 
+Write a Scheme interpreter which 
 
 1. accepts a file name as first argument and 
 2. prints the result of evaluating the program to the console.
@@ -25,3 +27,4 @@ Write a (R5RS) Scheme interpreter which
 * `(if #t (+ 1 2) (error "should not eval this")` ... lazy arguments
 * `(define name "Peter") (string-append "Hello" name)` ... global variables, undefined/empty return value.
 * `(let ((name "Peter")) (string-append "Hello" name))` ... local variables
+* `(define (times-two x) (* x 2))` ... your own functions
