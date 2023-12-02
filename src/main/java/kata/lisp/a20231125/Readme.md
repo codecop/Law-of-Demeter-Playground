@@ -45,7 +45,9 @@ The preferred supplier objects in `M` are
 
 It states that the Law of Demeter decreases the complexity of the methods, but increases the number of methods.
 
-So this is a method centred rule and does not deal with classes at all. So it is possible (and done in the exercise) to pass the return value got from some method into a new method `M2` which is allowed to call methods on it. This feels like cheating but is aligned with the rules. Also it does not talk about fields. Am I allowed to access fields of a foreign instance? To be consistent I would say no.  
+So this is a method centred rule and does not deal with classes at all. So it is possible (and done in the exercise) to pass the return value got from some method into a new method `M2` which is allowed to call methods on it. This feels like cheating but is aligned with the rules. Also it does not talk about fields. Am I allowed to access fields of a foreign instance? To be consistent I would say no.
+
+Another situation was to replace calls with fields. Enums and null values work better than state variables because I can use `==` instead of `getSomething`, which is allowed. This is cheating again, at least it is not helping a good style.
 
 It is unclear what global instances are for static methods. Creation of new objects is allowed, so named constructors and factory functions are allowed.
 

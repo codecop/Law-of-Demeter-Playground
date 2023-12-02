@@ -22,7 +22,7 @@ public abstract class Function {
 
     public String errorMatchingArgumentNumber(int parameterCount) {
         return "Too few/many arguments to function " + toString() + // LoD_O.1
-                ", expected " + numberOfArguments.display() + // // LoD_O.4
+                ", expected " + numberOfArguments.display() + // LoD_O.4
                 ", got " + parameterCount;
     }
 

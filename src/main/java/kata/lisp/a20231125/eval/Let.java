@@ -8,32 +8,28 @@ class Let extends Function {
 
     @Override
     public Result apply(LazyResults arguments, Variables variables) {
-        variables.push();
-        Result error = setVariables(arguments.asList(0), variables);
-        if (error != null) {
-            return error;
-        }
-        Result result = arguments.evalArgument(1);
-        variables.pop();
+        variables.push(); // LoD_O.2
+
+        LazyResult[] listOfPairs = arguments.asList(0); // LoD_O.2
+        Result result = apply(listOfPairs, arguments, variables); // LoD_O.1
+
+        variables.pop(); // LoD_O.2
         return result;
     }
 
-    private Result setVariables(LazyResult[] listOfPairs, Variables variables) {
-        for (LazyResult r : listOfPairs) {
-            LazyResult[] pair = r.asList();
-            Result symbol = pair[0].asSymbol();
-            // TODO LoD
-            // if (symbol.isError()) {
-            //    return symbol;
-            // }
-            Result value = pair[1].get();
-            setVariable(variables, symbol, value);
-        }
-        return null;
-    }
+    private Result apply(LazyResult[] listOfPairs, LazyResults otherArguments, Variables variables) {
+        for (LazyResult pair : listOfPairs) {
 
-    private void setVariable(Variables variables, Result symbol, Result value) {
-        variables.add((String) symbol.value(), value);
+            LazyResult[] declaration = pair.asList(); // LoD_O.2
+            Result added = variables.add(declaration); // LoD_O.2
+            if (added != null) { // This was a violation but changing it to null fixed it. Workaround...
+                return added;
+            }
+        }
+
+        return otherArguments.evalArgument(1); // LoD_O.2
     }
 
 }
+
+// LoD review OK
