@@ -6,14 +6,14 @@ import java.util.Map;
 public class Variables {
 
     private final Map<String, Result> values;
-    private Variables priority;
+    private Variables variablesStack;
 
     public Variables() {
         this(null, new HashMap<>());
     }
 
     public Variables(Variables priority, Map<String, Result> previous) {
-        this.priority = priority;
+        this.variablesStack = priority;
         this.values = new HashMap<>(previous);
     }
 
@@ -30,15 +30,15 @@ public class Variables {
     }
 
     public void push() {
-        priority = new Variables(priority, values);
+        variablesStack = new Variables(variablesStack, values);
     }
 
     public void pop() {
-        if (priority != null) {
+        if (variablesStack != null) {
             values.clear();
-            values.putAll(priority.values);
+            values.putAll(variablesStack.values);
         }
-        priority = null;
+        variablesStack = null;
     }
 
 }

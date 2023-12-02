@@ -46,5 +46,12 @@ class MainTest {
         assertEquals(ResultType.STRING, actual.type());
     }
 
+    @Test
+    void defineErrorHandling() {
+        Result actual = main.run("(define 1 \"Peter\")");
+        assertEquals("Not a symbol Ast(1)", actual.value());
+        assertEquals(ResultType.ERROR, actual.type());
+    }
+
     // TODO Test: single quote (') indicates literal data; it suppresses evaluation. 
 }

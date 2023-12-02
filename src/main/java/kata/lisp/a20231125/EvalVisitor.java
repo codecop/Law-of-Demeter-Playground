@@ -117,7 +117,7 @@ public class EvalVisitor implements AstVisitor {
                 if (ast instanceof SymbolAst) {
                     return new Result(((SymbolAst) ast).getSymbol(), ResultType.SYMBOL);
                 }
-                return new Result("Not a symbol", ResultType.ERROR);
+                return new Result("Not a symbol " + ast, ResultType.ERROR);
             }
 
             @Override
