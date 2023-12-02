@@ -10,12 +10,12 @@ public abstract class Function {
         this.numberOfArguments = numberOfArguments;
     }
 
-    public boolean matchesArgumentNumber(int parameterCount) {
-        return numberOfArguments.matches(parameterCount);
+    public String getName() {
+        return name;
     }
 
-    public boolean isNamed(String targetName) {
-        return this.name.equals(targetName);
+    public boolean matchesArgumentNumber(int parameterCount) {
+        return numberOfArguments.matches(parameterCount); // LoD_O.4
     }
 
     public abstract Result apply(LazyResults arguments, Variables variables);
@@ -26,3 +26,5 @@ public abstract class Function {
     }
 
 }
+
+// LoD review OK

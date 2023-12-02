@@ -9,3 +9,5 @@ public interface LazyResult {
     LazyResult[] asList();
 
 }
+
+// LoD review OK

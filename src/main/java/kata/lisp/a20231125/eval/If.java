@@ -26,7 +26,7 @@ class If extends Function {
 
     private Result getOfTypeOrError(Result result, ResultType resultType, int index) {
         if (result.type() != resultType) {
-            return result.causesTypeMismatchAtPosition(index);
+            return result.causesTypeMismatchAtPosition(index, result);
         }
         return result;
     }

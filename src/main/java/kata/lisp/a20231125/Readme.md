@@ -71,6 +71,8 @@ A method `M` of an object of class `A` should invoke only the methods of the fol
 4. any method of any classes of its fields 
 5. any method of global objects
 
+Till now it seems the LoD_C is only needed in equals, because then we access the (private) fields of the other instance.
+
 Weak Form "LoD_Cw"
 
 6. any method of parent class in a class hierarchy

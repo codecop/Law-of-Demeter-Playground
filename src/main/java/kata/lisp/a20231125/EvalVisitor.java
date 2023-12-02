@@ -50,9 +50,6 @@ public class EvalVisitor implements AstVisitor {
     @Override
     public void visitSymbol(String value) {
         Result symbol = new Result(value, ResultType.SYMBOL);
-        if (symbol.type() != ResultType.SYMBOL) {
-            throw new IllegalArgumentException("Not a symbol " + symbol);
-        }
         result = variables.get((String) symbol.value());
     }
 

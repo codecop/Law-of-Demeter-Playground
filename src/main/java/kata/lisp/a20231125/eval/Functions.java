@@ -1,26 +1,21 @@
 package kata.lisp.a20231125.eval;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class Functions {
 
-    // private final Map<String, Function> functions = new HashMap<>();
-    private final Function[] functions = new Function[100];
+    private final Map<String, Function> functions = new HashMap<>();
 
     public void addFunctionNamed(Function function) {
-        for (int i = 0; i < functions.length; i++) {
-            if (functions[i] == null) {
-                functions[i] = function;
-                break;
-            }
-        }
+        String name = function.getName(); // LoD_O.2
+        functions.put(name, function); // LoD_O.4
     }
 
-    public Function getFunctionNamed(String name) {
-        for (int i = 0; i < functions.length; i++) {
-            if (functions[i] != null && functions[i].isNamed(name)) {
-                return functions[i];
-            }
-        }
-        return null;
+    public Function getFunctionNamed(String functionName) {
+        return functions.get(functionName); // LoD_O.4
     }
 
 }
+
+// LoD review OK

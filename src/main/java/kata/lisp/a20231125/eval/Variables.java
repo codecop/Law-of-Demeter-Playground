@@ -12,19 +12,19 @@ public class Variables {
         this(null, new HashMap<>());
     }
 
-    public Variables(Variables priority, Map<String, Result> previous) {
-        this.variablesStack = priority;
+    public Variables(Variables variablesStack, Map<String, Result> previous) {
+        this.variablesStack = variablesStack;
         this.values = new HashMap<>(previous);
     }
 
-    public void add(String name, Result value) {
-        values.put(name, value);
+    public void add(String variableName, Result value) {
+        values.put(variableName, value); // LoD_O.4
     }
 
     public Result get(String variableName) {
-        Result result = values.get(variableName);
+        Result result = values.get(variableName); // LoD_O.4
         if (result == null) {
-            return Result.error("Unknown variable symbol " + variableName);
+            return Result.error("Unknown variable symbol " + variableName); // named constructor
         }
         return result;
     }
@@ -35,10 +35,13 @@ public class Variables {
 
     public void pop() {
         if (variablesStack != null) {
-            values.clear();
-            values.putAll(variablesStack.values);
+            values.clear(); // LoD_O.4
+            Map<String, Result> previousValues = variablesStack.values; // LoD_O.4
+            values.putAll(previousValues); // LoD_O.4
         }
         variablesStack = null;
     }
 
 }
+
+// LoD review OK

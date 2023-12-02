@@ -15,13 +15,14 @@ public class Result {
     }
 
     public Result(Object value, ResultType type) {
-        Objects.requireNonNull(value);
-        Objects.requireNonNull(type);
-        type.requireValueType(value);
+        Objects.requireNonNull(value); // ignore
+        Objects.requireNonNull(type); // ignore
+        type.requireProperType(value); // LoD_O.2
         this.value = value;
         this.type = type;
     }
 
+    // TODO type the result with generics
     public Object value() {
         return this.value;
     }
@@ -36,11 +37,12 @@ public class Result {
 
     @Override
     public String toString() {
-        return value + " (" + type + ")";
+        return value + " (" + type + ")"; // LoD_O.4, LoD_O.4
     }
 
-    public Result causesTypeMismatchAtPosition(int index) {
-        String message = "Type mismatch of " + (index + 1) + ". argument: " + "got " + toString();
+    // TODO move this somewhere else, is too specific
+    public Result causesTypeMismatchAtPosition(int index, Result r) {
+        String message = "Type mismatch of " + (index + 1) + ". argument: " + "got " + r;
         return Result.error(message);
     }
 

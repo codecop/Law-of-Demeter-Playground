@@ -1,7 +1,9 @@
 package kata.lisp.a20231125.eval;
 
 interface TypeOfArguments {
+
     boolean matches(int i, ResultType parameterType);
+
 }
 
 class AllSameTypeOfArguments implements TypeOfArguments {
@@ -18,3 +20,5 @@ class AllSameTypeOfArguments implements TypeOfArguments {
     }
 
 }
+
+// LoD review OK
