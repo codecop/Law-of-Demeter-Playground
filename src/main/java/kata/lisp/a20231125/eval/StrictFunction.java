@@ -2,8 +2,8 @@ package kata.lisp.a20231125.eval;
 
 public abstract class StrictFunction extends Function {
 
-    public StrictFunction(String name) {
-        super(name);
+    public StrictFunction(String name, NumberOfArguments argumentNumberMatcher) {
+        super(name, argumentNumberMatcher);
     }
 
     @Override

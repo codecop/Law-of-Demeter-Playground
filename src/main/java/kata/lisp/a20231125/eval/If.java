@@ -3,12 +3,7 @@ package kata.lisp.a20231125.eval;
 class If extends Function {
 
     public If() {
-        super("if");
-    }
-
-    @Override
-    public boolean matchesArgumentNumber(int count) {
-        return count == 3;
+        super("if", new ExactNumberOfArguments(3));
     }
 
     @Override

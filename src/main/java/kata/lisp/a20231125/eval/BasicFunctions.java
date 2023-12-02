@@ -17,12 +17,7 @@ public class BasicFunctions {
 class IntegerAddition extends StrictFunction {
 
     public IntegerAddition() {
-        super("+");
-    }
-
-    @Override
-    public boolean matchesArgumentNumber(int count) {
-        return count >= 1;
+        super("+", new MoreThanNumberOfArguments(1));
     }
 
     @Override
@@ -44,12 +39,7 @@ class IntegerAddition extends StrictFunction {
 class IntegerSquareRoot extends StrictFunction {
 
     public IntegerSquareRoot() {
-        super("sqrt");
-    }
-
-    @Override
-    public boolean matchesArgumentNumber(int count) {
-        return count == 1;
+        super("sqrt", new ExactNumberOfArguments(1));
     }
 
     @Override
@@ -68,12 +58,7 @@ class IntegerSquareRoot extends StrictFunction {
 class StringAppend extends StrictFunction {
 
     public StringAppend() {
-        super("string-append");
-    }
-
-    @Override
-    public boolean matchesArgumentNumber(int count) {
-        return count >= 1;
+        super("string-append", new MoreThanNumberOfArguments(1));
     }
 
     @Override
@@ -95,12 +80,7 @@ class StringAppend extends StrictFunction {
 class Error extends StrictFunction {
 
     public Error() {
-        super("error");
-    }
-
-    @Override
-    public boolean matchesArgumentNumber(int count) {
-        return count == 1;
+        super("error", new ExactNumberOfArguments(1));
     }
 
     @Override

@@ -3,12 +3,7 @@ package kata.lisp.a20231125.eval;
 class Let extends Function {
 
     public Let() {
-        super("let");
-    }
-
-    @Override
-    public boolean matchesArgumentNumber(int parameterCount) {
-        return parameterCount == 2; // variables and expression
+        super("let", new ExactNumberOfArguments(2)); // variables and expression
     }
 
     @Override

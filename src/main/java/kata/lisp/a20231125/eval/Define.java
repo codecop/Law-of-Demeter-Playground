@@ -3,12 +3,7 @@ package kata.lisp.a20231125.eval;
 class Define extends Function {
 
     public Define() {
-        super("define");
-    }
-
-    @Override
-    public boolean matchesArgumentNumber(int count) {
-        return count == 2;
+        super("define", new ExactNumberOfArguments(2));
     }
 
     @Override
