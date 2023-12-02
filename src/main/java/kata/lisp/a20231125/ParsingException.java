@@ -7,7 +7,7 @@ public class ParsingException extends RuntimeException {
     private final Ast ast;
 
     public ParsingException(String message, Ast ast) {
-        super(message + ": " + ast.toString());
+        super(message + ": " + ast.toString()); // LoD_O.2 
         this.ast = ast;
     }
 
@@ -16,3 +16,5 @@ public class ParsingException extends RuntimeException {
     }
 
 }
+
+// LoD review OK
