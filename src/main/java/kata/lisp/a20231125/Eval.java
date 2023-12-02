@@ -22,7 +22,6 @@ public class Eval {
     private Functions prepareContextFunctions() {
         Functions functions = new Functions();
         BasicFunctions.addTo(functions);
-        functions.addFunctionNamed(new Let());
         return functions;
     }
 

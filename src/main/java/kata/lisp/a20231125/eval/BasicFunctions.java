@@ -8,6 +8,7 @@ public class BasicFunctions {
         functions.addFunctionNamed(new StringAppend());
         functions.addFunctionNamed(new Error());
         functions.addFunctionNamed(new If());
+        functions.addFunctionNamed(new Let());
         functions.addFunctionNamed(new Define());
     }
 
@@ -166,6 +167,9 @@ class Define extends Function {
     @Override
     public Result apply(LazyResults arguments, Variables variables) {
         Result r = arguments.asSymbol(0);
+        if (r.isError()) {
+            return r;
+        }
         String symbol = (String) r.value();
         Result value = arguments.evalArgument(1);
         variables.add(symbol, value);
