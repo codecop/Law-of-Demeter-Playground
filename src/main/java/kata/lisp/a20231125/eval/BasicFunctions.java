@@ -3,7 +3,7 @@ package kata.lisp.a20231125.eval;
 public class BasicFunctions {
 
     public static void addTo(Functions functions) {
-        functions.addFunctionNamed(new IntegerAddition());
+        functions.addFunctionNamed(new IntegerAddition()); // LoD_O.2
         functions.addFunctionNamed(new IntegerSquareRoot());
         functions.addFunctionNamed(new StringAppend());
         functions.addFunctionNamed(new Error());
@@ -55,9 +55,9 @@ class StringAppend extends StrictFunction {
     public Result apply(Object[] arguments) {
         StringBuilder buf = new StringBuilder();
         for (int i = 0; i < arguments.length; i++) {
-            buf.append((String) arguments[i]);
+            buf.append((String) arguments[i]); // LoD_O.3
         }
-        return new Result(buf.toString(), ResultType.STRING);
+        return new Result(buf.toString(), ResultType.STRING); // LoD_O.3
     }
 
 }
@@ -70,7 +70,9 @@ class Error extends StrictFunction {
 
     @Override
     public Result apply(Object[] arguments) {
-        return Result.error(arguments[0].toString());
+        return Result.error(arguments[0].toString()); // LoD_O.2
     }
 
 }
+
+// LoD review OK

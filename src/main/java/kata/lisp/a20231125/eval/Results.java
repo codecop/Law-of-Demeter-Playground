@@ -37,9 +37,9 @@ public class Results {
 
     public Result typeMismatchWith(StrictFunction function) {
         for (int i = 0; i < size(); i++) { // LoD_O.1
-            ResultType type = arguments[i].type(); // LoD_O.4
-            if (!function.matchesArgumentType(i, type)) { // LoD_O.2
-                return Result.error(function.errorMatchingArgumentType(i, type)); // LoD_O.2
+            Result result = arguments[i];
+            if (!function.matchesArgumentType(i, result)) { // LoD_O.2
+                return Result.error(function.errorMatchingArgumentType(i, result)); // LoD_O.2
             }
         }
         return null;

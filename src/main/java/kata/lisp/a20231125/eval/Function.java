@@ -26,14 +26,14 @@ public abstract class Function {
                 ", got " + parameterCount;
     }
 
-    public boolean matchesArgumentType(int index, ResultType parameterType) {
-        return typeOfArguments == null || typeOfArguments.matches(index, parameterType); // LoD_O.4
+    public boolean matchesArgumentType(int index, Result parameter) {
+        return typeOfArguments == null || typeOfArguments.matches(index, parameter.type()); // LoD_O.4, LoD_O.2
     }
 
-    public String errorMatchingArgumentType(int index, ResultType parameterType) {
+    public String errorMatchingArgumentType(int index, Result parameter) {
         return "Type mismatch of " + (index + 1) + ". argument to function " + toString() + // LoD_O.1
                 ", expected " + typeOfArguments.expectedType(index) + // LoD_O.4
-                ", got " + parameterType; // LoD_O.2
+                ", got " + parameter.type(); // LoD_O.2
     }
 
     public abstract Result apply(LazyResults arguments, Variables variables);
