@@ -38,7 +38,8 @@ public class Lexer {
         }
         addPreviousChunk();
 
-        return Tokens.tokensOf(chunks.toArray(new String[0]));
+        String[] tokens = chunks.toArray(new String[chunks.size()]);
+        return Tokens.tokensOf(tokens);
     }
 
     private boolean isIgnoredSeparator() {

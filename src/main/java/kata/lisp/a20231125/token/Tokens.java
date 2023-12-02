@@ -13,7 +13,7 @@ public class Tokens {
         Token[] tokens = Arrays.stream(arguments). //
                 map(Token::new). //
                 collect(Collectors.toList()). //
-                toArray(new Token[0]);
+                toArray(new Token[arguments.length]);
         return new Tokens(tokens);
     }
 
