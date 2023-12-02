@@ -12,7 +12,7 @@ import kata.lisp.a20231125.token.Tokens;
 public class Main {
 
     public static void main(String[] args) throws IOException {
-        System.out.println(new Main().runFile(args[0]));
+        System.out.println(new Main().runFile(args[0])); // LoD_O.3
     }
 
     private final Parser parser = new Parser();
@@ -20,13 +20,15 @@ public class Main {
 
     public Result runFile(String fileName) throws IOException {
         String code = Files.readString(Paths.get(fileName));
-        return run(code);
+        return run(code); // LoD_O.1
     }
 
     public Result run(String code) {
         Lexer lexer = new Lexer(code);
-        Tokens tokens = lexer.tokenise();
-        Ast program = parser.parse(tokens);
-        return eval.eval(program);
+        Tokens tokens = lexer.tokenise(); // LoD_O.3
+        Ast program = parser.parse(tokens); // LoD_O.4
+        return eval.eval(program); // LoD_O.4
     }
 }
+
+// LoD review OK

@@ -9,14 +9,14 @@ import kata.lisp.a20231125.eval.Variables;
 public class Eval {
 
     public Result eval(Ast ast) {
-        Functions functions = prepareContextFunctions();
+        Functions functions = prepareContextFunctions(); // LoD_O.1
         Variables variables = new Variables();
-        return evalUsing(ast, functions, variables);
+        return evalUsing(ast, functions, variables); // LoD_O.1
     }
 
     /* for tests*/ Result evalUsing(Ast ast, Functions functions, Variables variables) {
         EvalVisitor visitor = new EvalVisitor(functions, variables);
-        return visitor.eval(ast);
+        return visitor.eval(ast); // LoD_O.3
     }
 
     private Functions prepareContextFunctions() {
@@ -26,3 +26,5 @@ public class Eval {
     }
 
 }
+
+// LoD review OK
