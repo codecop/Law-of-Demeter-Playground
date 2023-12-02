@@ -1,5 +1,6 @@
 package kata.lisp.a20231125.eval;
 
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -11,7 +12,7 @@ public class ResultType {
     public static final ResultType BOOLEAN = new ResultType("B", Boolean.class);
     public static final ResultType STRING = new ResultType("S", String.class);
     public static final ResultType FLOAT = new ResultType("F", Double.class);
-    // TODO LIST
+    public static final ResultType LIST = new ResultType("L", List.class);
 
     public static final ResultType SYMBOL = new ResultType("F", String.class);
     public static final ResultType ERROR = new ResultType("E", String.class);
