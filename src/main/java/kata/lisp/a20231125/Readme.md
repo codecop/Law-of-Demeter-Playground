@@ -47,6 +47,10 @@ It states that the Law of Demeter decreases the complexity of the methods, but i
 
 So this is a method centred rule and does not deal with classes at all. So it is possible (and done in the exercise) to pass the return value got from some method into a new method `M2` which is allowed to call methods on it. This feels like cheating but is aligned with the rules. Also it does not talk about fields. Am I allowed to access fields of a foreign instance? To be consistent I would say no.  
 
+It is unclear what global instances are for static methods. Creation of new objects is allowed, so named constructors and factory functions are allowed.
+
+Stream and helper functions from `java.util.Arrays` and `java.util.stream.Collectors` cause LoD violations when we are strict. Need to use for loops.
+
 ### Object Form of Law of Demeter "LoD_O"
 
 A method `M` of an object `O` should invoke only the methods of the following kinds of objects: 

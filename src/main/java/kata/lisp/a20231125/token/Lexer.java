@@ -13,71 +13,77 @@ public class Lexer {
     }
 
     public Tokens tokenise() {
-        stream.markBegin();
-        while (stream.notFinished()) {
+        stream.markBegin(); // LoD_O.4
+        while (stream.notFinished()) { // LoD_O.4
 
-            if (isIgnoredSeparator()) {
-                addPreviousChunk();
-                ignoreCurrent();
-                stream.markBegin();
+            if (isIgnoredSeparator()) { // LoD_O.1
+                addPreviousChunk(); // LoD_O.1
+                ignoreCurrent(); // LoD_O.1
+                stream.markBegin(); // LoD_O.4
 
-            } else if (isBraces()) {
-                addPreviousChunk();
-                addCurrent();
-                stream.markBegin();
+            } else if (isBraces()) { // LoD_O.1
+                addPreviousChunk(); // LoD_O.1
+                addCurrent(); // LoD_O.1
+                stream.markBegin(); // LoD_O.4
 
-            } else if (isQuote()) {
-                addPreviousChunk();
-                addUpToQuote();
-                stream.markBegin();
+            } else if (isQuote()) { // LoD_O.1
+                addPreviousChunk(); // LoD_O.1
+                addUpToQuote(); // LoD_O.1
+                stream.markBegin(); // LoD_O.4
 
             } else {
-                stream.next();
+                stream.next(); // LoD_O.4
             }
 
         }
-        addPreviousChunk();
+        addPreviousChunk(); // LoD_O.1
 
-        String[] tokens = chunks.toArray(new String[chunks.size()]);
-        return Tokens.tokensOf(tokens);
+        String[] target = new String[chunks.size()]; // LoD_O.4
+        String[] tokens = chunks.toArray(target); // LoD_O.4
+        return Tokens.tokensOf(tokens); // constructor
     }
 
     private boolean isIgnoredSeparator() {
-        return Character.isWhitespace(stream.peek());
+        char c = stream.peek(); // LoD_O.4
+        return Character.isWhitespace(c);
     }
 
     private void addPreviousChunk() {
-        if (stream.hasChunk()) {
-            chunks.add(stream.getChunk());
+        if (stream.hasChunk()) { // LoD_O.4
+            String chunk = stream.getChunk(); // LoD_O.4
+            chunks.add(chunk); // LoD_O.4
         }
     }
 
     private void ignoreCurrent() {
-        stream.next();
+        stream.next(); // LoD_O.4
     }
 
     private boolean isBraces() {
-        return ("" + stream.peek()).matches("\\(|\\[|\\{|\\)|\\]|\\]");
+        char c = stream.peek(); // LoD_O.4
+        return c == '(' || c == ')' || c == '{' || c == '}' || c == '[' || c == ']';
     }
 
     private void addCurrent() {
-        stream.markBegin();
-        stream.next();
-        addPreviousChunk();
+        stream.markBegin(); // LoD_O.4
+        stream.next(); // LoD_O.4
+        addPreviousChunk(); // LoD_O.1
     }
 
     private boolean isQuote() {
-        return stream.peek() == '"';
+        return stream.peek() == '"'; // LoD_O.4
     }
 
     private void addUpToQuote() {
-        stream.markBegin();
-        stream.next();
-        while (!isQuote() && stream.notFinished()) {
-            stream.next();
+        stream.markBegin(); // LoD_O.4
+        stream.next(); // LoD_O.4
+        while (!isQuote() && stream.notFinished()) { // LoD_O.1, LoD_O.4
+            stream.next(); // LoD_O.4
         }
-        stream.next();
-        addPreviousChunk();
+        stream.next(); // LoD_O.4
+        addPreviousChunk(); // LoD_O.1
     }
 
 }
+
+// LoD review OK

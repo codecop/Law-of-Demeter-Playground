@@ -12,27 +12,29 @@ public class CharacterStream {
     }
 
     public boolean notFinished() {
-        return current < code.length();
+        return current < code.length(); // LoD_O.4
     }
 
     public char peek() {
-        return code.charAt(current);
+        return code.charAt(current); // LoD_O.4
     }
 
     public void next() {
-        current++;
+        current++; // LoD_O.1
     }
 
     public void markBegin() {
-        beginToken = current;
+        beginToken = current; // LoD_O.1
     }
 
     public boolean hasChunk() {
-        return beginToken < current && current <= code.length();
+        return beginToken < current && current <= code.length(); // LoD_O.4
     }
 
     public String getChunk() {
-        return code.substring(beginToken, current);
+        return code.substring(beginToken, current); // LoD_O.4
     }
 
 }
+
+// LoD review OK

@@ -1,7 +1,5 @@
 package kata.lisp.a20231125.token;
 
-import java.util.Objects;
-
 public class Token {
 
     private final String token;
@@ -11,31 +9,32 @@ public class Token {
     }
 
     public boolean isNumber() {
-        return token.matches("0|-?[1-9]\\d*");
+        return token.matches("0|-?[1-9]\\d*"); // LoD_O.4
     }
 
-    public int asNumber() {
-        return Integer.parseInt(token);
+    public Integer asNumber() {
+        return Integer.valueOf(token); // this is a named constructor, no global method
     }
 
     public boolean isString() {
-        return token.matches("\"[^\"]*\"");
+        return token.matches("\"[^\"]*\""); // LoD_O.4
     }
 
     public String asString() {
-        return token.substring(1, token.length() - 1);
+        int limit = token.length() - 1; // LoD_O.4
+        return token.substring(1, limit); // LoD_O.4
     }
 
     public boolean isBoolean() {
-        return token.matches("#f|#t");
+        return token.matches("#f|#t"); // LoD_O.4
     }
 
     public boolean asBoolean() {
-        return token.equals("#t");
+        return token.equals("#t"); // LoD_O.
     }
 
     public boolean isSymbol() {
-        return token.matches("[+*!=?a-zA-Z][+*!=?a-zA-Z0-9]*(-[+*!=?a-zA-Z0-9]*)*");
+        return token.matches("[+*!=?a-zA-Z][+*!=?a-zA-Z0-9]*(-[+*!=?a-zA-Z0-9]*)*"); // LoD_O.4
     }
 
     public String asSymbol() {
@@ -43,11 +42,11 @@ public class Token {
     }
 
     public boolean isOpeningBracket() {
-        return token.matches("\\(|\\[|\\{");
+        return token.matches("\\(|\\[|\\{"); // LoD_O.4
     }
 
     public boolean isClosingBracket() {
-        return token.matches("\\)|\\]|\\]");
+        return token.matches("\\)|\\]|\\]"); // LoD_O.4
     }
 
     @Override
@@ -56,12 +55,12 @@ public class Token {
             return false;
         }
         Token that = (Token) other;
-        return Objects.equals(token, that.token);
+        return token.equals(that.token); // LoD_O.4, LoD_Cs.1
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(token);
+        return token.hashCode(); // LoD_O.4
     }
 
     @Override
@@ -70,3 +69,5 @@ public class Token {
     }
 
 }
+
+// LoD review OK
