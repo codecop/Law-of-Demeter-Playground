@@ -17,12 +17,7 @@ public class BasicFunctions {
 class IntegerAddition extends StrictFunction {
 
     public IntegerAddition() {
-        super("+", new MoreThanNumberOfArguments(1));
-    }
-
-    @Override
-    public boolean matchesArgumentType(int i, ResultType type) {
-        return ResultType.NUMBER == type;
+        super("+", new MoreThanNumberOfArguments(1), new AllSameTypeOfArguments(ResultType.NUMBER));
     }
 
     @Override
@@ -39,12 +34,7 @@ class IntegerAddition extends StrictFunction {
 class IntegerSquareRoot extends StrictFunction {
 
     public IntegerSquareRoot() {
-        super("sqrt", new ExactNumberOfArguments(1));
-    }
-
-    @Override
-    public boolean matchesArgumentType(int i, ResultType type) {
-        return ResultType.NUMBER == type;
+        super("sqrt", new ExactNumberOfArguments(1), new AllSameTypeOfArguments(ResultType.NUMBER));
     }
 
     @Override
@@ -58,12 +48,7 @@ class IntegerSquareRoot extends StrictFunction {
 class StringAppend extends StrictFunction {
 
     public StringAppend() {
-        super("string-append", new MoreThanNumberOfArguments(1));
-    }
-
-    @Override
-    public boolean matchesArgumentType(int i, ResultType type) {
-        return ResultType.STRING == type;
+        super("string-append", new MoreThanNumberOfArguments(1), new AllSameTypeOfArguments(ResultType.STRING));
     }
 
     @Override
@@ -80,12 +65,7 @@ class StringAppend extends StrictFunction {
 class Error extends StrictFunction {
 
     public Error() {
-        super("error", new ExactNumberOfArguments(1));
-    }
-
-    @Override
-    public boolean matchesArgumentType(int i, ResultType type) {
-        return ResultType.STRING == type;
+        super("error", new ExactNumberOfArguments(1), new AllSameTypeOfArguments(ResultType.STRING));
     }
 
     @Override

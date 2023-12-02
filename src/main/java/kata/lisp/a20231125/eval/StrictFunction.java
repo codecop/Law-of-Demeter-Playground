@@ -2,8 +2,11 @@ package kata.lisp.a20231125.eval;
 
 public abstract class StrictFunction extends Function {
 
-    public StrictFunction(String name, NumberOfArguments argumentNumberMatcher) {
-        super(name, argumentNumberMatcher);
+    private final TypeOfArguments typeOfArguments;
+
+    public StrictFunction(String name, NumberOfArguments numberOfArguments, TypeOfArguments typeOfArguments) {
+        super(name, numberOfArguments);
+        this.typeOfArguments = typeOfArguments;
     }
 
     @Override
@@ -27,7 +30,9 @@ public abstract class StrictFunction extends Function {
         return apply(values);
     }
 
-    public abstract boolean matchesArgumentType(int i, ResultType parameterType);
+    public boolean matchesArgumentType(int i, ResultType parameterType) {
+        return typeOfArguments.matches(i, parameterType);
+    }
 
     protected abstract Result apply(Object[] arguments);
 
