@@ -40,10 +40,4 @@ public class Result {
         return value + " (" + type + ")"; // LoD_O.4, LoD_O.4
     }
 
-    // TODO move this somewhere else, is too specific
-    public Result causesTypeMismatchAtPosition(int index, Result r) {
-        String message = "Type mismatch of " + (index + 1) + ". argument: " + "got " + r;
-        return Result.error(message);
-    }
-
 }

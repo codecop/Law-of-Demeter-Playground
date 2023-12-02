@@ -34,6 +34,12 @@ public abstract class StrictFunction extends Function {
         return typeOfArguments.matches(i, parameterType);
     }
 
+    public String errorMatchingArgumentType(int index, Result argument) {
+        return "Type mismatch of " + (index + 1) + ". argument to function " + toString() + // LoD_O.1
+                ", expected " + typeOfArguments.get(index) + // LoD_O.4
+                ", got " + argument.type(); // LoD_O.2
+    }
+
     protected abstract Result apply(Object[] arguments);
 
 }

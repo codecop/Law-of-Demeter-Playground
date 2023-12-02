@@ -83,9 +83,9 @@ public class EvalVisitor implements AstVisitor {
     }
 
     private void applyFunction(Function function, Ast[] arguments) {
-        if (!function.matchesArgumentNumber(arguments.length)) {
-            String message = "Too few/many arguments to " + function.toString() + ", got " + arguments.length;
-            result = Result.error(message);
+        int size = arguments.length;
+        if (!function.matchesArgumentNumber(size)) {
+            result = Result.error(function.errorMatchingArgumentNumber(size));
             return;
         }
 

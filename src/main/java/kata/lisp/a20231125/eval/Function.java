@@ -18,6 +18,12 @@ public abstract class Function {
         return numberOfArguments.matches(parameterCount); // LoD_O.4
     }
 
+    public String errorMatchingArgumentNumber(int parameterCount) {
+        return "Too few/many arguments to function " + toString() + // LoD_O.1
+                ", expected " + numberOfArguments.display() + // // LoD_O.4
+                ", got " + parameterCount;
+    }
+
     public abstract Result apply(LazyResults arguments, Variables variables);
 
     @Override

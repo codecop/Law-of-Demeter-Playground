@@ -2,6 +2,8 @@ package kata.lisp.a20231125.eval;
 
 interface TypeOfArguments {
 
+    ResultType get(int i);
+
     boolean matches(int i, ResultType parameterType);
 
 }
@@ -15,8 +17,13 @@ class AllSameTypeOfArguments implements TypeOfArguments {
     }
 
     @Override
+    public ResultType get(int i) {
+        return requiredType;
+    }
+
+    @Override
     public boolean matches(int i, ResultType parameterType) {
-        return requiredType == parameterType;
+        return get(i) == parameterType; // LoD_O.1
     }
 
 }

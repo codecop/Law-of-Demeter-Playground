@@ -2,13 +2,19 @@ package kata.lisp.a20231125.eval;
 
 class If extends Function {
 
+    private final TypeOfArguments typeOfArguments;
+
     public If() {
         super("if", new ExactNumberOfArguments(3));
+        typeOfArguments = new AllSameTypeOfArguments(ResultType.BOOLEAN);
     }
 
     @Override
     public Result apply(LazyResults arguments, Variables variables) {
-        Result condition = getOfTypeOrError(arguments.evalArgument(0), ResultType.BOOLEAN, 0);
+        Result condition = arguments.evalArgument(0);
+        if (!matchesArgumentType(0, condition.type())) {
+            return Result.error(errorMatchingArgumentType(0, condition));
+        }
         return evalCond(condition, arguments);
     }
 
@@ -24,11 +30,15 @@ class If extends Function {
         return arguments.evalArgument(2);
     }
 
-    private Result getOfTypeOrError(Result result, ResultType resultType, int index) {
-        if (result.type() != resultType) {
-            return result.causesTypeMismatchAtPosition(index, result);
-        }
-        return result;
+    // TODO duplication
+    public boolean matchesArgumentType(int i, ResultType parameterType) {
+        return typeOfArguments.matches(i, parameterType);
+    }
+
+    public String errorMatchingArgumentType(int index, Result argument) {
+        return "Type mismatch of " + (index + 1) + ". argument to function " + toString() + // LoD_O.1
+                ", expected " + typeOfArguments.get(index) + // LoD_O.4
+                ", got " + argument.type(); // LoD_O.2
     }
 
 }

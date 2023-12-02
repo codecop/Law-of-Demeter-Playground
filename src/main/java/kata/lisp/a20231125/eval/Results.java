@@ -20,7 +20,7 @@ public class Results {
     public Result typeMismatchWith(StrictFunction function) {
         for (int i = 0; i < size(); i++) {
             if (!function.matchesArgumentType(i, arguments[i].type())) {
-                return arguments[i].causesTypeMismatchAtPosition(i, arguments[i]);
+                return Result.error(function.errorMatchingArgumentType(i, arguments[i]));
             }
         }
         return null;

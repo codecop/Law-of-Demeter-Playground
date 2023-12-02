@@ -1,13 +1,14 @@
 package kata.lisp.a20231125.eval;
 
 interface NumberOfArguments {
-    
+
     boolean matches(int parameterCount);
-    
+
+    String display();
 }
 
 class MoreThanNumberOfArguments implements NumberOfArguments {
-    
+
     private final int requiredCount;
 
     public MoreThanNumberOfArguments(int requiredCount) {
@@ -18,10 +19,15 @@ class MoreThanNumberOfArguments implements NumberOfArguments {
     public boolean matches(int count) {
         return count >= requiredCount;
     }
+
+    @Override
+    public String display() {
+        return "=> " + requiredCount;
+    }
 }
 
 class ExactNumberOfArguments implements NumberOfArguments {
-    
+
     private final int requiredCount;
 
     public ExactNumberOfArguments(int requiredCount) {
@@ -31,6 +37,11 @@ class ExactNumberOfArguments implements NumberOfArguments {
     @Override
     public boolean matches(int count) {
         return count == requiredCount;
+    }
+
+    @Override
+    public String display() {
+        return "" + requiredCount;
     }
 }
 

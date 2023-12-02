@@ -55,8 +55,9 @@ class EvalTest {
         @Test
         void evalWrongType() {
             Result result = eval.eval(astOf("(", "+", "#t", "#f", ")"));
-            assertEquals("Type mismatch of 1. argument: got true (ResultType B of class java.lang.Boolean)",
-                    result.value());
+            assertEquals("Type mismatch of 1. argument to function +, " + //
+                    "expected ResultType N of class java.lang.Integer, " + //
+                    "got ResultType B of class java.lang.Boolean", result.value());
             assertEquals(ResultType.ERROR, result.type());
         }
 
@@ -77,14 +78,14 @@ class EvalTest {
         @Test
         void tooManyArguments() {
             Result result = eval.eval(astOf("(", "sqrt", "2", "3", ")"));
-            assertEquals("Too few/many arguments to sqrt, got 2", result.value());
+            assertEquals("Too few/many arguments to function sqrt, expected 1, got 2", result.value());
             assertEquals(ResultType.ERROR, result.type());
         }
 
         @Test
         void tooFewArguments() {
             Result result = eval.eval(astOf("(", "+", ")"));
-            assertEquals("Too few/many arguments to +, got 0", result.value());
+            assertEquals("Too few/many arguments to function +, expected => 1, got 0", result.value());
             assertEquals(ResultType.ERROR, result.type());
         }
 
