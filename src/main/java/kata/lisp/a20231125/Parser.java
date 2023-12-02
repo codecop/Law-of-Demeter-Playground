@@ -16,6 +16,8 @@ import kata.lisp.a20231125.token.Tokens;
 public class Parser {
 
     public Ast parse(Token token) {
+        // TODO LoD isNumber is called on received object
+        // but I do not want to add AST to token. What to do?
         if (token.isNumber()) {
             return new NumberAst(token.asNumber());
         }
