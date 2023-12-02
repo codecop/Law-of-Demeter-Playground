@@ -13,12 +13,15 @@ public final class ProgramAst extends MultipleValueAst {
 
     @Override
     public void accept(AstVisitor visitor) {
-        visitor.visitProgram(getChildren());
+        Ast[] children = getChildren(); // LoD_O.1 or LoD_Cw.6
+        visitor.visitProgram(children); // LoD_O.2
     }
 
     @Override
     public String toString() {
-        return "Program" + super.toString();
+        return "Program" + super.toString(); // LoD_Cw.6
     }
 
 }
+
+// LoD review OK

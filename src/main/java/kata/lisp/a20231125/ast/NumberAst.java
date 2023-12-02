@@ -8,7 +8,10 @@ public final class NumberAst extends SingleValueAst<Integer> {
 
     @Override
     public void accept(AstVisitor visitor) {
-        visitor.visitNumber(value);
+        Integer value = getValue(); // LoD_O.1 or LoD_Cw.6
+        visitor.visitNumber(value); // LoD_O.2 
     }
 
 }
+
+// LoD review OK

@@ -8,7 +8,10 @@ public final class StringAst extends SingleValueAst<String> {
 
     @Override
     public void accept(AstVisitor visitor) {
-        visitor.visitString(value);
+        String value = getValue(); // LoD_O.1 or LoD_Cw.6
+        visitor.visitString(value); // LoD_O.2
     }
 
 }
+
+// LoD review OK

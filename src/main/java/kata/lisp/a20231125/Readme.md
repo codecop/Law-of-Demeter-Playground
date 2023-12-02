@@ -28,3 +28,51 @@ Write a Scheme interpreter which
 * `(define name "Peter") (string-append "Hello" name)` ... global variables, undefined/empty return value.
 * `(let ((name "Peter")) (string-append "Hello" name))` ... local variables
 * `(define (times-two x) (* x 2))` ... your own functions
+
+## Constraint: Law of Demeter
+
+[Law Of Demeter](https://www.khoury.northeastern.edu/home/lieber/LoD.html): Principle of Least Knowledge. Using PMD rule `LawOfDemeter` to check code for compliance.
+
+### Background Law of Demeter
+
+Original definition: A supplier object to a method `M` is an object to which a message is sent in `M`.
+The preferred supplier objects in `M` are
+
+* the immediate parts of self (i.e. fields or elements if it is a container) or
+* the arguments of `M` or
+* the objects which are either objects created directly by `M` or 
+* objects in global variables.
+
+It states that the Law of Demeter decreases the complexity of the methods, but increases the number of methods.
+
+So this is a method centred rule and does not deal with classes at all. So it is possible (and done in the exercise) to pass the return value got from some method into a new method `M2` which is allowed to call methods on it. This feels like cheating but is aligned with the rules. Also it does not talk about fields. Am I allowed to access fields of a foreign instance? To be consistent I would say no.  
+
+### Object Form of Law of Demeter "LoD_O"
+
+A method `M` of an object `O` should invoke only the methods of the following kinds of objects: 
+
+1. itself (method of `O` itself - not even methods on other instances of the same type) 
+2. its parameter instances 
+3. any objects it creates/instantiates inside `M` - maybe inside whole of `O` - these are parameters or fields then. 
+4. its direct component objects (methods on any fields of `O`) 
+5. global instances of `O`
+
+### (Strict) Class Form of Law of Demeter "LoD_Cs"
+
+A method `M` of an object of class `A` should invoke only the methods of the following kinds: 
+
+1. any method of class `A`, including on other instances 
+2. any method on the classes of its parameters 
+3. any method of any classes it creates/instantiates inside
+4. any method of any classes of its fields 
+5. any method of global objects
+
+Weak Form "LoD_Cw"
+
+6. any method of parent class in a class hierarchy
+
+The `super` call in the constructor, which is mandatory, is calling a super class instance method. So it is weak. But as it is mandatory, I will ignore it. It is an instance method of `O` but of a different class.
+
+### Sometimes objects are just containers
+
+This is a real issue. The PMD rule flags usage of List and Map, but it allowes usage of arrays. 

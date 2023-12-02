@@ -11,32 +11,37 @@ public abstract class MultipleValueAst implements Ast {
     private final List<Ast> expressions;
 
     public MultipleValueAst(List<Ast> expressions) {
-        Objects.requireNonNull(expressions);
+        Objects.requireNonNull(expressions); // ignore
         this.expressions = expressions;
     }
 
     // a getter
     public Ast[] getChildren() {
-        return expressions.toArray(new Ast[expressions.size()]);
+        Ast[] target = new Ast[expressions.size()]; // LoD_O.4
+        return expressions.toArray(target); // LoD_O.4
     }
 
     @Override
     public boolean equals(Object other) {
-        if (other == null || this.getClass() != other.getClass()) {
+        if (!this.getClass().isInstance(other)) { // LoD_O.4
             return false;
         }
-        MultipleValueAst that = (MultipleValueAst) other;
-        return this.expressions.equals(that.expressions);
+
+        // PMD conform code, but uses LoD_C
+        MultipleValueAst that = this.getClass().cast(other); // LoD_O.4
+        return this.expressions.equals(that.expressions); // LoD_O.4, LoD_Cs.1
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(expressions);
+        return expressions.hashCode(); // LoD_O.4
     }
 
     @Override
     public String toString() {
-        return "Ast(" + expressions + ")";
+        return "Ast(" + expressions.toString() + ")"; // LoD_O.4
     }
 
 }
+
+// LoD review OK
