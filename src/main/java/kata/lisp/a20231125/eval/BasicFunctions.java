@@ -70,7 +70,7 @@ class Error extends StrictFunction {
 
     @Override
     public Result apply(Object[] arguments) {
-        return new Result(arguments[0], ResultType.ERROR);
+        return Result.error(arguments[0].toString());
     }
 
 }

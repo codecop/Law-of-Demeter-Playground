@@ -24,7 +24,7 @@ public class Variables {
     public Result get(String variableName) {
         Result result = values.get(variableName);
         if (result == null) {
-            return new Result("Unknown variable symbol " + variableName, ResultType.ERROR);
+            return Result.error("Unknown variable symbol " + variableName);
         }
         return result;
     }

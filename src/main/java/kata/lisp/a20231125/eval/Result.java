@@ -10,6 +10,10 @@ public class Result {
     private final Object value;
     private final ResultType type;
 
+    public static Result error(String message) {
+        return new Result(message, ResultType.ERROR);
+    }
+
     public Result(Object value, ResultType type) {
         Objects.requireNonNull(value);
         Objects.requireNonNull(type);
@@ -25,7 +29,7 @@ public class Result {
     public ResultType type() {
         return type;
     }
-    
+
     public boolean isError() {
         return type == ResultType.ERROR;
     }
@@ -37,7 +41,7 @@ public class Result {
 
     public Result causesTypeMismatchAtPosition(int index) {
         String message = "Type mismatch of " + (index + 1) + ". argument: " + "got " + toString();
-        return new Result(message, ResultType.ERROR);
+        return Result.error(message);
     }
 
 }
