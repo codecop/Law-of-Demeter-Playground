@@ -5,33 +5,34 @@ import java.util.List;
 
 public class Lexer {
 
-    private final String code;
     private final List<String> chunks = new ArrayList<>();
-
-    private int beginToken = 0;
-    private int current = 0;
+    private final CharacterStream stream;
 
     public Lexer(String code) {
-        this.code = code;
+        this.stream = new CharacterStream(code);
     }
 
     public Tokens tokenise() {
-        while (notFinished()) {
+        stream.markBegin();
+        while (stream.notFinished()) {
 
             if (isIgnoredSeparator()) {
                 addPreviousChunk();
                 ignoreCurrent();
+                stream.markBegin();
 
             } else if (isBraces()) {
                 addPreviousChunk();
                 addCurrent();
+                stream.markBegin();
 
             } else if (isQuote()) {
                 addPreviousChunk();
                 addUpToQuote();
+                stream.markBegin();
 
             } else {
-                current++;
+                stream.next();
             }
 
         }
@@ -40,49 +41,41 @@ public class Lexer {
         return Tokens.tokensOf(chunks.toArray(new String[0]));
     }
 
-    private boolean notFinished() {
-        return current < code.length();
-    }
-
-    private char peek() {
-        return code.charAt(current);
-    }
-
     private boolean isIgnoredSeparator() {
-        return Character.isWhitespace(peek());
+        return Character.isWhitespace(stream.peek());
     }
 
     private void addPreviousChunk() {
-        if (beginToken < current && current <= code.length()) {
-            chunks.add(code.substring(beginToken, current));
+        if (stream.hasChunk()) {
+            chunks.add(stream.getChunk());
         }
-        beginToken = current;
     }
 
     private void ignoreCurrent() {
-        current++;
-        beginToken = current;
+        stream.next();
     }
 
     private boolean isBraces() {
-        return ("" + peek()).matches("\\(|\\[|\\{|\\)|\\]|\\]");
+        return ("" + stream.peek()).matches("\\(|\\[|\\{|\\)|\\]|\\]");
     }
 
     private void addCurrent() {
-        current += 1;
+        stream.markBegin();
+        stream.next();
         addPreviousChunk();
     }
 
     private boolean isQuote() {
-        return peek() == '"';
+        return stream.peek() == '"';
     }
 
     private void addUpToQuote() {
-        current++;
-        while (!isQuote() && notFinished()) {
-            current++;
+        stream.markBegin();
+        stream.next();
+        while (!isQuote() && stream.notFinished()) {
+            stream.next();
         }
-        current++;
+        stream.next();
         addPreviousChunk();
     }
 
