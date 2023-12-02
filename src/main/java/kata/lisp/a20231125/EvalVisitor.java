@@ -28,7 +28,7 @@ public class EvalVisitor implements AstVisitor {
     }
 
     public Result eval(Ast ast) {
-        ast.accept(this);
+        ast.accept(this); // LoD_O.2
         return result;
     }
 
@@ -50,13 +50,13 @@ public class EvalVisitor implements AstVisitor {
     @Override
     public void visitSymbol(String value) {
         Result symbol = new Result(value, ResultType.SYMBOL);
-        result = variables.get((String) symbol.value());
+        result = variables.get((String) symbol.value()); // LoD_O.3, LoD_O.4
     }
 
     @Override
     public void visitExpression(Ast[] expressions) {
         if (expressions[0] instanceof SymbolAst) {
-            visitSymbolExpression(expressions);
+            visitSymbolExpression(expressions); // LoD_O.1
             return;
         }
         throw new IllegalArgumentException("Can only evaluate function expressions");
@@ -65,15 +65,16 @@ public class EvalVisitor implements AstVisitor {
     private void visitSymbolExpression(Ast[] expressions) {
         SymbolAst symbol = (SymbolAst) expressions[0];
         Ast[] arguments = Arrays.copyOfRange(expressions, 1, expressions.length);
-        visitSymbolExpression(symbol, arguments);
+        visitSymbolExpression(symbol, arguments); // LoD_O.1
     }
 
     private void visitSymbolExpression(SymbolAst symbol, Ast[] arguments) {
-        applyFunction(symbol.getSymbol(), arguments);
+        // TODO LoD cheats starting here
+        applyFunction(symbol.getSymbol(), arguments); // LoD_O.2
     }
 
     private void applyFunction(String functionName, Ast[] arguments) {
-        Function function = functions.getFunctionNamed(functionName);
+        Function function = functions.getFunctionNamed(functionName); // LoD_O.4
         if (function == null) {
             result = Result.error("Unknown function symbol " + functionName);
             return;
