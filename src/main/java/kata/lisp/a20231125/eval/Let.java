@@ -27,11 +27,11 @@ class Let extends Function {
         for (LazyResult r : listOfPairs) {
             LazyResult[] pair = r.asList();
             Result symbol = pair[0].asSymbol();
-            LazyResult lazyResult = pair[1];
-            if (symbol.isError()) {
-                return symbol;
-            }
-            Result value = lazyResult.get();
+            // TODO LoD
+            // if (symbol.isError()) {
+            //    return symbol;
+            // }
+            Result value = pair[1].get();
             setVariable(variables, symbol, value);
         }
         return null;
