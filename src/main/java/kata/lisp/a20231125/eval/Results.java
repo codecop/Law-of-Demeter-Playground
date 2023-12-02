@@ -1,5 +1,8 @@
 package kata.lisp.a20231125.eval;
 
+/**
+ * First class collections for results.
+ */
 public class Results {
 
     private final Result[] arguments;
@@ -8,9 +11,9 @@ public class Results {
         this.arguments = arguments;
     }
 
-    public Result firstErrorInArguments() {
-        for (int i = 0; i < size(); i++) {
-            if (arguments[i].isError()) {
+    public Result firstError() {
+        for (int i = 0; i < size(); i++) { // LoD_O.1
+            if (arguments[i].isError()) { // LoD_O.4
                 return arguments[i];
             }
         }
@@ -18,24 +21,27 @@ public class Results {
     }
 
     public Result typeMismatchWith(StrictFunction function) {
-        for (int i = 0; i < size(); i++) {
-            if (!function.matchesArgumentType(i, arguments[i].type())) {
-                return Result.error(function.errorMatchingArgumentType(i, arguments[i]));
+        for (int i = 0; i < size(); i++) { // LoD_O.1
+            ResultType type = arguments[i].type(); // LoD_O.4
+            if (!function.matchesArgumentType(i, type)) { // LoD_O.2
+                return Result.error(function.errorMatchingArgumentType(i, type)); // LoD_O.2
             }
         }
         return null;
     }
 
-    public Object[] toValues() {
+    public Object[] values() {
         Object[] values = new Object[size()];
-        for (int i = 0; i < size(); i++) {
-            values[i] = arguments[i].value();
+        for (int i = 0; i < size(); i++) { // LoD_O.1
+            values[i] = arguments[i].value(); // LoD_O.4
         }
         return values;
     }
 
-    public int size() {
-        return arguments.length;
+    private int size() {
+        return arguments.length; // LoD_O.4
     }
 
 }
+
+// LoD review OK

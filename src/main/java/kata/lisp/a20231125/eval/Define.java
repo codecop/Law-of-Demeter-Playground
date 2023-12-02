@@ -3,7 +3,7 @@ package kata.lisp.a20231125.eval;
 class Define extends Function {
 
     public Define() {
-        super("define", new ExactNumberOfArguments(2));
+        super("define", new ExactNumberOfArguments(2), null);
     }
 
     @Override

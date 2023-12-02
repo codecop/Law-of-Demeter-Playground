@@ -3,7 +3,7 @@ package kata.lisp.a20231125.eval;
 class Let extends Function {
 
     public Let() {
-        super("let", new ExactNumberOfArguments(2)); // variables and expression
+        super("let", new ExactNumberOfArguments(2), null); // variables and expression
     }
 
     @Override

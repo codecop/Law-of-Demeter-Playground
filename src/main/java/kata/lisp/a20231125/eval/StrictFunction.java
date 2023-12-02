@@ -2,11 +2,8 @@ package kata.lisp.a20231125.eval;
 
 public abstract class StrictFunction extends Function {
 
-    private final TypeOfArguments typeOfArguments;
-
     public StrictFunction(String name, NumberOfArguments numberOfArguments, TypeOfArguments typeOfArguments) {
-        super(name, numberOfArguments);
-        this.typeOfArguments = typeOfArguments;
+        super(name, numberOfArguments, typeOfArguments);
     }
 
     @Override
@@ -16,7 +13,7 @@ public abstract class StrictFunction extends Function {
     }
 
     private Result apply(Results arguments) {
-        Result error = arguments.firstErrorInArguments();
+        Result error = arguments.firstError();
         if (error != null) {
             return error;
         }
@@ -26,18 +23,8 @@ public abstract class StrictFunction extends Function {
             return error;
         }
 
-        Object[] values = arguments.toValues();
+        Object[] values = arguments.values();
         return apply(values);
-    }
-
-    public boolean matchesArgumentType(int i, ResultType parameterType) {
-        return typeOfArguments.matches(i, parameterType);
-    }
-
-    public String errorMatchingArgumentType(int index, Result argument) {
-        return "Type mismatch of " + (index + 1) + ". argument to function " + toString() + // LoD_O.1
-                ", expected " + typeOfArguments.get(index) + // LoD_O.4
-                ", got " + argument.type(); // LoD_O.2
     }
 
     protected abstract Result apply(Object[] arguments);

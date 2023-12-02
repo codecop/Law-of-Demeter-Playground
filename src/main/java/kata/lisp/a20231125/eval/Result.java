@@ -22,7 +22,6 @@ public class Result {
         this.type = type;
     }
 
-    // TODO type the result with generics
     public Object value() {
         return this.value;
     }
@@ -41,3 +40,5 @@ public class Result {
     }
 
 }
+
+// LoD review OK
