@@ -74,8 +74,8 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     </properties>
 
-    <repositories>
-        <repository>
+    <pluginRepositories>
+        <pluginRepository>
             <releases>
                 <enabled>true</enabled>
                 <updatePolicy>never</updatePolicy>
@@ -86,8 +86,8 @@
             <id>ccc-releases</id>
             <name>Code Cop Code Releases</name>
             <url>https://www.code-cop.org/mvn2repo/releases</url>
-        </repository>
-        <repository>
+        </pluginRepository>
+        <pluginRepository>
             <releases>
                 <enabled>false</enabled>
             </releases>
@@ -97,7 +97,7 @@
             <id>ccc-snapshots</id>
             <name>Code Cop Code Snapshots</name>
             <url>https://www.code-cop.org/mvn2repo/snapshots</url>
-        </repository>
-    </repositories>
+        </pluginRepository>
+    </pluginRepositories>
 
 </project>
