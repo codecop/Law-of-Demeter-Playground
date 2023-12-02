@@ -8,25 +8,11 @@ public abstract class StrictFunction extends Function {
 
     @Override
     public Result apply(LazyResults lazyArguments, Variables variables) {
-        Results arguments = lazyArguments.evalArguments();
-        return apply(arguments);
+        return lazyArguments.eval(this); // LoD_O.2
     }
 
-    private Result apply(Results arguments) {
-        Result error = arguments.firstError();
-        if (error != null) {
-            return error;
-        }
-
-        error = arguments.typeMismatchWith(this);
-        if (error != null) {
-            return error;
-        }
-
-        Object[] values = arguments.values();
-        return apply(values);
-    }
-
-    protected abstract Result apply(Object[] arguments);
+    public abstract Result apply(Object[] arguments);
 
 }
+
+// LoD review OK

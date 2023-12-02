@@ -11,6 +11,21 @@ public class Results {
         this.arguments = arguments;
     }
 
+    public Result eval(StrictFunction function) {
+        Result error = firstError(); // LoD_O.1
+        if (error != null) {
+            return error;
+        }
+
+        error = typeMismatchWith(function); // LoD_O.1
+        if (error != null) {
+            return error;
+        }
+
+        Object[] values = values(); // LoD_O.1
+        return function.apply(values); // LoD_O.2
+    }
+
     public Result firstError() {
         for (int i = 0; i < size(); i++) { // LoD_O.1
             if (arguments[i].isError()) { // LoD_O.4

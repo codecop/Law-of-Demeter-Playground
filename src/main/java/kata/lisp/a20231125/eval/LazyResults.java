@@ -20,12 +20,17 @@ public class LazyResults {
         return arguments[i].asList(); // LoD_O.4
     }
 
-    public Results evalArguments() {
+    public Result eval(StrictFunction function) {
+        Results results = new Results(evalArguments()); // LoD_O.1
+        return results.eval(function); // LoD_O.3
+    }
+
+    private Result[] evalArguments() {
         Result[] results = new Result[size()]; // LoD_O.1
         for (int i = 0; i < size(); i++) { // LoD_O.1
             results[i] = evalArgument(i); // LoD_O.1
         }
-        return new Results(results);
+        return results;
     }
 
     private int size() {
