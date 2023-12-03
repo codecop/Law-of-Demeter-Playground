@@ -24,14 +24,16 @@ public class Variables {
         }
         Result symbol = pair[0].asSymbol(); // LoD_O.2
         Result value = pair[1].get(); // LoD_O.2
+        
+        // LoD Violation (cheat by using another public method)
         return add(symbol, value); // LoD_O.1
     }
 
     public Result add(Result symbol, Result value) {
-        if (symbol.isError()) { // LoD_O.2
+        if (symbol.isError()) { // LoD_O.2 <-> LoD Violation (cheat by using another public method)
             return symbol;
         }
-        String symbolName = (String) symbol.value(); // LoD_O.2
+        String symbolName = (String) symbol.value(); // LoD_O.2 <-> LoD Violation (cheat by using another public method)
         add(symbolName, value); // LoD_O.1
 
         return null;
@@ -64,4 +66,4 @@ public class Variables {
 
 }
 
-// LoD review OK
+// LoD review Violation (cheat by using another public method)
