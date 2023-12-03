@@ -31,17 +31,17 @@ public class Player extends Target {
             soak = totalDamage;
 
         } else if (other instanceof SimpleEnemy) {
-            soak = m1((SimpleEnemy) other);
+            soak = m1((SimpleEnemy) other); // LoD_O.1
         }
         return soak;
     }
 
     private static int m1(SimpleEnemy simpleEnemy) {
-        return m2(simpleEnemy.getArmor(), simpleEnemy);
+        return m2(simpleEnemy.getArmor(), simpleEnemy); // LoD_O.2, LoD_O.1
     }
 
     private static int m2(Armor armor, SimpleEnemy simpleEnemy) {
-        return Math.round(armor.getDamageSoak() * m3(simpleEnemy.getBuffs()));
+        return Math.round(armor.getDamageSoak() * m3(simpleEnemy.getBuffs())); // LoD_O.2, LoD_O.2 
     }
 
     private static float m3(List<Buff> buffs) {
@@ -54,47 +54,47 @@ public class Player extends Target {
     }
 
     private float getDamageModifier() {
-        return m4(inventory.getEquipment(), stats.getStrength());
+        return m4(inventory.getEquipment(), stats.getStrength()); // LoD_O.4, LoD_O.4
     }
 
     private static float m4(Equipment equipment, int strength) {
-        Item leftHand = equipment.getLeftHand();
-        Item rightHand = equipment.getRightHand();
-        Item head = equipment.getHead();
-        Item feet = equipment.getFeet();
-        Item chest = equipment.getChest();
+        Item leftHand = equipment.getLeftHand(); // LoD_O.2
+        Item rightHand = equipment.getRightHand(); // LoD_O.2
+        Item head = equipment.getHead(); // LoD_O.2
+        Item feet = equipment.getFeet(); // LoD_O.2
+        Item chest = equipment.getChest(); // LoD_O.2
 
         float strengthModifier = strength * 0.1f;
-        return strengthModifier + m5(leftHand, rightHand, head, feet, chest);
+        return strengthModifier + m5(leftHand, rightHand, head, feet, chest); // LoD_O.1
     }
 
     private static float m5(Item leftHand, Item rightHand, Item head, Item feet, Item chest) {
-        return leftHand.getDamageModifier() + //
-                rightHand.getDamageModifier() + //
-                head.getDamageModifier() + //
-                feet.getDamageModifier() + //
-                chest.getDamageModifier();
+        return leftHand.getDamageModifier() + // LoD_O.2
+                rightHand.getDamageModifier() + // LoD_O.2
+                head.getDamageModifier() + // LoD_O.2
+                feet.getDamageModifier() + // LoD_O.2
+                chest.getDamageModifier(); // LoD_O.2
     }
 
     private int getBaseDamage() {
-        return m6(inventory.getEquipment());
+        return m6(inventory.getEquipment()); // LoD_O.4
     }
 
     private static int m6(Equipment equipment) {
-        Item leftHand = equipment.getLeftHand();
-        Item rightHand = equipment.getRightHand();
-        Item head = equipment.getHead();
-        Item feet = equipment.getFeet();
-        Item chest = equipment.getChest();
-        return m7(leftHand, rightHand, head, feet, chest);
+        Item leftHand = equipment.getLeftHand(); // LoD_O.2
+        Item rightHand = equipment.getRightHand(); // LoD_O.2
+        Item head = equipment.getHead(); // LoD_O.2
+        Item feet = equipment.getFeet(); // LoD_O.2
+        Item chest = equipment.getChest(); // LoD_O.2
+        return m7(leftHand, rightHand, head, feet, chest); // LoD_O.1
     }
 
     private static int m7(Item leftHand, Item rightHand, Item head, Item feet, Item chest) {
-        return leftHand.getBaseDamage() + //
-                rightHand.getBaseDamage() + //
-                head.getBaseDamage() + //
-                feet.getBaseDamage() + //
-                chest.getBaseDamage();
+        return leftHand.getBaseDamage() + // LoD_O.2
+                rightHand.getBaseDamage() + // LoD_O.2
+                head.getBaseDamage() + // LoD_O.2
+                feet.getBaseDamage() + // LoD_O.2
+                chest.getBaseDamage(); // LoD_O.2
     }
 
 }
