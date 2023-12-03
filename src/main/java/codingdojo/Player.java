@@ -1,5 +1,6 @@
 package codingdojo;
 
+import java.util.List;
 
 class Player extends Target {
     private Inventory inventory;
@@ -26,18 +27,26 @@ class Player extends Target {
             soak = totalDamage;
         } else if (other instanceof SimpleEnemy) {
             SimpleEnemy simpleEnemy = (SimpleEnemy) other;
-            soak = Math.round(
-                simpleEnemy.getArmor().getDamageSoak() *
-                (
-                    ((float) simpleEnemy.getBuffs()
-                        .stream()
-                        .mapToDouble(Buff::soakModifier)
-                        .sum()) +
-                    1f
-                )
-            );
+            soak = m11(simpleEnemy);
         }
         return soak;
+    }
+
+    private int m11(SimpleEnemy simpleEnemy) {
+        return m2(simpleEnemy, simpleEnemy.getArmor());
+    }
+
+    private int m2(SimpleEnemy simpleEnemy, Armor armor) {
+        List<Buff> buffs = simpleEnemy.getBuffs();
+        return Math.round(armor.getDamageSoak() * m3(buffs));
+    }
+
+    private float m3(List<Buff> buffs) {
+        float sum = 0f;
+        for (Buff buff : buffs) {
+            sum += buff.soakModifier();
+        }
+        return sum + 1f;
     }
 
     private float getDamageModifier() {
