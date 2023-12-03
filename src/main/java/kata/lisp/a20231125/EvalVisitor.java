@@ -7,7 +7,6 @@ import kata.lisp.a20231125.ast.AstVisitor;
 import kata.lisp.a20231125.ast.MultipleValueAst;
 import kata.lisp.a20231125.ast.SingleValueAst;
 import kata.lisp.a20231125.ast.SymbolAst;
-import kata.lisp.a20231125.eval.Function;
 import kata.lisp.a20231125.eval.Functions;
 import kata.lisp.a20231125.eval.LazyResult;
 import kata.lisp.a20231125.eval.LazyResults;
@@ -59,40 +58,23 @@ public class EvalVisitor implements AstVisitor {
             Ast[] arguments = Arrays.copyOfRange(expressions, 1, expressions.length);
 
             // LoD Violation 1 (cheat by using a private method)
-            visitSymbolExpression(symbol, arguments); // LoD_O.1
+            visitFunctionExpression(symbol, arguments); // LoD_O.1
             return;
         }
         throw new IllegalArgumentException("Can only evaluate function expressions");
     }
 
-    private void visitSymbolExpression(SymbolAst symbol, Ast[] arguments) {
+    private void visitFunctionExpression(SymbolAst symbol, Ast[] arguments) {
         String symbolName = symbol.getSymbol(); // LoD_O.2 <-> LoD Violation 1 (cheat by using a private method)
-
-        Function function = functions.getFunctionNamed(symbolName); // LoD_O.4
-        if (function == null) {
-            result = Result.error("Unknown function symbol " + symbolName);
-            return;
-        }
-
-        // LoD Violation 2 (cheat by using a private method)
-        applyFunction(function, arguments); // LoD_O.1
-    }
-
-    private void applyFunction(Function function, Ast[] arguments) {
-        int size = arguments.length;
-        if (!function.matchesArgumentNumber(size)) { // LoD_O.2 <-> LoD Violation 2 (cheat by using a private method)
-            result = Result.error(function.errorMatchingArgumentNumber(size)); // LoD_O.2 <-> LoD Violation 2 (cheat by using a private method)
-            return;
-        }
-
-        LazyResult[] results = toLazyResults(arguments); // LoD_O.1
-        result = function.apply(new LazyResults(results), variables); // LoD_O.2 <-> LoD Violation 2 (cheat by using a private method)
+        LazyResults results = new LazyResults(toLazyResults(arguments)); // LoD_O.1
+        result = functions.applyFunction(symbolName, results, variables); // LoD_O.4
     }
 
     private LazyResult[] toLazyResults(Ast[] arguments) {
-        LazyResult[] results = new LazyResult[arguments.length];
-        for (int i = 0; i < arguments.length; i++) {
-            results[i] = lazyEval(arguments[i]);
+        int size = arguments.length;
+        LazyResult[] results = new LazyResult[size];
+        for (int i = 0; i < size; i++) {
+            results[i] = lazyEval(arguments[i]); // LoD_O.1
         }
         return results;
     }
@@ -102,13 +84,14 @@ public class EvalVisitor implements AstVisitor {
 
             @Override
             public Result get() {
-                return eval(ast);
+                return eval(ast); // LoD_O.1
             }
 
             @Override
             public Result asSymbol() {
                 if (ast instanceof SymbolAst) {
-                    return new Result(((SymbolAst) ast).getSymbol(), ResultType.SYMBOL);
+                    String symbol = ((SymbolAst) ast).getSymbol(); // LoD_O.2
+                    return new Result(symbol, ResultType.SYMBOL);
                 }
                 return Result.error("Not a symbol " + ast);
             }
@@ -116,9 +99,10 @@ public class EvalVisitor implements AstVisitor {
             @Override
             public LazyResult[] asList() {
                 if (ast instanceof MultipleValueAst) {
-                    return toLazyResults(((MultipleValueAst) ast).getChildren());
+                    Ast[] children = ((MultipleValueAst) ast).getChildren(); // LoD_O.2
+                    return toLazyResults(children); // LoD_O.1
                 } else if (ast instanceof SingleValueAst) {
-                    return toLazyResults(new Ast[] { ast });
+                    return toLazyResults(new Ast[] { ast }); // LoD_O.1
                 } else {
                     throw new IllegalStateException("Unsupported type of ast " + ast);
                 }
@@ -135,3 +119,5 @@ public class EvalVisitor implements AstVisitor {
     }
 
 }
+
+// LoD review OK

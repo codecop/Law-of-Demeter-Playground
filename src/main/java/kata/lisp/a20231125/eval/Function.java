@@ -16,11 +16,11 @@ public abstract class Function {
         return name;
     }
 
-    public boolean matchesArgumentNumber(int parameterCount) {
+    private boolean matchesArgumentNumber(int parameterCount) {
         return numberOfArguments.matches(parameterCount); // LoD_O.4
     }
 
-    public String errorMatchingArgumentNumber(int parameterCount) {
+    private String errorMatchingArgumentNumber(int parameterCount) {
         return "Too few/many arguments to function " + toString() + // LoD_O.1
                 ", expected " + numberOfArguments.display() + // LoD_O.4
                 ", got " + parameterCount;
@@ -36,7 +36,16 @@ public abstract class Function {
                 ", got " + parameter.type(); // LoD_O.2
     }
 
-    public abstract Result apply(LazyResults arguments, Variables variables);
+    public Result applyFunction(LazyResults results, Variables variables) {
+        int size = results.size(); // LoD_O.2
+        if (!matchesArgumentNumber(size)) { // LoD_O.1
+            return Result.error(errorMatchingArgumentNumber(size)); // LoD_O.1
+        }
+
+        return apply(results, variables); // LoD_O.1
+    }
+
+    protected abstract Result apply(LazyResults arguments, Variables variables);
 
     @Override
     public String toString() {
