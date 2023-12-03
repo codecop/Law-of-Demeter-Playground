@@ -51,27 +51,42 @@ class Player extends Target {
 
     private float getDamageModifier() {
         Equipment equipment = this.inventory.getEquipment();
+        return m4(equipment);
+    }
+
+    private float m4(Equipment equipment) {
         Item leftHand = equipment.getLeftHand();
         Item rightHand = equipment.getRightHand();
         Item head = equipment.getHead();
         Item feet = equipment.getFeet();
         Item chest = equipment.getChest();
         float strengthModifier = stats.getStrength() * 0.1f;
-        return strengthModifier +
-            leftHand.getDamageModifier() +
-            rightHand.getDamageModifier() +
-            head.getDamageModifier() +
-            feet.getDamageModifier() +
-            chest.getDamageModifier();
+        return strengthModifier + m5(leftHand, rightHand, head, feet, chest);
+    }
+
+    private float m5(Item leftHand, Item rightHand, Item head, Item feet, Item chest) {
+        return leftHand.getDamageModifier() +
+                    rightHand.getDamageModifier() +
+                    head.getDamageModifier() +
+                    feet.getDamageModifier() +
+                    chest.getDamageModifier();
     }
 
     private int getBaseDamage() {
         Equipment equipment = this.inventory.getEquipment();
+        return m6(equipment);
+    }
+
+    private int m6(Equipment equipment) {
         Item leftHand = equipment.getLeftHand();
         Item rightHand = equipment.getRightHand();
         Item head = equipment.getHead();
         Item feet = equipment.getFeet();
         Item chest = equipment.getChest();
+        return m7(leftHand, rightHand, head, feet, chest);
+    }
+
+    private int m7(Item leftHand, Item rightHand, Item head, Item feet, Item chest) {
         return leftHand.getBaseDamage() +
         rightHand.getBaseDamage() +
         head.getBaseDamage() +
