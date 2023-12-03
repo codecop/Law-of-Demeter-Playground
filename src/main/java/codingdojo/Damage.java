@@ -1,17 +1,14 @@
 package codingdojo;
 
-class Damage {
-    private int amount;
+public class Damage {
+    private final int amount;
 
-    Damage(int amount) {
+    public Damage(int amount) {
         this.amount = amount;
     }
 
-    int getAmount() {
+    public int getAmount() {
         return amount;
     }
 
-    public void setAmount(int amount) {
-        this.amount = amount;
-    }
 }

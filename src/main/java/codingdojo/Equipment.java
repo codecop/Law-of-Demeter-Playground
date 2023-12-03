@@ -1,16 +1,15 @@
 package codingdojo;
 
-
-class Equipment {
+public class Equipment {
     // TODO add a ring item that may be equipped
     //  that may also add damage modifier
-    private Item leftHand;
-    private Item rightHand;
-    private Item head;
-    private Item feet;
-    private Item chest;
+    private final Item leftHand;
+    private final Item rightHand;
+    private final Item head;
+    private final Item feet;
+    private final Item chest;
 
-    Equipment(Item leftHand, Item rightHand, Item head, Item feet, Item chest) {
+    public Equipment(Item leftHand, Item rightHand, Item head, Item feet, Item chest) {
         this.leftHand = leftHand;
         this.rightHand = rightHand;
         this.head = head;
@@ -18,19 +17,19 @@ class Equipment {
         this.chest = chest;
     }
 
-    Item getLeftHand() {
+    public Item getLeftHand() {
         return leftHand;
     }
-    Item getRightHand() {
+    public Item getRightHand() {
         return rightHand;
     }
-    Item getHead() {
+    public Item getHead() {
         return head;
     }
-    Item getFeet() {
+    public Item getFeet() {
         return feet;
     }
-    Item getChest() {
+    public Item getChest() {
         return chest;
     }
 }

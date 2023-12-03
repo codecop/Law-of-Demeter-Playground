@@ -1,4 +1,4 @@
 package codingdojo;
 
-abstract class Target {
+public abstract class Target {
 }

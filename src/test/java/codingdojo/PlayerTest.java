@@ -21,7 +21,7 @@ class PlayerTest {
                 // It wears an Armour with a Damage Soak of 5.
                 new SimpleArmor(5),
                 // It has one Buff with a soakModifier of 1.0 and damage modifier of 1.0.
-                Arrays.asList(new BasicBuff(0.5f, 1.0f), new BasicBuff(0.5f, 1.0f)));
+                Arrays.asList(new BasicBuff(0.5f), new BasicBuff(0.5f)));
 
         Damage damage = new Player(inventory, stats).calculateDamage(target);
 

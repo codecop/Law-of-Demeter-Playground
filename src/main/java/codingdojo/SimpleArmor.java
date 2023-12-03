@@ -2,7 +2,7 @@ package codingdojo;
 
 public class SimpleArmor implements Armor {
 
-    private int soak;
+    private final int soak;
 
     public SimpleArmor(int soak) {
         this.soak = soak;

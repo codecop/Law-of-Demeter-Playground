@@ -2,12 +2,10 @@ package codingdojo;
 
 public class BasicBuff implements Buff {
 
-    private float soak;
-    private float damage;
+    private final float soak;
 
-    public BasicBuff(float soak, float damage) {
+    public BasicBuff(float soak) {
         this.soak = soak;
-        this.damage = damage;
     }
 
     @Override
@@ -15,8 +13,4 @@ public class BasicBuff implements Buff {
         return soak;
     }
 
-    @Override
-    public float damageModifier() {
-        return damage;
-    }
 }
