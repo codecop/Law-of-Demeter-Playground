@@ -7,7 +7,7 @@ class If extends Function {
     }
 
     @Override
-    public Result apply(LazyResults arguments, Variables variables) {
+    protected Result apply(LazyResults arguments, Variables variables) {
         Result condition = arguments.evalArgument(0); // LoD_O.2
         if (!matchesArgumentType(0, condition)) { // LoD_O.1
             return Result.error(errorMatchingArgumentType(0, condition)); // named constructor, LoD_O.1 

@@ -7,7 +7,7 @@ class Let extends Function {
     }
 
     @Override
-    public Result apply(LazyResults arguments, Variables variables) {
+    protected Result apply(LazyResults arguments, Variables variables) {
         variables.push(); // LoD_O.2
 
         LazyResult[] listOfPairs = arguments.asList(0); // LoD_O.2

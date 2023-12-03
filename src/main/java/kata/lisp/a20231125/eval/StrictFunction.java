@@ -7,11 +7,11 @@ public abstract class StrictFunction extends Function {
     }
 
     @Override
-    public Result apply(LazyResults lazyArguments, Variables variables) {
+    protected Result apply(LazyResults lazyArguments, Variables variables) {
         return lazyArguments.eval(this); // LoD_O.2
     }
 
-    public abstract Result apply(Object[] arguments);
+    protected abstract Result apply(Object[] arguments);
 
 }
 

@@ -33,7 +33,7 @@ public class LazyResults {
         return results;
     }
 
-    private int size() {
+    public int size() {
         return arguments.length; // LoD_O.1
     }
 

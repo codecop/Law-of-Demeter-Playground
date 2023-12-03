@@ -7,7 +7,7 @@ class Define extends Function {
     }
 
     @Override
-    public Result apply(LazyResults arguments, Variables variables) {
+    protected Result apply(LazyResults arguments, Variables variables) {
         Result symbol = arguments.asSymbol(0); // LoD_O.2
         Result value = arguments.evalArgument(1); // LoD_O.2
 
