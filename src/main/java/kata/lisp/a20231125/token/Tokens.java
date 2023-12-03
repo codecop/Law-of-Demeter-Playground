@@ -50,11 +50,11 @@ public class Tokens {
         StringBuilder buf = new StringBuilder();
         buf.append("Tokens: "); // LoD_O.3
         for (int i = 0; i < size(); i++) { // LoD_O.1
-            Token token = tokens[i];
+            Token token = tokens[i]; // LoD_O.1
             if (i > 0) {
                 buf.append(", "); // LoD_O.3
             }
-            buf.append(token); // toString is implicit, is flagged as violation
+            buf.append(token); // toString is implicit, is flagged as violation but LoD_O.4
             if (position == i) {
                 buf.append(" <= current"); // LoD_O.3
             }
@@ -66,3 +66,5 @@ public class Tokens {
     }
 
 }
+
+// LoD review OK
