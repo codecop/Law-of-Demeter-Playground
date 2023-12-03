@@ -48,50 +48,45 @@ public class EvalVisitor implements AstVisitor {
     }
 
     @Override
-    public void visitSymbol(String value) {
-        Result symbol = new Result(value, ResultType.SYMBOL);
-        result = variables.get((String) symbol.value()); // LoD_O.3, LoD_O.4
+    public void visitSymbol(String symbolName) {
+        result = variables.get(symbolName); // LoD_O.4
     }
 
     @Override
     public void visitExpression(Ast[] expressions) {
         if (expressions[0] instanceof SymbolAst) {
-            visitSymbolExpression(expressions); // LoD_O.1
+            SymbolAst symbol = (SymbolAst) expressions[0];
+            Ast[] arguments = Arrays.copyOfRange(expressions, 1, expressions.length);
+
+            // LoD Violation 1 (cheat by using a private method)
+            visitSymbolExpression(symbol, arguments); // LoD_O.1
             return;
         }
         throw new IllegalArgumentException("Can only evaluate function expressions");
     }
 
-    private void visitSymbolExpression(Ast[] expressions) {
-        SymbolAst symbol = (SymbolAst) expressions[0];
-        Ast[] arguments = Arrays.copyOfRange(expressions, 1, expressions.length);
-        visitSymbolExpression(symbol, arguments); // LoD_O.1
-    }
-
     private void visitSymbolExpression(SymbolAst symbol, Ast[] arguments) {
-        // TODO LoD cheats starting here
-        applyFunction(symbol.getSymbol(), arguments); // LoD_O.2
-    }
+        String symbolName = symbol.getSymbol(); // LoD_O.2 <-> LoD Violation 1 (cheat by using a private method)
 
-    private void applyFunction(String functionName, Ast[] arguments) {
-        Function function = functions.getFunctionNamed(functionName); // LoD_O.4
+        Function function = functions.getFunctionNamed(symbolName); // LoD_O.4
         if (function == null) {
-            result = Result.error("Unknown function symbol " + functionName);
+            result = Result.error("Unknown function symbol " + symbolName);
             return;
         }
 
-        applyFunction(function, arguments);
+        // LoD Violation 2 (cheat by using a private method)
+        applyFunction(function, arguments); // LoD_O.1
     }
 
     private void applyFunction(Function function, Ast[] arguments) {
         int size = arguments.length;
-        if (!function.matchesArgumentNumber(size)) {
-            result = Result.error(function.errorMatchingArgumentNumber(size));
+        if (!function.matchesArgumentNumber(size)) { // LoD_O.2 <-> LoD Violation 2 (cheat by using a private method)
+            result = Result.error(function.errorMatchingArgumentNumber(size)); // LoD_O.2 <-> LoD Violation 2 (cheat by using a private method)
             return;
         }
 
-        LazyResult[] results = toLazyResults(arguments);
-        result = function.apply(new LazyResults(results), variables);
+        LazyResult[] results = toLazyResults(arguments); // LoD_O.1
+        result = function.apply(new LazyResults(results), variables); // LoD_O.2 <-> LoD Violation 2 (cheat by using a private method)
     }
 
     private LazyResult[] toLazyResults(Ast[] arguments) {
@@ -135,7 +130,7 @@ public class EvalVisitor implements AstVisitor {
     public void visitProgram(Ast[] program) {
         result = Result.error("Empty Program");
         for (Ast statement : program) {
-            statement.accept(this);
+            statement.accept(this); // LoD_O.2
         }
     }
 
