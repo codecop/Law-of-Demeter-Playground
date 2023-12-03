@@ -8,7 +8,7 @@ public interface AstVisitor {
 
     void visitString(String value);
 
-    void visitSymbol(String value);
+    void visitSymbol(String symbolName);
 
     void visitExpression(Ast[] expressions);
 
