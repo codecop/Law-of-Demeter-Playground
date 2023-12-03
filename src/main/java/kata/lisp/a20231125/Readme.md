@@ -45,14 +45,6 @@ The preferred supplier objects in `M` are
 
 It states that the Law of Demeter decreases the complexity of the methods, but increases the number of methods.
 
-So this is a method centred rule and does not deal with classes at all. So it is possible (and done in the exercise) to pass the return value got from some method into a new method `M2` which is allowed to call methods on it. This feels like cheating but is aligned with the rules. Also it does not talk about fields. Am I allowed to access fields of a foreign instance? To be consistent I would say no.
-
-Another situation was to replace calls with fields. Enums and null values work better than state variables because I can use `==` instead of `getSomething`, which is allowed. This is cheating again, at least it is not helping a good style.
-
-It is unclear what global instances are for static methods. Creation of new objects is allowed, so named constructors and factory functions are allowed.
-
-Stream and helper functions from `java.util.Arrays` and `java.util.stream.Collectors` cause LoD violations when we are strict. Need to use for loops.
-
 ### Object Form of Law of Demeter "LoD_O"
 
 A method `M` of an object `O` should invoke only the methods of the following kinds of objects: 
@@ -83,4 +75,30 @@ The `super` call in the constructor, which is mandatory, is calling a super clas
 
 ### Sometimes objects are just containers
 
-This is a real issue. The PMD rule flags usage of List and Map, but it allowes usage of arrays. 
+This is a real issue. The PMD rule flags usage of List and Map, but it allows usage of arrays. 
+
+## Learnings
+
+So this is a method centred rule and does not deal with classes at all. So it is possible (and done in the exercise) to pass the return value got from some method into a new method `M2` which is allowed to call methods on it. This feels like cheating but is aligned with the rules. (Strict: adding private methods in the same class to fix LoD violation is cheating. I would like to move the new method to a new owner who owns the data.)
+
+* `If` cheat by using a private method, accessing methods of return value of parameter call.
+* `Variables` cheat by using another public method (which happen to exist), accessing methods of return value of parameter call.
+* `EvalVisitor` same like `If`.
+
+Also it does not talk about fields. Am I allowed to access fields of a foreign instance? To be consistent I would say no. (Strict: accessing fields is like method calls on this, so LoD_O.1.)
+
+Another situation was to replace calls with fields. Enums and null values work better than state variables because I can use `==` instead of `getSomething()`, which is allowed. This is cheating again, at least it is not helping a good design.
+
+It is unclear what global instances are for static methods. Creation of new objects is allowed, so named constructors and factory functions are allowed.
+
+Stream and helper functions from `java.util.Arrays` and `java.util.stream.Collectors` cause LoD violations when we are strict. Need to use for-loops again. Even extended for loops using an `Iterator` would be violations.
+
+Containers are tricky. Even if I use first class collections and cover all usage inside, I might have to call something returned from the lost or map.
+
+Law of Demeter is data centred. It concerns with getters. So it is similar to Tell Don't Ask, but less strong. But not for static methods, or is it? So it allows some coupling and allows Feature Envy. In Addition I need first class collections to separate out the data. LoD does not limit the number of fields.
+
+### Times
+
+* 3x Coding 4+11h
+* Manual review 4h
+* Final Analysis 0.5h
